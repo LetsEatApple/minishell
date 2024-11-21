@@ -3,15 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+         #
+#    By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2024/11/21 15:30:19 by grmullin         ###   ########.fr        #
+#    Updated: 2024/11/21 15:41:55 by lhagemos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := minishell
-FILES := main.c
+FILES := main.c \
+utils.c
 OBJS := $(FILES:.c=.o)
 MINISHELL_H := minishell.h
 CC := cc

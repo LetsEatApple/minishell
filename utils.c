@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/11/21 15:43:17 by lhagemos         ###   ########.fr       */
+/*   Created: 2024/11/21 15:39:20 by lhagemos          #+#    #+#             */
+/*   Updated: 2024/11/21 15:39:30 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include <unistd.h>
-# include <sys/wait.h>
-# include <sys/types.h>
-# include <signal.h>
-# include <stdlib.h>
-# include <string.h>
-# include <fcntl.h>
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+void	*ft_memset(void *s, int c, size_t n)
+{
+	size_t	i;
 
-void	*ft_memset(void *s, int c, size_t n);
-
-#endif
+	i = 0;
+	while (i < n)
+	{
+		*(unsigned char *)(s + i) = (unsigned char)c;
+		i++;
+	}
+	return (s);
+}
