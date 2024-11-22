@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/11/21 16:04:04 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/11/22 10:21:46 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,21 @@ void	handle_sig(int sig)
 
 int main(int ac, char **av, char **envp)
 {
-	char	*line;
+	t_data	data;
+
 	(void)av;
 	(void)envp;
-	if (ac != 1)
-		return (0);
-	
-	while(1)
+	init_data(&data, ac, envp);
+	while (1)
 	{
 		signal(SIGINT, handle_sig);
 		signal(EOF, handle_sig);
-		line = readline("minihell: ");
-		if (line == NULL) // EOF (ctrl-D) detected
+		data.input = readline("minihell: ");
+		if (data.input == NULL) // EOF (ctrl-D) detected
 			break ;
-		add_history(line);
-		free(line);
+		add_history(data.input);	
 	}
+	free_data(&data);
 	rl_clear_history();
 	return 0;
 }
