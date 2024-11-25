@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2024/11/22 16:04:40 by grmullin         ###   ########.fr       */
+/*   Created: 2024/11/22 15:01:34 by grmullin          #+#    #+#             */
+/*   Updated: 2024/11/22 16:04:28 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
-// typedef struct s_env
+// int    ft_export(char *s)
 // {
-//     char    *key;
-//     char    *value;
-//     struct s_env   *next;
-// }   t_env;
-
-typedef struct s_data
-{
-    char    *input;
-    char    **env;
-}   t_data;
+   
+    
+// }

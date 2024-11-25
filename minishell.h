@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/11/22 10:08:17 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/11/25 13:55:31 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,14 @@ char	**init_envp(char **envp);
 void	free_data(t_data *data);
 int	    init_data(t_data *data, int ac, char **envp);
 void	handle_sig(int sig);
+int     print_env(char **env);
+void    free_split(char **s);
+
+/*          Builtins            */
+int     is_built_in(char *value);
+int     ft_built_ins(t_data *data);
+
+/*          Execution           */
+int     ft_command(t_data *data);
 
 #endif

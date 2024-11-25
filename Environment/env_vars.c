@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   env_vars.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2024/11/22 16:04:40 by grmullin         ###   ########.fr       */
+/*   Created: 2024/11/22 11:53:44 by grmullin          #+#    #+#             */
+/*   Updated: 2024/11/22 16:01:50 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-// typedef struct s_env
-// {
-//     char    *key;
-//     char    *value;
-//     struct s_env   *next;
-// }   t_env;
-
-typedef struct s_data
+int    print_env(char **env)
 {
-    char    *input;
-    char    **env;
-}   t_data;
+    int i;
+
+    i = 0;
+    while (env[i])
+    {
+        printf("%s\n", env[i]);
+        i++;
+    }
+    return (0);
+}
