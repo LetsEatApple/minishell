@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/11/25 13:33:30 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/11/26 16:55:20 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	handle_sig(int sig)
 
 void	init_msh(t_data *data)
 {
-	add_history(data->input);
 	ft_command(data);
 }
 
@@ -42,14 +41,18 @@ int main(int ac, char **av, char **envp)
 	init_data(&data, ac, envp);
 	while (1)
 	{
-		if (data.input)
-			free(data.input);
 		signal(SIGINT, handle_sig);
 		signal(EOF, handle_sig);
 		data.input = readline("minihell: ");
 		if (data.input == NULL) // EOF (ctrl-D) detected
 			break ;
-		init_msh(&data);
+		add_history(data.input);
+		if (data.input)
+		{
+			lexing(data.input); // return or change?
+			//init_msh(&data);
+			free(data.input);
+		}
 	}
 	rl_clear_history();
 	free_data(&data);
