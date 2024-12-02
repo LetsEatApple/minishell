@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/02 12:38:42 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/02 13:52:45 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	handle_sig(int sig)
 
 void	init_msh(t_data *data)
 {
-	
-	add_history(data->input);
 	ft_command(data);
 }
 
@@ -45,14 +43,18 @@ int main(int ac, char **av, char **envp)
 	init_data(&data, ac, envp);
 	while ("It's been a")
 	{
-		if (data.input)
-			free(data.input);
 		signal(SIGINT, handle_sig);
 		signal(EOF, handle_sig);
 		data.input = readline("minihell: ");
 		if (data.input == NULL) // EOF (ctrl-D) detected
-		 	break;
-		init_msh(&data);
+			break ;
+		add_history(data.input);
+		if (data.input)
+		{
+			lexing(data.input); // return or change?
+			//init_msh(&data);
+			free(data.input);
+		}
 	}
 	rl_clear_history();
 	free_data(&data);
