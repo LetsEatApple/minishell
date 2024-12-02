@@ -6,7 +6,7 @@
 #    By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2024/12/02 13:50:29 by grmullin         ###   ########.fr        #
+#    Updated: 2024/12/02 13:55:24 by grmullin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ FILES := main.c \
 Init/init.c \
 Init/free.c \
 Environment/env_vars.c \
+Execution/ft_command.c \
 Execution/Builtins/builtins.c \
 Execution/Builtins/ft_echo.c \
 Lexing/lexing.c \
