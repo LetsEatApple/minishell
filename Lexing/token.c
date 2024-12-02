@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:20:31 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/11/29 12:38:10 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/02 18:58:20 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	clearlist(t_token **head)
 {
 		t_token *ptr;
 
-		if (!head)
+		if (*head == NULL)
 			return ;
 		ptr = *head;
 		while (ptr != NULL)

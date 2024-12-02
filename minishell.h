@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/02 14:17:30 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/02 19:07:28 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	free_split(char **s);
 int				lexing(t_data *data);
 void			create_list(t_token **head, char *value, t_token_type type);
 void			clearlist(t_token **head);
-void			free_splits(char **splits);
 void			print_list(t_data *data);
 t_token_type	check_char(char c);
 char			*copy_part(char *input, int start, int len);
