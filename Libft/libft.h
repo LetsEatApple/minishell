@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:24:22 by grmullin          #+#    #+#             */
-/*   Updated: 2024/11/21 17:56:29 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/11/27 13:54:38 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <stddef.h>
+# include <string.h>
 
 typedef struct s_list
 {

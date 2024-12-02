@@ -6,13 +6,13 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 11:53:44 by grmullin          #+#    #+#             */
-/*   Updated: 2024/11/22 16:01:50 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/02 13:37:05 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int    print_env(char **env)
+int    print_env_all(char **env)
 {
     int i;
 
@@ -23,4 +23,31 @@ int    print_env(char **env)
         i++;
     }
     return (0);
+}
+// enters here if $ has been encountered // token type VAR
+void    print_env_sing(t_data *data, char *env)
+{
+    char    *key;
+    char    *value;
+    int     key_len;
+    int     i;
+
+    key = NULL;
+    value = NULL;
+    i = 0;
+    while (!is_whitespace(env[i]))
+        i++;
+    key = ft_substr(env, 1, i - 1);
+    key_len = ft_strlen(key);
+    i = 0;
+    while (data->env[i])
+    {
+        if (ft_strncmp(key, data->env[i], key_len) == 0)
+            break;
+        i++;
+    }
+    value = ft_substr(data->env[i], key_len + 1, ft_strlen(data->env[i]) - key_len);
+    ft_putstr_fd(value, 1);
+    free (key);
+    free (value);
 }

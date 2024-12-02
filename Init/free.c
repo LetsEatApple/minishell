@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:21:57 by grmullin          #+#    #+#             */
-/*   Updated: 2024/11/22 11:43:14 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:33:38 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,19 @@ void	free_data(t_data *data)
 		free(data->env[i]);
 		i++;
 	}
-	free(data->env);
+//	if (data->env)
+    free(data->env);
+}
+
+void    free_split(char **s)
+{
+    int i;
+
+    i = 0;
+    while (s[i])
+    {
+        free(s[i]);
+        i++;
+    }
+    free(s);
 }

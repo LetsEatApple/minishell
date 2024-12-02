@@ -6,11 +6,13 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/11/25 13:33:30 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/02 12:38:42 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+volatile __sig_atomic_t	g_signal = 0;
 
 void	handle_sig(int sig)
 {
@@ -29,6 +31,7 @@ void	handle_sig(int sig)
 
 void	init_msh(t_data *data)
 {
+	
 	add_history(data->input);
 	ft_command(data);
 }
@@ -38,9 +41,9 @@ int main(int ac, char **av, char **envp)
 	t_data	data;
 
 	(void)av;
-	(void)envp;
+	g_signal = 0;
 	init_data(&data, ac, envp);
-	while (1)
+	while ("It's been a")
 	{
 		if (data.input)
 			free(data.input);
@@ -48,10 +51,10 @@ int main(int ac, char **av, char **envp)
 		signal(EOF, handle_sig);
 		data.input = readline("minihell: ");
 		if (data.input == NULL) // EOF (ctrl-D) detected
-			break ;
+		 	break;
 		init_msh(&data);
 	}
 	rl_clear_history();
 	free_data(&data);
-	return 0;
+	return (g_signal);
 }

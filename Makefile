@@ -6,12 +6,14 @@
 #    By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2024/11/22 16:05:47 by grmullin         ###   ########.fr        #
+#    Updated: 2024/11/25 15:23:20 by grmullin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := minishell
-FILES := main.c Init/init.c Init/free.c Environment/env_vars.c Execution/Builtins/builtins.c
+FILES := main.c Init/init.c Init/free.c \
+Environment/env_vars.c \
+Execution/ft_command.c Execution/Builtins/builtins.c Execution/Builtins/ft_echo.c
 OBJS := $(FILES:.c=.o)
 MINISHELL_H := minishell.h
 CC := cc

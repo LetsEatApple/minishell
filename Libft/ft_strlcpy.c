@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 17:37:30 by grmullin          #+#    #+#             */
-/*   Updated: 2023/06/25 21:18:04 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:11:21 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,21 @@ size_t	ft_strlcpy(char *dest, const char *src, unsigned int size)
 	}
 	return (i);
 }
-/*
-#include <stdio.h>
-#include <bsd/string.h>
 
-int	main(void)
-{
-	char dest[] = "Not copied!";
-	char src[] = "Success!";
-	char deest[] = "Not copied!";
-	char srrc[] = "Success!";
+// #include <stdio.h>
+// #include <bsd/string.h>
+// #include <string.h>
+
+// int	main(void)
+// {
+// 	char dest[] = "Not copied!";
+// 	char src[] = "Success!";
+// 	char deest[] = "Not copied!";
+// 	char srrc[] = "Success!";
 	
-	printf("%zu\n", ft_strlcpy(dest, src, 7));
-	printf("%s\n", dest);
-	printf("%zu\n", strlcpy(deest, srrc, 7));
-	printf("%s\n", deest);
-	return (0);
-}*/
+// 	printf("%zu\n", ft_strlcpy(dest, src, 3));
+// 	printf("%s\n", dest);
+// 	printf("%zu\n", strlcpy(deest, srrc, 0));
+// 	printf("%s\n", deest);
+// 	return (0);
+// }
