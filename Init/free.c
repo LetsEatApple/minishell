@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:21:57 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/02 14:26:08 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/02 19:03:58 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ void	free_data(t_data *data)
 		i++;
 	}
 	free(data->env);
+	rl_clear_history();
 	clearlist(&data->token_list);
 }
 
-void    free_split(char **s)
+void	free_split(char **s)
 {
 	int i;
 
