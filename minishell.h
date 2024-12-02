@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/02 13:47:22 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/02 14:24:54 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,11 @@ void	handle_sig(int sig);
 void    free_split(char **s);
 int     is_whitespace(char c);
 int		print_env(char **env);
-void	free_split(char **s);
 
 /*          Builtins            */
-int 		is_built_in(char *value);
-void		ft_built_ins(t_data *data);
-int      ft_echo(t_data *data);
+int 	is_built_in(char *value);
+void	ft_built_ins(t_data *data);
+int		ft_echo(t_data *data);
 
 /*          Execution           */
 void     ft_command(t_data *data);
@@ -51,10 +50,7 @@ int     get_key_len(char *env);
 char    *get_env(t_data *data, char *new);
 char	**init_envp(char **envp);
 int     print_env_all(char **env);
-void    print_env_sing(t_data *data, char *env);
-int		print_env(char **env);
-void	free_split(char **s);
-
+void            print_env_sing(t_data *data, char *env);
 
 /*          Lexing              */
 int				lexing(char *input);
@@ -67,7 +63,6 @@ char			*copy_part(char *input, int start, int len);
 char			**split_string(char *input, int start, int len);
 int				get_value_len(char *input, int i, t_token_type type);
 void			check_syntax(t_token **head);
-
 
 /*          Error               */
 void	syntax_error(t_token **head, char c);
