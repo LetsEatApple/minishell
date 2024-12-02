@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:20:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/11/25 14:00:36 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/02 14:10:55 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	init_data(t_data *data, int ac, char **envp)
 		return (0);
 	data->input = NULL;
 	data->env = init_envp(envp);
+	data->token_list = NULL;
 	data->pipes = 0;
 	data->redirs = 0;
 	return (0);

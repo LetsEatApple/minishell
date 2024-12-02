@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_command.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:15:59 by grmullin          #+#    #+#             */
-/*   Updated: 2024/11/27 15:22:42 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/02 14:28:37 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void    ft_command(t_data *data)
 {
-    if (is_built_in(data->input))
+    if (is_built_in(data->input)) // data->
         ft_built_ins(data);
     // else if (ft_exec_command(node, envp) == 0)
     //     return (0);
