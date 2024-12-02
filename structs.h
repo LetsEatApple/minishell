@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/02 13:45:45 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/02 14:19:24 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,6 @@
 //     char    *value;
 //     struct s_env   *next;
 // }   t_env;
-
-typedef struct s_data
-{
-	char	*input;
-	char	**env;
-    int     pipes;
-    int     redirs;
-}	t_data;
 
 typedef enum e_token_type
 {
@@ -49,3 +41,15 @@ typedef struct s_token
 	struct s_token	*next;
 	struct s_token  *prev;
 }	t_token;
+
+typedef struct s_data
+{
+	char	*input;
+	t_token	*token_list;
+	char	**env;
+    int     pipes;
+    int     redirs;
+}	t_data;
+
+
+

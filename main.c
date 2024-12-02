@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/02 13:52:45 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:18:27 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ void	handle_sig(int sig)
 
 void	init_msh(t_data *data)
 {
-	ft_command(data);
+	if (data->token_list != NULL)
+		ft_command(data);
+	free_data(data);
 }
 
 int main(int ac, char **av, char **envp)
@@ -51,9 +53,9 @@ int main(int ac, char **av, char **envp)
 		add_history(data.input);
 		if (data.input)
 		{
-			lexing(data.input); // return or change?
-			//init_msh(&data);
-			free(data.input);
+			lexing(&data);
+			//print_list(&data);
+			init_msh(&data);
 		}
 	}
 	rl_clear_history();

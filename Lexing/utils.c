@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:51:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/01 15:12:18 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/02 14:18:23 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	free_splits(char **splits)
 	free(splits);
 }
 
-void	print_list(t_token **head)
+void	print_list(t_data *data)
 {
 	t_token *ptr;
 	
-	if (*head == NULL)
+	if (data->token_list == NULL)
 		return ;
-	ptr = *head;
+	ptr = data->token_list;
 	while (ptr != NULL)
 	{
 		if (ptr -> value != NULL)
@@ -40,5 +40,5 @@ void	print_list(t_token **head)
 			printf("value: NULL, type: %d\n", ptr->type);
 		ptr = ptr -> next;
 		}
-	clearlist(head);
+	clearlist(&data->token_list);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:47:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/01 15:57:50 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/02 14:08:34 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,14 @@ void	process_redir(t_token **head, char *input, int *i)
 	*i += len;
 }
 
-int	lexing(char *input)
+int	lexing(t_data *data)
 {
 	int		i;
 	t_token	*head;
+	char	*input;
 
 	head = NULL;
+	input = data->input;
 	i = 0;
 	while (input[i])
 	{
@@ -125,7 +127,8 @@ int	lexing(char *input)
 			process_redir(&head, input, &i);
 	}
 	check_syntax(&head);
-	print_list(&head);
+	data->token_list = head;
+	//print_list(&head);
 	return (true);
 }
 
