@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:51:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/02 14:18:23 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/02 19:07:03 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	free_splits(char **splits)
+/* void	free_splits(char **splits)
 {
 	int	i;
 
@@ -23,7 +23,7 @@ void	free_splits(char **splits)
 		i++;
 	}
 	free(splits);
-}
+} */
 
 void	print_list(t_data *data)
 {
@@ -40,5 +40,5 @@ void	print_list(t_data *data)
 			printf("value: NULL, type: %d\n", ptr->type);
 		ptr = ptr -> next;
 		}
-	clearlist(&data->token_list);
+	//clearlist(&data->token_list);
 }

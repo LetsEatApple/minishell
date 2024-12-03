@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/02 16:18:27 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/02 19:00:30 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ int main(int ac, char **av, char **envp)
 		if (data.input)
 		{
 			lexing(&data);
-			//print_list(&data);
+			print_list(&data);
 			init_msh(&data);
 		}
 	}
-	rl_clear_history();
-	free_data(&data);
+	/* rl_clear_history();
+	free_data(&data); */
 	return (g_signal);
 }

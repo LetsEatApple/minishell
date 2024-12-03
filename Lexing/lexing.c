@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:47:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/02 14:08:34 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/02 19:06:38 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	process_word(t_token **head, char *input, int *i)
 	words = split_string(input, *i, len);
 	if (words[0] == 0)
 	{
-		free_splits(words);
+		free_split(words);
 		*i += len;
 		return ;
 	}
@@ -63,7 +63,7 @@ void	process_word(t_token **head, char *input, int *i)
 		create_list(head, value, WORD);
 		j++;
 	}
-	free_splits(words);
+	free_split(words);
 	*i += len;
 	return ;
 }
@@ -128,7 +128,6 @@ int	lexing(t_data *data)
 	}
 	check_syntax(&head);
 	data->token_list = head;
-	//print_list(&head);
 	return (true);
 }
 

@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
 /*   Updated: 2024/12/02 16:29:38 by grmullin         ###   ########.fr       */
+=======
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
+/*   Updated: 2024/12/02 19:07:28 by lhagemos         ###   ########.fr       */
+>>>>>>> e64161cb9bcfbbb9e001a8c4e1f40fa2c104be4a
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +63,6 @@ void            print_env_sing(t_data *data, char *env);
 int				lexing(t_data *data);
 void			create_list(t_token **head, char *value, t_token_type type);
 void			clearlist(t_token **head);
-void			free_splits(char **splits);
 void			print_list(t_data *data);
 t_token_type	check_char(char c);
 char			*copy_part(char *input, int start, int len);
