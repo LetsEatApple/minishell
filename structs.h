@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/02 19:12:10 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:46:31 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// typedef struct s_env
-// {
-//     char    *key;
-//     char    *value;
-//     struct s_env   *next;
-// }   t_env;
 
 typedef enum e_token_type
 {
@@ -33,11 +26,21 @@ typedef enum e_token_type
 	WHITESPACE,				//9
 }	t_token_type;
 
+typedef struct s_node
+{
+	char			*value;
+	int				node;
+	t_token_type	type;
+	struct s_node	*left;
+	struct s_node	*right;
+}	t_node;
+
 typedef struct s_token
 {
 	char			*value;
 	char			**cmd;
-	//int				node;
+	int				node;
+	int				root;
 	t_token_type	type;
 	struct s_token	*next;
 	struct s_token  *prev;
@@ -46,10 +49,11 @@ typedef struct s_token
 typedef struct s_data
 {
 	char	*input;
-	t_token	*token_list;
 	char	**env;
 	int		pipes;
 	int		redirs;
+	t_token	*token_list;
+	t_node	*root;
 }	t_data;
 
 

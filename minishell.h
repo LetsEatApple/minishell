@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/02 16:29:38 by grmullin         ###   ########.fr       */
-=======
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/02 19:07:28 by lhagemos         ###   ########.fr       */
->>>>>>> e64161cb9bcfbbb9e001a8c4e1f40fa2c104be4a
+/*   Updated: 2024/12/04 16:55:00 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,26 +33,26 @@ void	init_msh(t_data *data);
 void	free_data(t_data *data);
 int		init_data(t_data *data, int ac, char **envp);
 void	handle_sig(int sig);
-void    free_split(char **s);
-int     is_whitespace(char c);
+void	free_split(char **s);
+int		is_whitespace(char c);
 int		print_env(char **env);
 
-/*          Builtins            */
+/*              Builtins            */
 int 	is_built_in(char *value);
 void	ft_built_ins(t_data *data);
 int		ft_echo(t_data *data);
 
-/*          Execution           */
-void     ft_command(t_data *data);
+/*             Execution           */
+void	ft_command(t_data *data);
 
-/*          Env.vars            */
-int     get_key_len(char *env);
-char    *get_env(t_data *data, char *new);
+/*              Env.vars            */
+int		get_key_len(char *env);
+char	*get_env(t_data *data, char *new);
 char	**init_envp(char **envp);
-int     print_env_all(char **env);
-void            print_env_sing(t_data *data, char *env);
+int		print_env_all(char **env);
+void	print_env_sing(t_data *data, char *env);
 
-/*          Lexing              */
+/*              Lexing              */
 int				lexing(t_data *data);
 void			create_list(t_token **head, char *value, t_token_type type);
 void			clearlist(t_token **head);
@@ -70,7 +63,18 @@ char			**split_string(char *input, int start, int len);
 int				get_value_len(char *input, int i, t_token_type type);
 void			check_syntax(t_token **head);
 
-/*          Error               */
+/*                Parsing             */
+void	get_root(t_data *data);
+t_node	*get_first_pipe(t_token *t_list);
+t_node	*get_first_redir(t_token *t_list);
+t_node	*create_node(t_token *token);
+void	build_AST(t_data *data, int ops);
+void	free_AST(t_node *head);
+int		ops_before_root(t_token *token_list);
+int		is_token_op(t_token *token);
+void	clear_table(t_data *data);
+
+/*               Error               */
 void	syntax_error(t_token **head, char c);
 
 #endif

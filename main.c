@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/02 19:00:30 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/04 16:57:36 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,23 @@ void	handle_sig(int sig)
 
 void	init_msh(t_data *data)
 {
-	if (data->token_list != NULL)
+//	print_list(data);
+	int ops;
+
+	ops = 0;
+	if (data->pipes || data->redirs)
+	{
+		get_root(data);
+		ops = data->redirs + data->pipes;
+		printf("ops are '%d'\n", ops);
+	//	build_AST(data, ops);
+	//	exec_AST(data);
+	//	printf("root val is '%s' with node val of: '%d'\n", data->root->value, data->root->node);
+		clear_table(data);
+}
+	else
 		ft_command(data);
-	free_data(data);
+	//printf("data.pipes: '%d' data.redirs: '%d'\n", data->pipes, data->redirs);
 }
 
 int main(int ac, char **av, char **envp)
@@ -54,11 +68,10 @@ int main(int ac, char **av, char **envp)
 		if (data.input)
 		{
 			lexing(&data);
-			print_list(&data);
+			printf("data.pipes: '%d' data.redirs: '%d'\n", data.pipes, data.redirs);
 			init_msh(&data);
 		}
 	}
-	/* rl_clear_history();
-	free_data(&data); */
+	free_data(&data);
 	return (g_signal);
 }

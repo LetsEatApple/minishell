@@ -6,7 +6,7 @@
 #    By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2024/12/02 13:55:24 by grmullin         ###   ########.fr        #
+#    Updated: 2024/12/04 11:12:18 by grmullin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,10 @@ Lexing/lexing.c \
 Lexing/lexing_utils.c \
 Lexing/utils.c \
 Lexing/token.c \
+Parsing/build_tree.c \
+Parsing/get_root.c \
+Parsing/parsing_utils.c \
+Parsing/free.c \
 error.c \
 
 OBJS := $(FILES:.c=.o)

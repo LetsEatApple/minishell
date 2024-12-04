@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:47:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/02 19:06:38 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/04 11:14:56 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,15 @@ int	lexing(t_data *data)
 		if (check_char(input[i]) == WORD)
 			process_word(&head, input, &i);
 		if (check_char(input[i]) == PIPE)
+		{
 			process_pipe(&head, input, &i);
+			data->pipes++;
+		}
 		if (check_char(input[i]) == 3 || check_char(input[i]) == 4)
+		{
 			process_redir(&head, input, &i);
+			data->redirs++;
+		}
 	}
 	check_syntax(&head);
 	data->token_list = head;

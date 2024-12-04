@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:21:57 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/02 19:03:58 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:39:04 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	free_data(t_data *data)
 		i++;
 	}
 	free(data->env);
-	rl_clear_history();
 	clearlist(&data->token_list);
+	rl_clear_history();
 }
 
 void	free_split(char **s)
