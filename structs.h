@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/02 19:12:10 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/05 12:39:21 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ typedef enum e_token_type
 	REDIR_OUT_APPEND,		//5
 	HEREDOC,				//6
 	WORD,					//7
-	ENV_VAR,				//8
-	WHITESPACE,				//9
+	CMD,					//8
 }	t_token_type;
 
 typedef struct s_token
@@ -39,6 +38,7 @@ typedef struct s_token
 	char			**cmd;
 	//int				node;
 	t_token_type	type;
+	int				file;
 	struct s_token	*next;
 	struct s_token  *prev;
 }	t_token;
@@ -51,6 +51,3 @@ typedef struct s_data
 	int		pipes;
 	int		redirs;
 }	t_data;
-
-
-

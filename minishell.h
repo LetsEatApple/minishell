@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/02 19:07:28 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/05 13:35:01 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int     print_env_all(char **env);
 void    print_env_sing(t_data *data, char *env);
 int		print_env(char **env);
 void	free_split(char **s);
+void	free_envp(t_data *data);
 
 
 /*          Lexing              */
@@ -66,6 +67,10 @@ char			*copy_part(char *input, int start, int len);
 char			**split_string(char *input, int start, int len);
 int				get_value_len(char *input, int i, t_token_type type);
 void			check_syntax(t_token **head);
+
+/*          Preparsing          */
+void	count_ops(t_data *data);
+void	preparsing(t_data *data);
 
 
 /*          Error               */

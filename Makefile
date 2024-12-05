@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+         #
+#    By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2024/12/02 13:55:24 by grmullin         ###   ########.fr        #
+#    Updated: 2024/12/04 17:38:41 by lhagemos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ Lexing/lexing_utils.c \
 Lexing/utils.c \
 Lexing/token.c \
 error.c \
+Parsing/preparsing.c \
 
 OBJS := $(FILES:.c=.o)
 MINISHELL_H := minishell.h

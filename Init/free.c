@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:21:57 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/02 19:03:58 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/05 11:22:55 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 
 void	free_data(t_data *data)
 {
-	int	i;
-
 	if (data->input)
 		free(data->input);
+	data->pipes = 0;
+	data->redirs = 0;
+	clearlist(&data->token_list);
+}
+
+void	free_envp(t_data *data)
+{
+		int	i;
 	i = 0;
 	while (data->env[i])
 	{
@@ -25,8 +31,6 @@ void	free_data(t_data *data)
 		i++;
 	}
 	free(data->env);
-	rl_clear_history();
-	clearlist(&data->token_list);
 }
 
 void	free_split(char **s)

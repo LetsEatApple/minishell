@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/02 19:00:30 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/05 13:48:20 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ void	handle_sig(int sig)
 void	init_msh(t_data *data)
 {
 	if (data->token_list != NULL)
-		ft_command(data);
+	{
+		preparsing(data);
+		print_list(data);
+		//ft_command(data);
+	}
 	free_data(data);
 }
 
@@ -55,10 +59,11 @@ int main(int ac, char **av, char **envp)
 		{
 			lexing(&data);
 			print_list(&data);
+			printf("pipes: %d and redirs: %d\n", data.pipes, data.redirs);
 			init_msh(&data);
 		}
 	}
-	/* rl_clear_history();
-	free_data(&data); */
+	free_envp(&data);
+	rl_clear_history();
 	return (g_signal);
 }
