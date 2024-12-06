@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/04 12:46:31 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/06 17:24:05 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,19 @@ typedef struct s_data
 	t_node	*root;
 }	t_data;
 
-
-
+/*		delete later		*/
+const char* get_token_type(t_token_type type) {
+    switch (type) {
+        case SINGLE_QUOTE:      return "SINGLE_QUOTE";
+        case DOUBLE_QUOTE:      return "DOUBLE_QUOTE";
+        case PIPE:              return "PIPE";
+        case REDIR_OUT:         return "REDIR_OUT";
+        case REDIR_IN:          return "REDIR_IN";
+        case REDIR_OUT_APPEND:  return "REDIR_OUT_APPEND";
+        case HEREDOC:           return "HEREDOC";
+        case WORD:              return "WORD";
+        case ENV_VAR:           return "ENV_VAR";
+        case WHITESPACE:        return "WHITESPACE";
+        default:                return "UNKNOWN";
+    }
+}

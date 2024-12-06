@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/04 16:55:00 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/06 17:21:33 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,15 @@ t_node	*get_first_pipe(t_token *t_list);
 t_node	*get_first_redir(t_token *t_list);
 t_node	*create_node(t_token *token);
 void	build_AST(t_data *data, int ops);
+void	build_left_branch(t_node *root, t_token *t_list, int ops);
+void	build_right_branch(t_node *root, t_token *t_list, int ops);
 void	free_AST(t_node *head);
 int		ops_before_root(t_token *token_list);
+t_token	*find_prev_op(t_token *token_list);
 int		is_token_op(t_token *token);
 void	clear_table(t_data *data);
+const char* get_token_type(t_token_type type);
+void print_tree(t_node *node, int level);
 
 /*               Error               */
 void	syntax_error(t_token **head, char c);

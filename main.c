@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/04 16:57:36 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/06 17:24:33 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	handle_sig(int sig)
 
 void	init_msh(t_data *data)
 {
-//	print_list(data);
 	int ops;
 
 	ops = 0;
@@ -39,15 +38,11 @@ void	init_msh(t_data *data)
 	{
 		get_root(data);
 		ops = data->redirs + data->pipes;
-		printf("ops are '%d'\n", ops);
-	//	build_AST(data, ops);
-	//	exec_AST(data);
-	//	printf("root val is '%s' with node val of: '%d'\n", data->root->value, data->root->node);
+		build_AST(data, ops);
 		clear_table(data);
-}
+	}
 	else
 		ft_command(data);
-	//printf("data.pipes: '%d' data.redirs: '%d'\n", data->pipes, data->redirs);
 }
 
 int main(int ac, char **av, char **envp)
@@ -68,10 +63,20 @@ int main(int ac, char **av, char **envp)
 		if (data.input)
 		{
 			lexing(&data);
-			printf("data.pipes: '%d' data.redirs: '%d'\n", data.pipes, data.redirs);
 			init_msh(&data);
 		}
 	}
 	free_data(&data);
 	return (g_signal);
+}
+
+void print_tree(t_node *node, int level)
+{
+	if (node == NULL)
+		return;
+	print_tree(node->right, level + 1);
+	for (int i = 0; i < level; i++)
+		printf("    ");
+	printf("Node Value: %s, Type: %s\n", node->value, get_token_type(node->type));
+	print_tree(node->left, level + 1);
 }

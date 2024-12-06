@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:20:31 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/03 12:59:12 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/06 17:11:09 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_token *new_token(char *value, t_token_type type)
 		new -> prev = NULL;
 		new -> value = value;
 		new->node = 0;
+		new->root = 0;
 		new -> type = type;
 		new -> next = NULL;
 		return (new);

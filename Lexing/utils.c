@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:51:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/02 19:07:03 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:23:34 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	print_list(t_data *data)
 	while (ptr != NULL)
 	{
 		if (ptr -> value != NULL)
-			printf("value: %s, type: %d\n", ptr->value, ptr->type);
+			printf("value: %s, type: %d noded: '%d'\n", ptr->value, ptr->type, ptr->node);
 		else
 			printf("value: NULL, type: %d\n", ptr->type);
 		ptr = ptr -> next;
