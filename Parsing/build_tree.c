@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/06 17:24:44 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/06 17:41:19 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void build_left_branch(t_node *root, t_token *t_list, int ops)
 	prev_op = NULL;
 	while (current->node == 0)
 		current = current->next;
-	printf("curr is '%s'\n", current->value);
+	//printf("curr is '%s'\n", current->value);
 	if (ops)
 	{
 		prev_op = find_prev_op(current);

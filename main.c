@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/06 17:24:33 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/06 17:33:38 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,23 @@ void print_tree(t_node *node, int level)
 		printf("    ");
 	printf("Node Value: %s, Type: %s\n", node->value, get_token_type(node->type));
 	print_tree(node->left, level + 1);
+}
+
+const char *g_token_type[] = {
+    "SINGLE_QUOTE",
+    "DOUBLE_QUOTE",
+    "PIPE",
+    "REDIR_OUT",
+    "REDIR_IN",
+    "REDIR_OUT_APPEND",
+    "HEREDOC",
+    "WORD",
+    "ENV_VAR",
+    "WHITESPACE",
+};
+
+const char* get_token_type(t_token_type type) {
+    if (type >= 0 && type <= WHITESPACE)  // Ensure the type is within valid range
+        return g_token_type[type];
+    return "UNKNOWN";  // Fallback for invalid types
 }
