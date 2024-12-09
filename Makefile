@@ -6,7 +6,7 @@
 #    By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2024/12/04 17:38:41 by lhagemos         ###   ########.fr        #
+#    Updated: 2024/12/09 12:01:33 by lhagemos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ Lexing/utils.c \
 Lexing/token.c \
 error.c \
 Parsing/preparsing.c \
+Parsing/env.c \
 
 OBJS := $(FILES:.c=.o)
 MINISHELL_H := minishell.h
@@ -48,6 +49,7 @@ $(NAME): $(LIBFT) $(MINISHELL_H) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LDFLAGS) -o $(NAME)
 
 clean:
+	@make clean -C $(LIBFT_DIR)
 	$(RM) $(OBJS)
 
 fclean: clean

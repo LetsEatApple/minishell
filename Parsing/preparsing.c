@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 17:00:28 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/05 15:15:19 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:41:23 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	delete_rest(t_token *start, t_token *end)
 {
 	t_token *ptr;
 
-	ptr = start;
+	ptr = start->next;
 	while (ptr != end)
 	{
 		if (ptr->value != NULL)
@@ -72,7 +72,7 @@ void	store_cmd(t_token *start, t_token *end, int len)
 	char	**cmd;
 	int		i;
 
-	cmd = (char **)malloc(len * sizeof(char *));
+	cmd = (char **)malloc((len +1) * sizeof(char *));
 	ptr = start;
 	i = 0;
 	while (ptr != end)
@@ -86,13 +86,14 @@ void	store_cmd(t_token *start, t_token *end, int len)
 	start->value = NULL;
 	start->cmd = cmd;
 	start->type = CMD;
-	delete_rest(start, end);
+	if (len != 1)
+		delete_rest(start, end);
 }
 
 void	search_cmd(t_token **head)
 {
 	t_token *ptr;
-	//t_token	*temp;
+	t_token	*temp;
 	int		len;
 
 	ptr = *head;
@@ -101,7 +102,7 @@ void	search_cmd(t_token **head)
 		len = 0;
 		if ((ptr->type == WORD || ptr->type < 2) && ptr->file == false)
 		{
-			//temp = ptr;
+			temp = ptr;
 			while (ptr && (ptr->type == WORD || ptr->type < 2))
 			{
 				len++;
@@ -112,17 +113,34 @@ void	search_cmd(t_token **head)
 			else
 				printf("ptr= NULL\n");
 			printf("len: %d\n", len);
-			//store_cmd(temp, ptr, len);
+			store_cmd(temp, ptr, len);
 		}
 		else
 			ptr = ptr->next;
 	}
 }
 
+int	list_size(t_token *head)
+{
+	int	size;
+	t_token	*ptr;
+
+	size = 0;
+	ptr = head;
+	while (ptr != NULL)
+	{
+		size++;
+		ptr = ptr->next;
+	}
+	return (size);
+}
+
 void	preparsing(t_data *data)
 {
-	
 	count_ops(data);
 	get_files(data->token_list);
+	replace_envvar(data);
+	/* if (list_size(data->token_list) == 1 && data->token_list->value == NULL)
+		return ; */
 	search_cmd(&data->token_list);
 }

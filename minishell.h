@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/05 13:35:01 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:38:16 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void			check_syntax(t_token **head);
 /*          Preparsing          */
 void	count_ops(t_data *data);
 void	preparsing(t_data *data);
+void	deleteone(t_token	*token);
+void	replace_envvar(t_data *data);
 
 
 /*          Error               */

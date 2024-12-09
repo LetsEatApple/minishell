@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:20:31 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/05 13:38:51 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:38:32 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	clearlist(t_token **head)
 {
 		t_token *ptr;
 
-		if (*head == NULL)
+		if (*head == NULL || !*head)
 			return ;
 		ptr = *head;
 		while (ptr != NULL)
@@ -79,6 +79,27 @@ void	clearlist(t_token **head)
 			ptr = ptr->next;
 			free(ptr->prev);
 		}
+}
+
+void	deleteone(t_token	*token)
+{
+	t_token *ptr;
+
+	ptr = token->prev; //NULL?
+	if (token->value != NULL)
+		free(token->value);
+	if (token->next == NULL)
+	{
+		free(token);
+		if (ptr != NULL)
+			ptr->next = NULL;
+	}
+	else
+	{
+		ptr->next = token->next;
+		token->next->prev = ptr;
+	}
+	free(token);
 }
 
 
