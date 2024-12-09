@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:20:31 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/02 18:58:20 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/06 17:11:09 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ t_token *new_token(char *value, t_token_type type)
 			return (0);
 		new -> prev = NULL;
 		new -> value = value;
+		new->node = 0;
+		new->root = 0;
 		new -> type = type;
 		new -> next = NULL;
 		return (new);
@@ -54,23 +56,23 @@ void	create_list(t_token **head, char *value, t_token_type type)
 
 void	clearlist(t_token **head)
 {
-		t_token *ptr;
-
-		if (*head == NULL)
-			return ;
-		ptr = *head;
-		while (ptr != NULL)
+	t_token *ptr;
+	
+	if (*head == NULL)
+		return ;
+	ptr = *head;
+	while (ptr != NULL)
+	{
+		if (ptr->next == NULL)
 		{
-			if (ptr->next == NULL)
-			{
-				free(ptr->value);
-				free(ptr);
-				break ;
-			}
 			free(ptr->value);
-			ptr = ptr->next;
-			free(ptr->prev);
+			free(ptr);
+			break ;
 		}
+		free(ptr->value);
+		ptr = ptr->next;
+		free(ptr->prev);
+	}
 }
 
 

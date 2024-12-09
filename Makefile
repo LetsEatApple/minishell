@@ -6,7 +6,7 @@
 #    By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2024/12/02 13:55:24 by grmullin         ###   ########.fr        #
+#    Updated: 2024/12/09 11:52:15 by grmullin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,12 +16,18 @@ Init/init.c \
 Init/free.c \
 Environment/env_vars.c \
 Execution/ft_command.c \
+Execution/exec.c \
+Execution/exec_utils.c \
 Execution/Builtins/builtins.c \
 Execution/Builtins/ft_echo.c \
 Lexing/lexing.c \
 Lexing/lexing_utils.c \
 Lexing/utils.c \
 Lexing/token.c \
+Parsing/build_tree.c \
+Parsing/get_root.c \
+Parsing/parsing_utils.c \
+Parsing/free.c \
 error.c \
 
 OBJS := $(FILES:.c=.o)

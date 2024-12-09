@@ -1,43 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/22 10:21:57 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/03 15:39:04 by grmullin         ###   ########.fr       */
+/*   Created: 2024/12/09 11:44:35 by grmullin          #+#    #+#             */
+/*   Updated: 2024/12/09 12:28:38 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	free_data(t_data *data)
+char	*ft_get_first_word(char *s)
 {
-	int	i;
-
-	if (data->input)
-		free(data->input);
-	i = 0;
-	while (data->env[i])
-	{
-		free(data->env[i]);
-		i++;
-	}
-	free(data->env);
-	clearlist(&data->token_list);
-	rl_clear_history();
-}
-
-void	free_split(char **s)
-{
-	int i;
+	char	*new;
+	int		i;
+	int		j;
 
 	i = 0;
+	new = NULL;
 	while (s[i])
 	{
-		free(s[i]);
+		if (s[i] == ' ')
+			break;
 		i++;
 	}
-	free(s);
+	new = malloc(sizeof(char) * i);
+	j = 0;
+	while (j <= i)
+	{
+		new[j] = s[j];
+		j++;
+	}
+	return (new);
+}
+
+void	print_error(char *str, int n)
+{
+	printf("%s\n", str);
+	g_signal = n;
 }
