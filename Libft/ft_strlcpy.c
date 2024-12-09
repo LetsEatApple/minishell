@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/12/02 13:42:46 by grmullin         ###   ########.fr       */
+/*   Created: 2024/12/09 16:31:24 by grmullin          #+#    #+#             */
+/*   Updated: 2024/12/09 16:31:43 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ size_t	ft_strlcpy(char *dest, const char *src, unsigned int size)
 // 	char src[] = "Success!";
 // 	char deest[] = "Not copied!";
 // 	char srrc[] = "Success!";
-	
 // 	printf("%zu\n", ft_strlcpy(dest, src, 3));
 // 	printf("%s\n", dest);
 // 	printf("%zu\n", strlcpy(deest, srrc, 0));

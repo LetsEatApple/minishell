@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/09 10:19:10 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:49:30 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@ void	init_msh(t_data *data)
 		get_root(data);
 		ops = data->redirs + data->pipes;
 		build_ast(data, ops);
+		ft_init(data->root, data->env);
 		clear_table(data);
 	}
 	else
-		ft_command(data);
+		ft_command(data->input, data->env);
 }
 
 int main(int ac, char **av, char **envp)
@@ -52,19 +53,17 @@ int main(int ac, char **av, char **envp)
 	(void)av;
 	g_signal = 0;
 	init_data(&data, ac, envp);
+	signal(SIGINT, handle_sig);
+	signal(EOF, handle_sig);
 	while ("It's been a")
 	{
-		signal(SIGINT, handle_sig);
-		signal(EOF, handle_sig);
 		data.input = readline("minihell: ");
 		if (data.input == NULL) // EOF (ctrl-D) detected
 			break ;
-		add_history(data.input);
 		if (data.input)
-		{
-			lexing(&data);
-			init_msh(&data);
-		}
+			add_history(data.input);			
+		lexing(&data);
+		init_msh(&data);
 	}
 	free_data(&data);
 	return (g_signal);

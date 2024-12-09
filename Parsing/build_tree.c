@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/09 10:16:01 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/09 11:40:38 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	build_ast(t_data *data, int ops)
 		ops = og_ops - ops;
 	}
 	build_right_branch(data->root, data->token_list, ops);
-	print_tree(data->root, 0);
+	//print_tree(data->root, 0);
 }
 
 void	build_right_branch(t_node *root, t_token *t_list, int ops)

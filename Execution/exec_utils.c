@@ -1,39 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 15:30:23 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/09 14:47:28 by grmullin         ###   ########.fr       */
+/*   Created: 2024/12/09 11:44:35 by grmullin          #+#    #+#             */
+/*   Updated: 2024/12/09 12:28:38 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	clear_table(t_data *data)
+char	*ft_get_first_word(char *s)
 {
-	free_ast(data->root);
-	data->pipes = 0;
-	data->redirs = 0;
-	data->root = NULL;
-	if (data->input)
+	char	*new;
+	int		i;
+	int		j;
+
+	i = 0;
+	new = NULL;
+	while (s[i])
 	{
-		free(data->input);
-		data->input = NULL;
+		if (s[i] == ' ')
+			break;
+		i++;
 	}
+	new = malloc(sizeof(char) * i);
+	j = 0;
+	while (j <= i)
+	{
+		new[j] = s[j];
+		j++;
+	}
+	return (new);
 }
 
-void	free_ast(t_node *head)
+void	print_error(char *str, int n)
 {
-	if (head->value == NULL)
-		return ;
-	if (head->left)
-		free_ast(head->left);
-	if (head->right)
-		free_ast(head->right);
-	if (head->value != NULL)
-		free(head->value);
-	free(head);
+	printf("%s\n", str);
+	g_signal = n;
 }

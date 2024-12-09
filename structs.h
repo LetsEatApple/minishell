@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/06 17:33:32 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/09 11:46:56 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,3 @@ typedef struct s_data
 	t_token	*token_list;
 	t_node	*root;
 }	t_data;
-
-/*		delete later		*/
