@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/06 17:33:38 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/09 10:19:10 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	init_msh(t_data *data)
 	{
 		get_root(data);
 		ops = data->redirs + data->pipes;
-		build_AST(data, ops);
+		build_ast(data, ops);
 		clear_table(data);
 	}
 	else
