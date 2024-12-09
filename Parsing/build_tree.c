@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/09 16:53:25 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/09 17:04:03 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ t_node	*create_node(t_token *token)
 	t_node	*new_node;
 
 	new_node = malloc(sizeof(t_node));
-	printf("node created for %s'\n", token->value);
 	if (new_node == NULL)
 		return (NULL);
 	new_node->value = ft_strdup(token->value);
@@ -41,7 +40,7 @@ void	build_ast(t_data *data, int ops)
 		ops = og_ops - ops;
 	}
 	build_right_branch(data->root, data->token_list, ops);
-	print_tree(data->root, 0);
+//	print_tree(data->root, 0);
 }
 
 void	build_right_branch(t_node *root, t_token *t_list, int ops)
@@ -51,10 +50,8 @@ void	build_right_branch(t_node *root, t_token *t_list, int ops)
 
 	current = t_list;
 	next_op = NULL;
-	printf("entering BRB\n");
 	while (current->node == 1)
 		current = current->next;
-	printf("cnodel is: '%s'\n", current->value);
 	if (root->left == NULL)
 		root->left = create_node(current);
 	if (ops)
