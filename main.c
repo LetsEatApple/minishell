@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/09 14:49:30 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/09 17:27:25 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ void	handle_sig(int sig)
 
 void	init_msh(t_data *data)
 {
-	int ops;
+	pid_t	exec;
+	int 	ops;
 
+	exec = 0;
 	ops = 0;
 	if (data->pipes || data->redirs)
 	{
@@ -43,7 +45,15 @@ void	init_msh(t_data *data)
 		clear_table(data);
 	}
 	else
-		ft_command(data->input, data->env);
+	{
+		exec = fork();
+		if (exec == 0)
+		{
+			ft_command(data->input, data->env);
+			exit (EXIT_SUCCESS);
+		}
+		waitpid(exec, NULL, 0);
+	}
 }
 
 int main(int ac, char **av, char **envp)
