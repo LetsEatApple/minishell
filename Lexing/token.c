@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:20:31 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/09 16:38:32 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:56:39 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,28 +81,64 @@ void	clearlist(t_token **head)
 		}
 }
 
-void	deleteone(t_token	*token)
+void	delete_node(t_token **head, t_token *todelete)
 {
-	t_token *ptr;
+	t_token	*ptr;
 
-	ptr = token->prev; //NULL?
-	if (token->value != NULL)
-		free(token->value);
-	if (token->next == NULL)
+	if (*head == todelete)
 	{
-		free(token);
-		if (ptr != NULL)
-			ptr->next = NULL;
+		*head = (*head)->next;
+		free((*head)->prev);
+		(*head)->prev = NULL;
+	}
+	else if (todelete->next == NULL)
+	{
+		ptr = todelete->prev;
+		free(todelete);
+		ptr->next = NULL;
 	}
 	else
 	{
-		ptr->next = token->next;
-		token->next->prev = ptr;
+		ptr = todelete->prev;
+		ptr->next = todelete->next;
+		todelete->next->prev = ptr;
+		free(todelete);
+		todelete = NULL;
 	}
-	free(token);
 }
 
+void	delete_nullword(t_data *data, t_token **head)
+{
+	t_token	*ptr;
 
+	ptr = *head;
+	while (ptr)
+	{
+		if (list_size(*head) == 1 && (*head)->value == NULL && (*head)->type == WORD)
+		{
+			clearlist(&data->token_list);
+			data->token_list = NULL;
+			break ;
+		}
+		if (ptr->value == NULL && ptr->type == WORD)
+		{
+			delete_node(head, ptr);
+			ptr = *head;
+		}
+		else
+			ptr = ptr->next;
+	}
+}
+
+/* if (token->next != NULL)
+		token->next->prev = token->prev;
+	if (token->prev != NULL)
+		token->prev->next = token->next;
+	if (token->value != NULL)
+		free(token->value);
+	ft_memset(token, 0, sizeof(t_token));
+	free(token); */
+	
 /* void	create_token(t_token **head, char *value, t_token_type type)
 {
 	t_token	*new;

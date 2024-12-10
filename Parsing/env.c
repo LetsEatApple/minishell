@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:29:00 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/09 16:41:35 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/10 14:28:51 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,6 @@ void	switch_value(t_token *token, char **env)
 void	replace_envvar(t_data *data)
 {
 	t_token	*ptr;
-	//t_token	*temp;
 
 	ptr = data->token_list;
 	while (ptr != NULL)
@@ -194,16 +193,5 @@ void	replace_envvar(t_data *data)
 			switch_value(ptr, data->env);
 		ptr = ptr->next;
 	}
-/* 	ptr = data->token_list;
-	while (ptr != NULL)
-	{
-		if (ptr->type == WORD && ptr->value == NULL)
-		{
-			temp = ptr;
-			ptr = ptr->next;
-			deleteone(temp);
-		}
-		else
-			ptr = ptr->next;
-	} */
+	delete_nullword(data, &data->token_list);
 }

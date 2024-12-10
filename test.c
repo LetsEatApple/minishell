@@ -11,22 +11,29 @@
 # include <stdbool.h>
 # include "Libft/libft.h"
 
-/* int main(int ac, char **av, char **env)
+int main(int ac, char **av, char **env)
 {
 	(void) ac;
 	(void) av;
 
 	int i = 0;
-	char *argv[] = {"/usr/bin/echo", "hello", "-n", NULL};
+	char **argv;
+	char *arg = "";
+	char *cmd = "/usr/bin/grep";
+	argv = (char **)malloc(sizeof(char *)* 3);
+	argv[0] = ft_strdup(cmd);
+	argv[1] = ft_strdup(arg);
+	argv[3] = NULL;
+	//char *argv[] = {"/usr/bin/grep", "", NULL};
 	execve(argv[0], argv, env);
 	perror("error:");
 	return(0);
-} */
+}
 
-int main()
+/* int main()
 {
 	char *s = "$ ";
 	if (ft_strncmp("$", s, 2) == 0)
 		printf("same\n");
 	return (0);
-}
+} */

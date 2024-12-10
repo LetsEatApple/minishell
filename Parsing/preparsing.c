@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 17:00:28 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/09 16:41:23 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/10 14:29:53 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	store_cmd(t_token *start, t_token *end, int len)
 	i = 0;
 	while (ptr != end)
 	{
+		if (ptr->value == NULL)
+			ptr->value = ft_strdup("");
 		cmd[i] = ft_strdup(ptr->value);
 		ptr = ptr->next;
 		i++;
@@ -108,11 +110,6 @@ void	search_cmd(t_token **head)
 				len++;
 				ptr = ptr->next;
 			}
-			if (ptr != NULL)
-				printf("ptr= %d\n", ptr->type);
-			else
-				printf("ptr= NULL\n");
-			printf("len: %d\n", len);
 			store_cmd(temp, ptr, len);
 		}
 		else
@@ -140,7 +137,7 @@ void	preparsing(t_data *data)
 	count_ops(data);
 	get_files(data->token_list);
 	replace_envvar(data);
-	/* if (list_size(data->token_list) == 1 && data->token_list->value == NULL)
-		return ; */
+	if (list_size(data->token_list) == 1 && data->token_list->value == NULL)
+		return ;
 	search_cmd(&data->token_list);
 }

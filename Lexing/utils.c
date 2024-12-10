@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:51:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/05 13:51:28 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/10 14:26:23 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ void	print_arr(char **cmd)
 	printf("cmd: ");
 	while (cmd[i] != NULL)
 	{
-		printf("%s, ", cmd[i]);
+		if (cmd[i][0] != '\0')
+			printf("%s ", cmd[i]);
+		else
+			printf("'' ");
 		i++;
 	}
 }

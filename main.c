@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/05 13:48:20 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:59:26 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ void	init_msh(t_data *data)
 	if (data->token_list != NULL)
 	{
 		preparsing(data);
-		print_list(data);
+		//parsing(data);
+		if (data->token_list != NULL)
+			print_list(data);
 		//ft_command(data);
 	}
 	free_data(data);
