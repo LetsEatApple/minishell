@@ -6,7 +6,7 @@
 #    By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2024/12/09 12:01:33 by lhagemos         ###   ########.fr        #
+#    Updated: 2024/12/10 15:17:40 by lhagemos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,11 @@ Lexing/lexing_utils.c \
 Lexing/utils.c \
 Lexing/token.c \
 error.c \
-Parsing/preparsing.c \
-Parsing/env.c \
+Preparsing/preparsing.c \
+Preparsing/env.c \
+Preparsing/prep_utils.c \
+Preparsing/env_utils.c \
+Preparsing/cmd_utils.c \
 
 OBJS := $(FILES:.c=.o)
 MINISHELL_H := minishell.h

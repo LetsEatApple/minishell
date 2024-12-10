@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/10 13:51:11 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:08:16 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,11 @@ void	preparsing(t_data *data);
 void	delete_nullword(t_data *data, t_token **head);
 void	replace_envvar(t_data *data);
 int		list_size(t_token *head);
+t_token	*cut_quote(char	*s);
+char	*reconnect(t_token **head);
+void	replace_specialp(t_token **head, char **env);
+char	*search_env(char *s, char **env);
+void	store_cmd(t_token *start, t_token *end, int len);
 
 
 /*          Error               */

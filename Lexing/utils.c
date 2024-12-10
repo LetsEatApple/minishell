@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:51:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/10 14:26:23 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/10 14:45:14 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 
 void	print_arr(char **cmd)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	printf("cmd: ");
 	while (cmd[i] != NULL)
@@ -43,8 +43,8 @@ void	print_arr(char **cmd)
 
 void	print_list(t_data *data)
 {
-	t_token *ptr;
-	
+	t_token	*ptr;
+
 	if (data->token_list == NULL)
 		return ;
 	ptr = data->token_list;
@@ -61,6 +61,5 @@ void	print_list(t_data *data)
 			printf("value: NULL, type: %d\n", ptr->type);
 		printf("file = %d\n", ptr->file);
 		ptr = ptr -> next;
-		}
-	//clearlist(&data->token_list);
+	}
 }

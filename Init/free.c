@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:21:57 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/09 13:00:19 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:25:20 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ void	free_data(t_data *data)
 	clearlist(&data->token_list);
 }
 
-void	free_envp(t_data *data)
+/* void	free_envp(t_data *data)
 {
-		int	i;
+	int	i;
+
 	i = 0;
 	while (data->env[i])
 	{
@@ -31,11 +32,11 @@ void	free_envp(t_data *data)
 		i++;
 	}
 	free(data->env);
-}
+} */
 
 void	free_split(char **s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i])

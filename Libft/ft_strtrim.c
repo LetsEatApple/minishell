@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 13:18:09 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/08 12:37:53 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/10 14:37:10 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	return (new);
 }
 
-int	main()
+/* int	main()
 {
 	char string[] = "babc hello abc aloha cba";
 	char trim[] = "ab";
@@ -42,3 +42,4 @@ int	main()
 	printf("%s\n", ft_strtrim(string, trim));
 	free(ft_strtrim(string, trim));
 }
+ */

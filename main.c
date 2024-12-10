@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/10 13:59:26 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:22:41 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int main(int ac, char **av, char **envp)
 			init_msh(&data);
 		}
 	}
-	free_envp(&data);
+	free_split(data.env);
 	rl_clear_history();
 	return (g_signal);
 }
