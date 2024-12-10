@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/09 17:27:25 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/10 16:45:10 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,17 @@ int main(int ac, char **av, char **envp)
 	while ("It's been a")
 	{
 		data.input = readline("minihell: ");
-		if (data.input == NULL) // EOF (ctrl-D) detected
+		if (data.input == NULL)
+		{
+			printf("\n");
 			break ;
+		} // EOF (ctrl-D) detected
 		if (data.input)
+		{
 			add_history(data.input);			
-		lexing(&data);
-		init_msh(&data);
+			lexing(&data);
+			init_msh(&data);
+		}
 	}
 	free_data(&data);
 	return (g_signal);
@@ -86,7 +91,7 @@ void print_tree(t_node *node, int level)
 	print_tree(node->right, level + 1);
 	for (int i = 0; i < level; i++)
 		printf("    ");
-	printf("Node Value: %s, Type: %s\n", node->value, get_token_type(node->type));
+	printf("Node Value: '%s', Type: %s\n", node->value, get_token_type(node->type));
 	print_tree(node->left, level + 1);
 }
 
