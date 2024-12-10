@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 15:22:13 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/09 12:29:42 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/10 17:07:43 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_built_ins(char *input)
     //     return (ft_exit());
 }
 
-int is_built_in(char *value)
+int	is_built_in(char *value)
 {
 	const char	*builtins[] = \
 	{"echo", "cd", "pwd", "export", "unset", "env", "exit"};

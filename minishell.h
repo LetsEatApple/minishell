@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/09 14:11:10 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/10 16:48:55 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,10 @@ void	ft_exec(char *path, char **args, char **env);
 int		get_key_len(char *env);
 char	*get_env(t_data *data, char *new);
 char	**init_envp(char **envp);
-int		print_env_all(char **env);
-void	print_env_sing(t_data *data, char *env);
+int     print_env_all(char **env);
+void    print_env_sing(t_data *data, char *env);
+int		print_env(char **env);
+void	free_split(char **s);
 
 /*              Lexing              */
 int				lexing(t_data *data);
@@ -71,6 +73,18 @@ char			*copy_part(char *input, int start, int len);
 char			**split_string(char *input, int start, int len);
 int				get_value_len(char *input, int i, t_token_type type);
 void			check_syntax(t_token **head);
+
+/*          Preparsing          */
+void	count_ops(t_data *data);
+void	preparsing(t_data *data);
+void	delete_nullword(t_data *data, t_token **head);
+void	replace_envvar(t_data *data);
+int		list_size(t_token *head);
+t_token	*cut_quote(char	*s);
+char	*reconnect(t_token **head);
+void	replace_specialp(t_token **head, char **env);
+char	*search_env(char *s, char **env);
+void	store_cmd(t_token *start, t_token *end, int len);
 
 /*                Parsing             */
 void	get_root(t_data *data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/09 11:46:56 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/10 16:45:54 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ typedef enum e_token_type
 	REDIR_OUT_APPEND,		//5
 	HEREDOC,				//6
 	WORD,					//7
-	ENV_VAR,				//8
-	WHITESPACE,				//9
+	CMD,					//8
+	ENV,					//9
 }	t_token_type;
 
 typedef struct s_node
@@ -42,6 +42,7 @@ typedef struct s_token
 	int				node;
 	int				root;
 	t_token_type	type;
+	int				file;
 	struct s_token	*next;
 	struct s_token  *prev;
 }	t_token;
