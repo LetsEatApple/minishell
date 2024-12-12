@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:11:11 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/12 11:50:02 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 13:44:40 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ops_before_root(t_token *token_list)
 	ops = 0;
 	while (token_list && token_list->next)
 	{
-		if (token_list->node) //why would it be not 0? or do u mean root?
+		if (token_list->node)
 			break ;
 		if (is_token_op(token_list))
 			ops++;
