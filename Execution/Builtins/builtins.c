@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 15:22:13 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/10 17:07:43 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/10 18:26:23 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_built_ins(char *input)
 		printf("enters ft_echo\n");
     //    ft_echo(input);
     // else if (ft_strncmp(s, "cd", 2) == 0)
-    //     return (ft_cd(s)); // needs to be passed ENVP 
+    //     return (ft_cd(s)); // needs to be passed ENVP
     // else if (ft_strncmp(s, "pwd", 3) == 0)
     //     return (ft_pwd(s));
     // else if (ft_strncmp(s, "export", 6) == 0)

@@ -6,11 +6,19 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:59:01 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/10 15:18:09 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/10 18:33:10 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	check_seperator(char c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
+		|| (c >= '0' && c <= '9') || c == '_')
+		return (false);
+	return (true);
+}
 
 void	process_specialp(t_token **head, char *s, int *i)
 {
@@ -20,14 +28,16 @@ void	process_specialp(t_token **head, char *s, int *i)
 
 	size = 0;
 	j = *i;
+	printf("in process sp\n");
 	while (s[j])
 	{
-		if ((s[j] == '$' && j != *i) || s[j] == ' ' || s[j] == '\t')
+		if (j != *i && check_seperator(s[j]) == true)
 			break ;
 		size++;
 		j++;
 	}
 	sp = copy_part(s, *i, size);
+	printf("sp = %s\n", sp);
 	create_list(head, sp, ENV);
 	*i += size;
 }
@@ -52,7 +62,7 @@ void	process_text(t_token **head, char *s, int *i)
 	*i += size;
 }
 
-t_token	*cut_quote(char	*s)
+t_token	*cut_token(char	*s)
 {
 	int		i;
 	t_token	*head;
@@ -67,24 +77,6 @@ t_token	*cut_quote(char	*s)
 			process_text(&head, s, &i);
 	}
 	return (head);
-}
-
-void	replace_specialp(t_token **head, char **env)
-{
-	t_token	*ptr;
-	char	*value;
-
-	ptr = *head;
-	while (ptr != NULL)
-	{
-		if (ptr->type == ENV && ft_strncmp("$", ptr->value, 2) != 0)
-		{
-			value = search_env(ptr->value, env);
-			free(ptr->value);
-			ptr->value = value;
-		}
-		ptr = ptr->next;
-	}
 }
 
 char	*reconnect(t_token **head)

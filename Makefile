@@ -6,7 +6,7 @@
 #    By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2024/12/10 16:49:22 by lhagemos         ###   ########.fr        #
+#    Updated: 2024/12/10 21:33:43 by lhagemos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ Preparsing/env.c \
 Preparsing/prep_utils.c \
 Preparsing/env_utils.c \
 Preparsing/cmd_utils.c \
+Preparsing/path.c \
 
 OBJS := $(FILES:.c=.o)
 MINISHELL_H := minishell.h

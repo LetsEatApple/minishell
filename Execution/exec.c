@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/09 14:51:54 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/10 18:25:53 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	ft_init(t_node *node, char **env)
 		ft_command(node->value, env);
 }
 
-int handle_pipe(t_node *node, char **envp)
+int	handle_pipe(t_node *node, char **envp)
 {
 	int		fd[2];
 	pid_t	leftpid;
 	pid_t	rightpid;
-	
+
 	if (pipe(fd) == -1)
 		print_error("Error making pipe", 1);
 	leftpid = fork();
@@ -56,7 +56,7 @@ int handle_pipe(t_node *node, char **envp)
 	}
 	close(fd[0]);
 	close(fd[1]);
-	waitpid(leftpid, NULL, 0);	
+	waitpid(leftpid, NULL, 0);
 	waitpid(rightpid, NULL, 0);
 	return (0);
 }

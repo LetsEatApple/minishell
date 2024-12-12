@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:29:00 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/10 14:57:45 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/10 18:18:24 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,30 @@ char	*search_env(char *s, char **env)
 	return (value);
 }
 
-char	*modify_quote(char *s, char **env)
+void	replace_specialp(t_token **head, char **env)
+{
+	t_token	*ptr;
+	char	*value;
+
+	ptr = *head;
+	while (ptr != NULL)
+	{
+		if (ptr->type == ENV && ft_strncmp("$", ptr->value, 2) != 0)
+		{
+			value = search_env(ptr->value, env);
+			free(ptr->value);
+			ptr->value = value;
+		}
+		ptr = ptr->next;
+	}
+}
+
+char	*modify_token(char *s, char **env)
 {
 	t_token	*head;
 	char	*value;
 
-	head = cut_quote(s);
+	head = cut_token(s);
 	replace_specialp(&head, env);
 	value = reconnect(&head);
 	clearlist(&head);
@@ -71,26 +89,8 @@ void	switch_value(t_token *token, char **env)
 
 	if (ft_strncmp("$", token->value, 2) == 0)
 		return ;
-	if (token->type != DOUBLE_QUOTE)
-		value = search_env(token->value, env);
-	else
-		value = modify_quote(token->value, env);
+	value = modify_token(token->value, env);
 	free(token->value);
 	token->value = value;
 	return ;
-}
-
-/*          searching for a $-token and replacing           */
-void	replace_envvar(t_data *data)
-{
-	t_token	*ptr;
-
-	ptr = data->token_list;
-	while (ptr != NULL)
-	{
-		if (check_dollar(ptr->value) == true && ptr->type != SINGLE_QUOTE)
-			switch_value(ptr, data->env);
-		ptr = ptr->next;
-	}
-	delete_nullword(data, &data->token_list);
 }

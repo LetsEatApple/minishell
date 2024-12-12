@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:15:59 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/10 17:06:21 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/10 18:24:54 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_exec_command(char *cmd, char **env)
 	i = 0;
 	while (env[i])
 	{
-		if (ft_strncmp(env[i], "PATH", 4) == 0) 
+		if (ft_strncmp(env[i], "PATH", 4) == 0)
 		{
 			j = 0;
 			split_paths = ft_split(env[i], ':');

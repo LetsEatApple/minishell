@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:10:19 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/10 14:43:59 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/10 21:42:25 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,9 @@ void	check_syntax(t_token **head)
 				syntax_error(head, ptr->value[0]);
 				return ;
 			}
-			if (ptr->type == PIPE && ptr->prev->type != WORD)
+			if (ptr->type == PIPE && ptr->prev->type != WORD
+				&& ptr->prev->type != SINGLE_QUOTE
+				&& ptr->prev->type != DOUBLE_QUOTE)
 			{
 				syntax_error(head, ptr->value[0]);
 				return ;

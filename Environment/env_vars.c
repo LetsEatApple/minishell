@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 11:53:44 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/10 15:31:43 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/10 18:23:57 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	print_env_all(char **env)
 	return (0);
 }
 
-// enters here if $ has been encountered // token type VAR Q: We do not need this anymore right?
 void	print_env_sing(t_data *data, char *env)
 {
 	char	*key;

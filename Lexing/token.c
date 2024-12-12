@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:20:31 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/10 17:02:35 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/10 18:32:18 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,6 @@ t_token	*new_token(char *value, t_token_type type)
 	new -> next = NULL;
 	new -> prev = NULL;
 	return (new);
-	
-	
-	return (new);
 }
 
 void	create_list(t_token **head, char *value, t_token_type type)
@@ -61,20 +58,26 @@ void	create_list(t_token **head, char *value, t_token_type type)
 
 void	clearlist(t_token **head)
 {
-	t_token *ptr;
-	
-	if (*head == NULL) // || !*head ?
+	t_token	*ptr;
+
+	if (*head == NULL || !*head)
 		return ;
 	ptr = *head;
 	while (ptr != NULL)
 	{
 		if (ptr->next == NULL)
 		{
-			free(ptr->value);
+			if (ptr->value != NULL)
+				free(ptr->value);
+			if (ptr->cmd != NULL)
+				free_split(ptr->cmd);
 			free(ptr);
 			break ;
 		}
-		free(ptr->value);
+		if (ptr->value != NULL)
+			free(ptr->value);
+		if (ptr->cmd != NULL)
+			free_split(ptr->cmd);
 		ptr = ptr->next;
 		free(ptr->prev);
 	}

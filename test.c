@@ -21,8 +21,8 @@ int main(int ac, char **av, char **env)
 	char *arg = "";
 	char *cmd = "/usr/bin/grep";
 	argv = (char **)malloc(sizeof(char *)* 3);
-	argv[0] = ft_strdup(cmd);
-	argv[1] = ft_strdup(arg);
+	argv[0] = ft_strdup(arg);
+	argv[1] = ft_strdup(cmd);
 	argv[3] = NULL;
 	//char *argv[] = {"/usr/bin/grep", "", NULL};
 	execve(argv[0], argv, env);

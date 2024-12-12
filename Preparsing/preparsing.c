@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 17:00:28 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/10 15:18:34 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/10 21:32:34 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,25 @@ void	search_cmd(t_token **head)
 	}
 }
 
+void	replace_envvar(t_data *data)
+{
+	t_token	*ptr;
+
+	ptr = data->token_list;
+	while (ptr != NULL)
+	{
+		if (check_dollar(ptr->value) == true && ptr->type != SINGLE_QUOTE)
+			switch_value(ptr, data->env);
+		ptr = ptr->next;
+	}
+	delete_nullword(data, &data->token_list);
+}
+
 void	preparsing(t_data *data)
 {
 	count_ops(data);
 	get_files(data->token_list);
 	replace_envvar(data);
-	if (list_size(data->token_list) == 1 && data->token_list->value == NULL)
-		return ;
 	search_cmd(&data->token_list);
+	modify_cmd(data);
 }
