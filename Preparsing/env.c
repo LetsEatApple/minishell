@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:29:00 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/12 12:33:40 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 18:13:40 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	replace_specialp(t_token **head, char **env)
 	char	*value;
 
 	ptr = *head;
-	while (ptr != NULL)
+	while (ptr)
 	{
 		if (ptr->type == ENV && ft_strncmp("$", ptr->value, 2) != 0)
 		{

@@ -6,14 +6,14 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:20:07 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/10 17:07:09 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 16:26:10 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
 // need to add in -n option
-int	ft_echo(t_data *data)
+/* int	ft_echo(t_data *data)
 {
 	char	*input;
 	char	*input_copy;
@@ -47,7 +47,7 @@ int	ft_echo(t_data *data)
 	free(input_copy);
 	printf("\n");
 	return (0);
-}
+} */
 
 int	get_key_len(char *env)
 {

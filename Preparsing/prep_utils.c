@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:50:56 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/10 15:17:55 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:42:16 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	list_size(t_token *head)
 
 	size = 0;
 	ptr = head;
-	while (ptr != NULL)
+	while (ptr)
 	{
 		size++;
 		ptr = ptr->next;

@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:01:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/10 21:35:44 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 18:31:34 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,13 @@ void	modify_cmd(t_data *data)
 	t_token	*ptr;
 
 	ptr = data->token_list;
-	while (ptr)
+	while (ptr != NULL)
 	{
 		if (ptr->type == CMD)
-			get_path(ptr, data);
+		{
+			if (is_built_in(ptr->cmd[0]) == false)
+				get_path(ptr, data);
+		}
 		ptr = ptr->next;
 	}
 }

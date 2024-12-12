@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:20:31 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/10 18:32:18 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:19:26 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_token	*new_token(char *value, t_token_type type)
 	new -> cmd = NULL;
 	new -> type = type;
 	new -> file = 0;
+	new -> word = 0;
 	new->node = 0;
 	new->root = 0;
 	new -> next = NULL;

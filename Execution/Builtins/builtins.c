@@ -6,15 +6,16 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 15:22:13 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/10 18:26:23 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 16:25:19 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_built_ins(char *input)
+void	ft_built_ins(char **cmd, char **env)
 {
-	if (ft_strncmp(input, "echo", 4) == 0)
+	(void) env;
+	if (ft_strncmp(cmd[0], "echo", 4) == 0)
 		printf("enters ft_echo\n");
     //    ft_echo(input);
     // else if (ft_strncmp(s, "cd", 2) == 0)
@@ -31,24 +32,18 @@ void	ft_built_ins(char *input)
     //     return (ft_exit());
 }
 
-int	is_built_in(char *value)
+int	is_built_in(char *cmd)
 {
 	const char	*builtins[] = \
 	{"echo", "cd", "pwd", "export", "unset", "env", "exit"};
-	char		**s;
 	int			i;
 
 	i = 0;
-	s = ft_split(value, ' ');
 	while (i < 7)
 	{
-		if (ft_strncmp(s[0], builtins[i], ft_strlen(builtins[i])) == 0)
-		{
-			free_split(s);
-			return (1);
-		}
+		if (ft_strncmp(cmd, builtins[i], ft_strlen(builtins[i])) == 0)
+			return (true);
 		i++;
 	}
-	free_split(s);
-	return (0);
+	return (false);
 }

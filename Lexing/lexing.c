@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:47:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/10 18:31:16 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:59:26 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,20 @@ void	process_quote(t_token **head, char *input, int *i)
 
 void	process_word(t_token **head, char *input, int *i)
 {
+	int		len;
+	char	*value;
+
+	if (input[*i] == '\0')
+		return ;
+	len = get_value_len(input, *i, WORD);
+	value = copy_part(input, *i, len);
+	create_list(head, value, WORD);
+	*i += len;
+	return ;
+}
+
+/* void	process_word(t_token **head, char *input, int *i)
+{
 	int		j;
 	int		len;
 	char	*value;
@@ -66,7 +80,7 @@ void	process_word(t_token **head, char *input, int *i)
 	free_split(words);
 	*i += len;
 	return ;
-}
+} */
 
 void	process_pipe(t_token **head, char *input, int *i)
 {
@@ -106,6 +120,18 @@ void	process_redir(t_token **head, char *input, int *i)
 	*i += len;
 }
 
+void	process_whitespace(t_token **head, char *input, int *i)
+{
+	int		len;
+	//char	*value;
+
+	len = get_value_len(input, *i, WHITESPACE);
+	//value = copy_part(input, *i, len);
+	create_list(head, NULL, WHITESPACE);
+	*i += len;
+	return ;
+}
+
 int	lexing(t_data *data)
 {
 	int		i;
@@ -119,6 +145,8 @@ int	lexing(t_data *data)
 	{
 		if (input[i] == 34 || input[i] == 39)
 			process_quote(&head, input, &i);
+		if (check_char(input[i]) == WHITESPACE)
+			process_whitespace(&head, input, &i);
 		if (check_char(input[i]) == WORD)
 			process_word(&head, input, &i);
 		if (check_char(input[i]) == PIPE)

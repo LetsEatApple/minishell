@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/12 13:41:19 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 18:22:12 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	init_msh(t_data *data)
 		printf("pipes: %d and redirs: %d\n", data->pipes, data->redirs);
 	}
 	if (data->token_list != NULL)
-		print_list(data);
+		print_list(data->token_list);
 	if (data->token_list != NULL)
 	{
 		if (data->pipes || data->redirs)
@@ -75,8 +75,9 @@ int main(int ac, char **av, char **envp)
 		if (data.input)
 		{
 			lexing(&data);
-			print_list(&data);
+			print_list(data.token_list);
 			init_msh(&data);
+			//free_data(&data);
 		}
 	}
 	free_split(data.env);

@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:51:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/10 16:57:03 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 18:16:01 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_arr(char **cmd)
 	int	i;
 
 	i = 0;
-	printf("cmd: ");
+	printf("[cmd: ");
 	while (cmd[i] != NULL)
 	{
 		if (cmd[i][0] != '\0')
@@ -28,25 +28,26 @@ void	print_arr(char **cmd)
 	}
 }
 
-void	print_list(t_data *data)
+void	print_list(t_token *token_list)
 {
 	t_token	*ptr;
 
-	if (data->token_list == NULL)
+	if (token_list == NULL)
 		return ;
-	ptr = data->token_list;
+	ptr = token_list;
 	while (ptr != NULL)
 	{
 		if (ptr -> value != NULL)
-			printf("value: %s, type: %d\n", ptr->value, ptr->type);
+			printf("[value: %s, type: %d] ", ptr->value, ptr->type);
 		else if (ptr->cmd != NULL)
 		{
 			print_arr(ptr->cmd);
-			printf(", type: %d\n", ptr->type);
+			printf(", type: %d] ", ptr->type);
 		}
 		else
-			printf("value: NULL, type: %d\n", ptr->type);
-		printf("file = %d\n", ptr->file);
+			printf("[value: NULL, type: %d] ", ptr->type);
+		printf("word = %d ", ptr->word);
 		ptr = ptr -> next;
 	}
+	printf("\n");
 }
