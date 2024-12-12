@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/09 14:51:54 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:35:55 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	ft_init(t_node *node, char **env)
 		handle_redir_out(node, env);
 	else if (node->type == WORD)
 		ft_command(node->value, env);
+//	printf("exits in ftinit\n");
 }
 
 int handle_pipe(t_node *node, char **envp)
@@ -94,25 +95,35 @@ int	handle_redir_in(t_node *node, char **envp)
 
 	while (node->left->type == REDIR_IN)
 	{
-	// printf("node being opened: '%s'\n", node->right->value);
+		printf("node being opened: '%s'\n", node->right->value);
 		infile = open(node->right->value, O_RDONLY);
 		if (infile == -1)
 		{
+			printf("invalid infile\n");
 			close(infile);
-			exit(EXIT_FAILURE);
+			return (1);
 		}
 		node->left = node->left->left;
 	}
 	infile = open(node->right->value, O_RDONLY);
 	if (infile == -1)
 	{
+		printf("invalid infile\n");
 		close(infile);
-		exit(EXIT_FAILURE);
+		return (1);
 	}
 	dup2(infile, STDIN_FILENO);
 	close(infile);
-	ft_init(node->left, envp);
-	return (0);
+	pid_t	exec_child;
+	exec_child = fork();
+	if (exec_child == 0)
+	{
+		ft_init(node->left, envp);
+		exit(EXIT_SUCCESS);
+	}
+	waitpid(exec_child, NULL, 0);
+//	printf("here\n");
+ 	return (0);
 }
 
 int	handle_redir_out(t_node *node, char **envp)

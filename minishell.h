@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/09 14:11:10 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:34:59 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ int		ft_wait(int pid1, t_node *node);
 int		handle_redir_in(t_node *node, char **envp);
 int		handle_redir_out(t_node *node, char **envp);
 char	*ft_get_first_word(char *s);
-void	ft_exec_command(char *input, char **env);
-void    ft_path_checker(char *paths, char *cmd, char **env);
-void	ft_exec(char *path, char **args, char **env);
+int		ft_exec_command(char *input, char **env);
+int		ft_path_checker(char *paths, char *cmd, char **env);
+int		ft_exec(char *path, char **args, char **env);
 
 /*              Env.vars            */
 int		get_key_len(char *env);
