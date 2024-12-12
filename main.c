@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/12 14:11:46 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/12 14:12:25 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	init_msh(t_data *data)
 {
 	int	ops;
 
-	exec = 0;
 	ops = 0;
 	if (data->token_list != NULL)
 	{
@@ -74,6 +73,7 @@ int main(int ac, char **av, char **envp)
 		{
 			printf("\n");
 			break ;
+		}
 		add_history(data.input);
 		if (data.input)
 		{
