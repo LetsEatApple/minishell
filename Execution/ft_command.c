@@ -6,37 +6,36 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:15:59 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/12 12:29:22 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 12:43:03 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_command(t_data *data)
+void	ft_command(char **cmd, char **env)
 {
 	/* if (is_built_in(data->token_list->cmd[0]))
 		ft_built_ins(data->token_list->cmd[0]);
 	else */
-		ft_exec(data);
+		ft_exec(cmd, env);
 }
 
 
 
-void	ft_exec(t_data *data)
+void	ft_exec(char **cmd, char **env)
 {
-	char	**args;
 	int		id;
 
 	id = fork();
-	args = data->token_list->cmd;
 	if (id < 0)
 		return ;
 	if (id == 0)
 	{
-		if (execve(args[0], args, data->env) == -1)
-			printf("command not found: %s\n", args[0]);
-		free_data(data);
-		exit (4);
+		if (execve(cmd[0], cmd, env) == -1)
+			printf("command not found: %s\n", cmd[0]);
+		free_split(env);
+		free_split(cmd);
+		exit (127);
 	}
 	wait(NULL);
 	return ;

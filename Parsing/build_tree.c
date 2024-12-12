@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/12 11:59:23 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 13:27:28 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,15 @@ t_node	*create_node(t_token *token)
 	new_node = malloc(sizeof(t_node));
 	if (new_node == NULL)
 		return (NULL);
-	new_node->value = ft_strdup(token->value);// if it is a cmd value will be null and cmd has to be copied
+	if (token->type != CMD)
+		new_node->value = ft_strdup(token->value);
+	else
+		new_node->cmd = token->cmd;
 	new_node->type = token->type;
-	token->node = 1; //what for?
+	token->node = 1;
 	new_node->left = NULL;
 	new_node->right = NULL;
-	new_node->node = 1; //what for?
+	new_node->node = 1;
 	return (new_node);
 }
 

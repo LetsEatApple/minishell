@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/12 12:23:16 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 12:56:03 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ void	init_msh(t_data *data)
 			get_root(data);
 			ops = data->redirs + data->pipes;
 			build_ast(data, ops);
-			ft_init(data->root, data->env);
+			//ft_init(data->root, data->env);
 			clear_table(data);
 		}
 		else
-			ft_command(data);
+			ft_command(data->token_list->cmd, data->env);
 	}
 	free_data(data);
 }

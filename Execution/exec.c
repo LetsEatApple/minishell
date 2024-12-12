@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/10 18:25:53 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 13:31:14 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	ft_init(t_node *node, char **env)
 		handle_redir_in(node, env);
 	else if (node->type == REDIR_OUT)
 		handle_redir_out(node, env);
-	else if (node->type == WORD)
-		ft_command(node->value, env);
+//	else if (node->type == WORD)
+		//ft_command(node->value, env); //cmd is an array and needs to be duplicated from cmd
 }
 
 int	handle_pipe(t_node *node, char **envp)

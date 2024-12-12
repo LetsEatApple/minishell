@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/10 18:35:51 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 13:26:27 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef enum e_token_type
 typedef struct s_node
 {
 	char			*value;
+	char			**cmd;
 	int				node;
 	t_token_type	type;
 	struct s_node	*left;
