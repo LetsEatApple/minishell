@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/09 17:04:03 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/12 13:36:39 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ t_node	*create_node(t_token *token)
 	new_node = malloc(sizeof(t_node));
 	if (new_node == NULL)
 		return (NULL);
-	new_node->value = ft_strdup(token->value);
+	if (token->type != CMD)
+		new_node->value = ft_strdup(token->value);
+	else
+		new_node->cmd = token->cmd;
 	new_node->type = token->type;
 	token->node = 1;
 	new_node->left = NULL;
@@ -40,7 +43,7 @@ void	build_ast(t_data *data, int ops)
 		ops = og_ops - ops;
 	}
 	build_right_branch(data->root, data->token_list, ops);
-//	print_tree(data->root, 0);
+	//print_tree(data->root, 0);
 }
 
 void	build_right_branch(t_node *root, t_token *t_list, int ops)
@@ -77,7 +80,7 @@ void	build_left_branch(t_node *root, t_token *t_list, int ops)
 
 	current = t_list;
 	prev_op = NULL;
-	while (current->node == 0)
+	while (current->node == 0) //again why node?
 		current = current->next;
 	if (ops)
 	{

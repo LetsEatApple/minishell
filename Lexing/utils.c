@@ -3,42 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:51:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/06 15:23:34 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/10 16:57:03 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-/* void	free_splits(char **splits)
+void	print_arr(char **cmd)
 {
 	int	i;
 
 	i = 0;
-	while (splits[i])
+	printf("cmd: ");
+	while (cmd[i] != NULL)
 	{
-		free(splits[i]);
+		if (cmd[i][0] != '\0')
+			printf("%s ", cmd[i]);
+		else
+			printf("'' ");
 		i++;
 	}
-	free(splits);
-} */
+}
 
 void	print_list(t_data *data)
 {
-	t_token *ptr;
-	
+	t_token	*ptr;
+
 	if (data->token_list == NULL)
 		return ;
 	ptr = data->token_list;
 	while (ptr != NULL)
 	{
 		if (ptr -> value != NULL)
-			printf("value: %s, type: %d noded: '%d'\n", ptr->value, ptr->type, ptr->node);
+			printf("value: %s, type: %d\n", ptr->value, ptr->type);
+		else if (ptr->cmd != NULL)
+		{
+			print_arr(ptr->cmd);
+			printf(", type: %d\n", ptr->type);
+		}
 		else
 			printf("value: NULL, type: %d\n", ptr->type);
+		printf("file = %d\n", ptr->file);
 		ptr = ptr -> next;
-		}
-	//clearlist(&data->token_list);
+	}
 }

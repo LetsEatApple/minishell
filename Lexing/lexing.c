@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:47:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/04 11:14:56 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/10 18:31:16 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,58 +122,11 @@ int	lexing(t_data *data)
 		if (check_char(input[i]) == WORD)
 			process_word(&head, input, &i);
 		if (check_char(input[i]) == PIPE)
-		{
 			process_pipe(&head, input, &i);
-			data->pipes++;
-		}
 		if (check_char(input[i]) == 3 || check_char(input[i]) == 4)
-		{
 			process_redir(&head, input, &i);
-			data->redirs++;
-		}
 	}
 	check_syntax(&head);
 	data->token_list = head;
 	return (true);
 }
-
-	//add to process_word	
-/* value = create_string(input, *i, len);
-	*i = *i + len;
-	if (value == NULL)
-		type = WHITESPACE;
-	create_list(head, value, type);
-	return ;
-*/
-
-/* char *connect_words(char **words)
-{
-	int		i;
-	char	*string;
-	char	*temp;
-	
-	i = 0;
-	string = "";
-	temp = "";
-	while(words[i] != 0)
-	{
-		if (words[i+1] == 0)
-		{
-			temp = string;
-			string = ft_strjoin(string, words[i]);
-			if (temp[0] != '\0')
-				free(temp);
-		}	
-		else
-		{
-			temp = ft_strjoin(string, words[i]);
-			if (string[0] != '\0')
-				free(string);
-			string = ft_strjoin(temp, " ");
-			free(temp);
-		}
-		i++;
-	}
-	free_splits(words);
-	return (string);
-} */

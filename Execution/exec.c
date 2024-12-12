@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/10 15:35:55 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/12 14:06:35 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,15 @@ void	ft_init(t_node *node, char **env)
 	else if (node->type == REDIR_OUT)
 		handle_redir_out(node, env);
 	else if (node->type == WORD)
-		ft_command(node->value, env);
-//	printf("exits in ftinit\n");
+		ft_command(node->cmd, env);
 }
 
-int handle_pipe(t_node *node, char **envp)
+int	handle_pipe(t_node *node, char **envp)
 {
 	int		fd[2];
 	pid_t	leftpid;
 	pid_t	rightpid;
-	
+
 	if (pipe(fd) == -1)
 		print_error("Error making pipe", 1);
 	leftpid = fork();
@@ -57,7 +56,7 @@ int handle_pipe(t_node *node, char **envp)
 	}
 	close(fd[0]);
 	close(fd[1]);
-	waitpid(leftpid, NULL, 0);	
+	waitpid(leftpid, NULL, 0);
 	waitpid(rightpid, NULL, 0);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/09 14:49:30 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/12 13:41:19 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,30 @@ void	handle_sig(int sig)
 
 void	init_msh(t_data *data)
 {
-	int ops;
+	int	ops;
 
 	ops = 0;
-	if (data->pipes || data->redirs)
+	if (data->token_list != NULL)
 	{
-		get_root(data);
-		ops = data->redirs + data->pipes;
-		build_ast(data, ops);
-		ft_init(data->root, data->env);
-		clear_table(data);
+		preparsing(data);
+		printf("pipes: %d and redirs: %d\n", data->pipes, data->redirs);
 	}
-	else
-		ft_command(data->input, data->env);
+	if (data->token_list != NULL)
+		print_list(data);
+	if (data->token_list != NULL)
+	{
+		if (data->pipes || data->redirs)
+		{
+			get_root(data);
+			ops = data->redirs + data->pipes;
+			build_ast(data, ops);
+			//ft_init(data->root, data->env);
+			clear_table(data);
+		}
+		else
+			ft_command(data->token_list->cmd, data->env);
+	}
+	free_data(data);
 }
 
 int main(int ac, char **av, char **envp)
@@ -60,12 +71,16 @@ int main(int ac, char **av, char **envp)
 		data.input = readline("minihell: ");
 		if (data.input == NULL) // EOF (ctrl-D) detected
 			break ;
+		add_history(data.input);
 		if (data.input)
-			add_history(data.input);			
-		lexing(&data);
-		init_msh(&data);
+		{
+			lexing(&data);
+			print_list(&data);
+			init_msh(&data);
+		}
 	}
-	free_data(&data);
+	free_split(data.env);
+	rl_clear_history();
 	return (g_signal);
 }
 
@@ -94,7 +109,7 @@ const char *g_token_type[] = {
 };
 
 const char* get_token_type(t_token_type type) {
-    if (type >= 0 && type <= WHITESPACE)  // Ensure the type is within valid range
+    if (type >= 0 && type <= ENV)  // Ensure the type is within valid range
         return g_token_type[type];
     return "UNKNOWN";  // Fallback for invalid types
 }
