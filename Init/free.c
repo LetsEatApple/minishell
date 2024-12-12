@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:21:57 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/10 17:05:49 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:37:30 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,68 @@
 
 void	free_data(t_data *data)
 {
-	if (data->input)
+	if (data->input != NULL)
+	{
 		free(data->input);
+		data->input = NULL;
+	}
 	data->pipes = 0;
 	data->redirs = 0;
-	clearlist(&data->token_list);
+	if (data->token_list != NULL)
+	{
+		clearlist(&data->token_list);
+		data->token_list = NULL;
+	}
 }
 
 void	free_split(char **s)
 {
 	int	i;
 
+	if (!s)
+		return ;
 	i = 0;
 	while (s[i])
 	{
-		free(s[i]);
+		if (s[i])
+		{
+			free(s[i]);
+			s[i] = NULL;
+		}
 		i++;
 	}
-	free(s);
+	if (s)
+		free(s);
+}
+
+void	clear_table(t_data *data)
+{
+	if (data->root != NULL)
+	{
+		free_ast(data->root);
+		data->root = NULL;
+	}
+	data->pipes = 0;
+	data->redirs = 0;
+}
+
+void	free_ast(t_node *head)
+{
+	if (!head)
+		return ;
+	if (head->left != NULL)
+		free_ast(head->left);
+	if (head->right != NULL)
+		free_ast(head->right);
+	if (head->cmd)
+	{
+		free_split(head->cmd);
+		head->cmd = NULL;
+	}
+	if (head->value)
+	{
+		free(head->value);
+		head->value = NULL;
+	}
+	free(head);
 }

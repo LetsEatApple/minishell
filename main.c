@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/12 14:12:25 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:27:53 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void	init_msh(t_data *data)
 	if (data->token_list != NULL)
 	{
 		preparsing(data);
-		printf("pipes: %d and redirs: %d\n", data->pipes, data->redirs);
+	//	printf("pipes: %d and redirs: %d\n", data->pipes, data->redirs);
 	}
-	if (data->token_list != NULL)
-		print_list(data);
+//	if (data->token_list != NULL)
+	//	print_token_list(data);
 	if (data->token_list != NULL)
 	{
 		if (data->pipes || data->redirs)
@@ -48,7 +48,7 @@ void	init_msh(t_data *data)
 			get_root(data);
 			ops = data->redirs + data->pipes;
 			build_ast(data, ops);
-			//ft_init(data->root, data->env);
+			ft_init(data->root, data->env);
 			clear_table(data);
 		}
 		else
@@ -78,7 +78,7 @@ int main(int ac, char **av, char **envp)
 		if (data.input)
 		{
 			lexing(&data);
-			print_list(&data);
+		//	print_list(&data);
 			init_msh(&data);
 		}
 	}
@@ -107,8 +107,8 @@ const char *g_token_type[] = {
     "REDIR_OUT_APPEND",
     "HEREDOC",
     "WORD",
-    "ENV_VAR",
-    "WHITESPACE",
+	"CMD",
+    "ENV",
 };
 
 const char* get_token_type(t_token_type type) {

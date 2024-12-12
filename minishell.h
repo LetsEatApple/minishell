@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/12 14:06:09 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/12 16:40:09 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void			init_msh(t_data *data);
 void			free_data(t_data *data);
 int				init_data(t_data *data, int ac, char **envp);
 void			handle_sig(int sig);
-void			free_split(char **s);
 int				is_whitespace(char c);
 int				print_env(char **env);
 
@@ -67,7 +66,7 @@ void			free_split(char **s);
 int				lexing(t_data *data);
 void			create_list(t_token **head, char *value, t_token_type type);
 void			clearlist(t_token **head);
-void			print_list(t_data *data);
+void			print_token_list(t_data *data);
 t_token_type	check_char(char c);
 char			*copy_part(char *input, int start, int len);
 char			**split_string(char *input, int start, int len);

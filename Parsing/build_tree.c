@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/12 13:36:39 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 18:02:26 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,32 @@ t_node	*create_node(t_token *token)
 	if (new_node == NULL)
 		return (NULL);
 	if (token->type != CMD)
+	{
+		new_node->cmd = NULL;
 		new_node->value = ft_strdup(token->value);
+	}
 	else
+	{
+		new_node->value = NULL;
 		new_node->cmd = token->cmd;
+		token->cmd = NULL;
+	}
 	new_node->type = token->type;
 	token->node = 1;
 	new_node->left = NULL;
 	new_node->right = NULL;
 	new_node->node = 1;
+	// if (new_node->cmd)
+	// {
+	// 	int i = 0;
+	// 	while (new_node->cmd[i])
+	// 	{
+	// 		printf("created node for '%s'\n", new_node->cmd[i]);
+	// 		i++;
+	// 	}
+	// }
+	// else
+	// 	printf("created node for '%s'\n", new_node->value);
 	return (new_node);
 }
 
@@ -38,12 +56,13 @@ void	build_ast(t_data *data, int ops)
 	og_ops = ops;
 	if (ops > 0)
 	{
+//		printf("building left branch\n");
 		ops = ops_before_root(data->token_list);
 		build_left_branch(data->root, data->token_list, ops);
 		ops = og_ops - ops;
 	}
 	build_right_branch(data->root, data->token_list, ops);
-	//print_tree(data->root, 0);
+//	print_tree(data->root, 0);
 }
 
 void	build_right_branch(t_node *root, t_token *t_list, int ops)
@@ -53,10 +72,14 @@ void	build_right_branch(t_node *root, t_token *t_list, int ops)
 
 	current = t_list;
 	next_op = NULL;
+//	printf("building right branch\n");
 	while (current->node == 1)
 		current = current->next;
 	if (root->left == NULL)
+	{
+//		printf("root.left = '%s'\n", current->cmd[0]);
 		root->left = create_node(current);
+	}
 	if (ops)
 	{
 		next_op = find_next_op(current);

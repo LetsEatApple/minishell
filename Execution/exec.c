@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/12 14:06:35 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:45:10 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 void	ft_init(t_node *node, char **env)
 {
+	// if (node->type != CMD)
+	// 	printf("Init w/ '%s', Type: %s\n", node->value, get_token_type(node->type));
 	if (node->type == PIPE)
 		handle_pipe(node, env);
 	else if (node->type == REDIR_IN)
 		handle_redir_in(node, env);
 	else if (node->type == REDIR_OUT)
 		handle_redir_out(node, env);
-	else if (node->type == WORD)
+	else if (node->type == CMD)
 		ft_command(node->cmd, env);
 }
 
@@ -61,6 +63,73 @@ int	handle_pipe(t_node *node, char **envp)
 	return (0);
 }
 
+
+int	handle_redir_in(t_node *node, char **envp)
+{
+	int infile;
+	t_node *current = node;
+	char *final_file = NULL;
+
+	// Find the final input file
+	while (current->left && current->left->type == REDIR_IN)
+		current = current->left;
+	
+	if (current->right && current->right->value)
+		final_file = current->right->value;
+	
+	if (!final_file)
+		return (1);
+
+	infile = open(final_file, O_RDONLY);
+	if (infile == -1)
+	{
+		perror("Error opening input file");
+		return (1);
+	}
+
+	// Save the original stdin
+	int original_stdin = dup(STDIN_FILENO);
+	
+	// Redirect stdin
+	if (dup2(infile, STDIN_FILENO) == -1)
+	{
+		close(infile);
+		return (1);
+	}
+	
+	close(infile);
+	
+	// Execute the command
+	ft_init(node->left, envp);
+	
+	// Restore original stdin
+	dup2(original_stdin, STDIN_FILENO);
+	close(original_stdin);
+	
+	return (0);
+}
+
+int	handle_redir_out(t_node *node, char **envp)
+{
+	int	outfile;
+	int	res;
+
+	res = 0;
+	while (node->right->type == REDIR_OUT)
+	{
+		outfile = open(node->right->left->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		close(outfile);
+		node->right = node->right->right;
+	}
+	outfile = open(node->right->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (outfile < 0)
+		print_error("Error: Open: File could not be created\n", 1);
+	dup2(outfile, STDOUT_FILENO);
+	close(outfile);
+	ft_init(node->left, envp);
+	return (res);
+}
+
 int	ft_wait(int pid1, t_node *node)
 {
 	int	status1;
@@ -86,62 +155,4 @@ int	ft_wait(int pid1, t_node *node)
 		exit (EXIT_FAILURE);
 	}
 	return (check);
-}
-
-int	handle_redir_in(t_node *node, char **envp)
-{
-	int	infile;
-
-	while (node->left->type == REDIR_IN)
-	{
-		printf("node being opened: '%s'\n", node->right->value);
-		infile = open(node->right->value, O_RDONLY);
-		if (infile == -1)
-		{
-			printf("invalid infile\n");
-			close(infile);
-			return (1);
-		}
-		node->left = node->left->left;
-	}
-	infile = open(node->right->value, O_RDONLY);
-	if (infile == -1)
-	{
-		printf("invalid infile\n");
-		close(infile);
-		return (1);
-	}
-	dup2(infile, STDIN_FILENO);
-	close(infile);
-	pid_t	exec_child;
-	exec_child = fork();
-	if (exec_child == 0)
-	{
-		ft_init(node->left, envp);
-		exit(EXIT_SUCCESS);
-	}
-	waitpid(exec_child, NULL, 0);
-//	printf("here\n");
- 	return (0);
-}
-
-int	handle_redir_out(t_node *node, char **envp)
-{
-	int	outfile;
-	int	res;
-
-	res = 0;
-	while (node->right->type == REDIR_OUT)
-	{
-		outfile = open(node->right->left->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		close(outfile);
-		node->right = node->right->right;
-	}
-	outfile = open(node->right->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (outfile < 0)
-		print_error("Error: Open: File could not be created\n", 1);
-	dup2(outfile, STDOUT_FILENO);
-	close(outfile);
-	ft_init(node->left, envp);
-	return (res);
 }

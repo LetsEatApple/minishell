@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+         #
+#    By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2024/12/10 21:33:43 by lhagemos         ###   ########.fr        #
+#    Updated: 2024/12/12 16:36:48 by grmullin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,6 @@ Lexing/token.c \
 Parsing/build_tree.c \
 Parsing/get_root.c \
 Parsing/parsing_utils.c \
-Parsing/free.c \
 error.c \
 Preparsing/preparsing.c \
 Preparsing/env.c \
@@ -50,21 +49,21 @@ LIBFT := $(LIBFT_DIR)/libft.a
 all: $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT): 
-	make -C $(LIBFT_DIR) -s
+	@make -C $(LIBFT_DIR) -s
 
 $(NAME): $(LIBFT) $(MINISHELL_H) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LDFLAGS) -o $(NAME)
 
 clean:
 	@make clean -C $(LIBFT_DIR)
-	$(RM) $(OBJS)
+	@$(RM) $(OBJS)
 
 fclean: clean
 	@make fclean -C $(LIBFT_DIR)
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all
 
