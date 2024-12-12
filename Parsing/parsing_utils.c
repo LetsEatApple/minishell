@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:11:11 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/09 10:17:11 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/12 13:44:40 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	ops_before_root(t_token *token_list)
 
 int	is_token_op(t_token *token)
 {
+	//you could also just say if (token->type > 1 && token->type < 7)
 	if (token->type == PIPE || token->type == REDIR_IN
 		|| token->type == REDIR_OUT || token->type == REDIR_OUT_APPEND
 		|| token->type == HEREDOC)

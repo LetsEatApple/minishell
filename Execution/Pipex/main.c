@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/22 10:21:57 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/10 17:05:49 by lhagemos         ###   ########.fr       */
+/*   Created: 2024/10/16 17:48:23 by lhagemos          #+#    #+#             */
+/*   Updated: 2024/11/08 10:47:31 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "pipex.h"
 
-void	free_data(t_data *data)
+int	main(int ac, char **av, char **env)
 {
-	if (data->input)
-		free(data->input);
-	data->pipes = 0;
-	data->redirs = 0;
-	clearlist(&data->token_list);
-}
+	t_pro	pipex;
 
-void	free_split(char **s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
+	if (ac != 5)
 	{
-		free(s[i]);
-		i++;
+		ft_putstr_fd("Error: Too few/many arguments passed!\n", 2);
+		return (1);
 	}
-	free(s);
+	ft_memset(&pipex, 0, sizeof(t_pro));
+	check_files(&pipex, av);
+	collect_data(&pipex, av, env);
+	ft_pipe(&pipex);
+	free_memory(pipex);
+	return (0);
 }

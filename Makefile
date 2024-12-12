@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+         #
+#    By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2024/12/09 11:52:15 by grmullin         ###   ########.fr        #
+#    Updated: 2024/12/10 21:33:43 by lhagemos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,12 @@ Parsing/get_root.c \
 Parsing/parsing_utils.c \
 Parsing/free.c \
 error.c \
+Preparsing/preparsing.c \
+Preparsing/env.c \
+Preparsing/prep_utils.c \
+Preparsing/env_utils.c \
+Preparsing/cmd_utils.c \
+Preparsing/path.c \
 
 OBJS := $(FILES:.c=.o)
 MINISHELL_H := minishell.h
@@ -53,6 +59,7 @@ $(NAME): $(LIBFT) $(MINISHELL_H) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LDFLAGS) -o $(NAME)
 
 clean:
+	@make clean -C $(LIBFT_DIR)
 	$(RM) $(OBJS)
 
 fclean: clean

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:31:24 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/09 16:31:43 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/10 17:20:01 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ size_t	ft_strlcpy(char *dest, const char *src, unsigned int size)
 // #include <stdio.h>
 // #include <bsd/string.h>
 // #include <string.h>
-
 // int	main(void)
 // {
 // 	char dest[] = "Not copied!";

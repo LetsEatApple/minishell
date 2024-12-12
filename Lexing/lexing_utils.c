@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:10:19 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/01 16:06:09 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/10 21:42:25 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 t_token_type	check_char(char c)
 {
-	char	*non_char;
-	t_token_type type;
-	int		i;
-	
+	char			*non_char;
+	t_token_type	type;
+	int				i;
+
 	non_char = "\'\"|><";
 	i = 0;
 	type = WORD;
-	while(non_char[i])
+	while (non_char[i])
 	{
 		if (c == non_char[i])
 		{
@@ -40,7 +40,7 @@ char	*copy_part(char *input, int start, int len)
 
 	value = malloc(len +1);
 	i = 0;
-	while(len-- > 0)
+	while (len-- > 0)
 	{
 		value[i] = input[start];
 		i++;
@@ -58,7 +58,7 @@ char	**split_string(char *input, int start, int len)
 
 	temp = copy_part(input, start, len);
 	i = 0;
-	while(temp[i])
+	while (temp[i])
 	{
 		if (temp[i] == 9)
 			temp[i] = 32;
@@ -90,12 +90,12 @@ int	get_value_len(char *input, int i, t_token_type type)
 
 void	check_syntax(t_token **head)
 {
-	t_token *ptr;
+	t_token	*ptr;
 
 	if (head == NULL)
 		return ;
 	ptr = *head;
-	while(ptr != NULL)
+	while (ptr != NULL)
 	{
 		if (ptr->type > 1 && ptr->type < 7)
 		{
@@ -104,7 +104,9 @@ void	check_syntax(t_token **head)
 				syntax_error(head, ptr->value[0]);
 				return ;
 			}
-			if (ptr->type == PIPE && ptr->prev->type != WORD)
+			if (ptr->type == PIPE && ptr->prev->type != WORD
+				&& ptr->prev->type != SINGLE_QUOTE
+				&& ptr->prev->type != DOUBLE_QUOTE)
 			{
 				syntax_error(head, ptr->value[0]);
 				return ;
