@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/10 21:33:17 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 12:16:59 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void			ft_built_ins(char *input);
 int				ft_echo(t_data *data);
 
 /*             Execution           */
-void			ft_command(char *input, char **env);
+void			ft_command(t_data *data);
 void			ft_init(t_node *node, char **env);
 int				handle_pipe(t_node *node, char **envp);
 int				ft_wait(int pid1, t_node *node);
@@ -52,7 +52,7 @@ int				handle_redir_out(t_node *node, char **envp);
 char			*ft_get_first_word(char *s);
 void			ft_exec_command(char *input, char **env);
 void			ft_path_checker(char *paths, char *cmd, char **env);
-void			ft_exec(char *path, char **args, char **env);
+void			ft_exec(t_data *data);
 
 /*              Env.vars            */
 int				get_key_len(char *env);

@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/10 22:06:25 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 12:23:16 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	init_msh(t_data *data)
 			clear_table(data);
 		}
 		else
-			ft_command(data->input, data->env);
+			ft_command(data);
 	}
 	free_data(data);
 }

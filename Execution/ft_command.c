@@ -6,21 +6,43 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:15:59 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/10 18:24:54 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 12:29:22 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_command(char *input, char **env)
+void	ft_command(t_data *data)
 {
-	if (is_built_in(input))
-		ft_built_ins(input);
-	else
-		ft_exec_command(input, env);
+	/* if (is_built_in(data->token_list->cmd[0]))
+		ft_built_ins(data->token_list->cmd[0]);
+	else */
+		ft_exec(data);
 }
 
-void	ft_exec_command(char *cmd, char **env)
+
+
+void	ft_exec(t_data *data)
+{
+	char	**args;
+	int		id;
+
+	id = fork();
+	args = data->token_list->cmd;
+	if (id < 0)
+		return ;
+	if (id == 0)
+	{
+		if (execve(args[0], args, data->env) == -1)
+			printf("command not found: %s\n", args[0]);
+		free_data(data);
+		exit (4);
+	}
+	wait(NULL);
+	return ;
+}
+
+/* void	ft_exec_command(char *cmd, char **env)
 {
 	int		i;
 	int		j;
@@ -56,10 +78,4 @@ void	ft_path_checker(char *paths, char *cmd, char **env)
 	free(correct);
 	free(full_path);
 	free(args);
-}
-
-void	ft_exec(char *path, char **args, char **env)
-{
-	if (execve(path, args, env) == -1)
-		print_error("Execve error\n", 127);
-}
+} */

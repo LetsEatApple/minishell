@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 17:00:28 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/10 21:32:34 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 12:35:34 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ void	replace_envvar(t_data *data)
 	ptr = data->token_list;
 	while (ptr != NULL)
 	{
-		if (check_dollar(ptr->value) == true && ptr->type != SINGLE_QUOTE)
+		if (ptr->value != NULL && check_dollar(ptr->value) == true
+			&& ptr->type != SINGLE_QUOTE)
 			switch_value(ptr, data->env);
 		ptr = ptr->next;
 	}
