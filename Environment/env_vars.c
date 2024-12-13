@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_vars.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 11:53:44 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/10 18:23:57 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/13 12:52:58 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	print_env_sing(t_data *data, char *env)
 	char	*key;
 	char	*value;
 	int		key_len;
+	int		value_len;
 	int		i;
 
 	key = NULL;
@@ -46,7 +47,8 @@ void	print_env_sing(t_data *data, char *env)
 			break ;
 		i++;
 	}
-	value = ft_substr(data->env[i], key_len + 1, ft_strlen(data->env[i]) - key_len);
+	value_len = ft_strlen(data->env[i]) - key_len;
+	value = ft_substr(data->env[i], key_len + 1, value_len);
 	ft_putstr_fd(value, 1);
 	free (key);
 	free (value);

@@ -6,13 +6,13 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/12 17:45:10 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/13 13:43:20 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_init(t_node *node, char **env)
+void	execute(t_node *node, char **env)
 {
 	// if (node->type != CMD)
 	// 	printf("Init w/ '%s', Type: %s\n", node->value, get_token_type(node->type));
@@ -42,7 +42,7 @@ int	handle_pipe(t_node *node, char **envp)
 		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
-		ft_init(node->left, envp);
+		execute(node->left, envp);
 		exit(EXIT_SUCCESS);
 	}
 	rightpid = fork();
@@ -53,7 +53,7 @@ int	handle_pipe(t_node *node, char **envp)
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
-		ft_init(node->right, envp);
+		execute(node->right, envp);
 		exit(EXIT_SUCCESS);
 	}
 	close(fd[0]);
@@ -63,49 +63,37 @@ int	handle_pipe(t_node *node, char **envp)
 	return (0);
 }
 
-
 int	handle_redir_in(t_node *node, char **envp)
 {
-	int infile;
-	t_node *current = node;
-	char *final_file = NULL;
+	t_node	*current;
+	char	*final_file;
+	int		original_stdin;
+	int		infile;
 
-	// Find the final input file
+	current = node;
+	final_file = NULL;
 	while (current->left && current->left->type == REDIR_IN)
 		current = current->left;
-	
 	if (current->right && current->right->value)
 		final_file = current->right->value;
-	
 	if (!final_file)
 		return (1);
-
 	infile = open(final_file, O_RDONLY);
 	if (infile == -1)
 	{
 		perror("Error opening input file");
 		return (1);
 	}
-
-	// Save the original stdin
-	int original_stdin = dup(STDIN_FILENO);
-	
-	// Redirect stdin
+	original_stdin = dup(STDIN_FILENO);
 	if (dup2(infile, STDIN_FILENO) == -1)
 	{
 		close(infile);
 		return (1);
 	}
-	
 	close(infile);
-	
-	// Execute the command
-	ft_init(node->left, envp);
-	
-	// Restore original stdin
+	execute(node->left, envp);
 	dup2(original_stdin, STDIN_FILENO);
 	close(original_stdin);
-	
 	return (0);
 }
 
@@ -126,7 +114,7 @@ int	handle_redir_out(t_node *node, char **envp)
 		print_error("Error: Open: File could not be created\n", 1);
 	dup2(outfile, STDOUT_FILENO);
 	close(outfile);
-	ft_init(node->left, envp);
+	execute(node->left, envp);
 	return (res);
 }
 

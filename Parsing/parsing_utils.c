@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:11:11 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/12 13:44:40 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/13 13:37:16 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,11 @@ int	ops_before_root(t_token *token_list)
 	{
 		if (token_list->node)
 			break ;
-		if (is_token_op(token_list))
+		if (token_list->type > 1 && token_list->type < 7)
 			ops++;
 		token_list = token_list->next;
 	}
 	return (ops);
-}
-
-int	is_token_op(t_token *token)
-{
-	//you could also just say if (token->type > 1 && token->type < 7)
-	if (token->type == PIPE || token->type == REDIR_IN
-		|| token->type == REDIR_OUT || token->type == REDIR_OUT_APPEND
-		|| token->type == HEREDOC)
-		return (1);
-	return (0);
 }
 
 t_token	*find_prev_op(t_token *token_list)
@@ -45,7 +35,8 @@ t_token	*find_prev_op(t_token *token_list)
 	current = token_list;
 	while (current)
 	{
-		if (is_token_op(current) && current->node == 0)
+		if (current->node == 0 && (current->type > 1
+				&& current->type < 7))
 			return (current);
 		current = current->prev;
 	}
@@ -59,7 +50,8 @@ t_token	*find_next_op(t_token *token_list)
 	current = token_list;
 	while (current)
 	{
-		if (is_token_op(current) && current->node == 0)
+		if (current->node == 0 && (current->type > 1 
+				&& current->type < 7))
 			return (current);
 		current = current->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/12 18:02:26 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/13 13:22:59 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,19 @@ t_node	*create_node(t_token *token)
 	new_node->left = NULL;
 	new_node->right = NULL;
 	new_node->node = 1;
-	// if (new_node->cmd)
-	// {
-	// 	int i = 0;
-	// 	while (new_node->cmd[i])
-	// 	{
-	// 		printf("created node for '%s'\n", new_node->cmd[i]);
-	// 		i++;
-	// 	}
-	// }
-	// else
-	// 	printf("created node for '%s'\n", new_node->value);
+//	print_node(new_node);
 	return (new_node);
 }
 
-void	build_ast(t_data *data, int ops)
+void	parsing(t_data *data)
 {
 	int	og_ops;
+	int	ops;
 
-	og_ops = ops;
+	og_ops = data->redirs + data->pipes;
+	ops = og_ops;
 	if (ops > 0)
 	{
-//		printf("building left branch\n");
 		ops = ops_before_root(data->token_list);
 		build_left_branch(data->root, data->token_list, ops);
 		ops = og_ops - ops;
@@ -72,13 +63,17 @@ void	build_right_branch(t_node *root, t_token *t_list, int ops)
 
 	current = t_list;
 	next_op = NULL;
-//	printf("building right branch\n");
 	while (current->node == 1)
 		current = current->next;
 	if (root->left == NULL)
 	{
-//		printf("root.left = '%s'\n", current->cmd[0]);
-		root->left = create_node(current);
+		if (current->type == CMD)
+			root->left = create_node(current);
+		else
+		{
+			create_outfile(current); // how necessary
+			return ;
+		}
 	}
 	if (ops)
 	{
@@ -103,7 +98,7 @@ void	build_left_branch(t_node *root, t_token *t_list, int ops)
 
 	current = t_list;
 	prev_op = NULL;
-	while (current->node == 0) //again why node?
+	while (current->node == 0)
 		current = current->next;
 	if (ops)
 	{

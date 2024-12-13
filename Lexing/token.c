@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:20:31 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/10 18:32:18 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/13 13:31:54 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,26 +59,26 @@ void	create_list(t_token **head, char *value, t_token_type type)
 void	clearlist(t_token **head)
 {
 	t_token	*ptr;
+	t_token	*next;
 
-	if (*head == NULL || !*head)
-		return ;
+	if (!head || !*head)
+		return;
 	ptr = *head;
 	while (ptr != NULL)
 	{
-		if (ptr->next == NULL)
+		next = ptr->next;
+		if (ptr->value)
 		{
-			if (ptr->value != NULL)
-				free(ptr->value);
-			if (ptr->cmd != NULL)
-				free_split(ptr->cmd);
-			free(ptr);
-			break ;
-		}
-		if (ptr->value != NULL)
 			free(ptr->value);
-		if (ptr->cmd != NULL)
+			ptr->value = NULL;
+		}
+		if (ptr->cmd && !ptr->node)
+		{
 			free_split(ptr->cmd);
-		ptr = ptr->next;
-		free(ptr->prev);
+			ptr->cmd = NULL;
+		}
+		free(ptr);
+		ptr = next;
 	}
+	*head = NULL;
 }

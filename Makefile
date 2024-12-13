@@ -6,12 +6,13 @@
 #    By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2024/12/12 16:36:48 by grmullin         ###   ########.fr        #
+#    Updated: 2024/12/13 12:48:47 by grmullin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := minishell
 FILES := main.c \
+delete_later.c \
 Init/init.c \
 Init/free.c \
 Environment/env_vars.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:44:35 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/12 12:53:51 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/13 13:40:58 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ char	*ft_get_first_word(char *s)
 		j++;
 	}
 	return (new);
+}
+
+void	create_outfile(t_token *outfile)
+{
+	printf("creating file for '%s'\n", outfile->value);
+	open(outfile->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 }
 
 void	print_error(char *str, int n)
