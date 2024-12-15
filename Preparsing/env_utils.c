@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:59:01 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/12 18:21:38 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 19:30:27 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ t_token	*cut_token(char	*s)
 		if (s[i] != '\0' && s[i] != '$')
 			process_text(&head, s, &i);
 	}
-	//print_list(head);
 	return (head);
 }
+//print_list(head);
 
 char	*reconnect(t_token **head)
 {

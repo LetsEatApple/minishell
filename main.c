@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/12 18:22:12 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 19:24:23 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	handle_sig(int sig)
 
 void	init_msh(t_data *data)
 {
-	int	ops;
+	/* int	ops;
 
-	ops = 0;
+	ops = 0; */
 	if (data->token_list != NULL)
 	{
 		preparsing(data);
@@ -45,11 +45,12 @@ void	init_msh(t_data *data)
 	{
 		if (data->pipes || data->redirs)
 		{
-			get_root(data);
+			/* get_root(data);
 			ops = data->redirs + data->pipes;
 			build_ast(data, ops);
-			//ft_init(data->root, data->env);
-			clear_table(data);
+			ft_init(data->root, data->env);
+			clear_table(data); */
+			printf("ops\n");
 		}
 		else
 			ft_command(data->token_list->cmd, data->env);

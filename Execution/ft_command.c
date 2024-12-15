@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:15:59 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/12 12:43:03 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 20:15:44 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_command(char **cmd, char **env)
 {
-	/* if (is_built_in(data->token_list->cmd[0]))
-		ft_built_ins(data->token_list->cmd[0]);
-	else */
+	if (is_built_in(cmd[0]))
+		ft_built_ins(cmd, env);
+	else
 		ft_exec(cmd, env);
 }
 

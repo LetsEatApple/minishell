@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 15:22:13 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/12 16:25:19 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 20:11:12 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	ft_built_ins(char **cmd, char **env)
 {
 	(void) env;
 	if (ft_strncmp(cmd[0], "echo", 4) == 0)
-		printf("enters ft_echo\n");
-    //    ft_echo(input);
+		ft_echo(cmd);
     // else if (ft_strncmp(s, "cd", 2) == 0)
     //     return (ft_cd(s)); // needs to be passed ENVP
     // else if (ft_strncmp(s, "pwd", 3) == 0)
