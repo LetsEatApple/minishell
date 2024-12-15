@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:47:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/15 12:34:19 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/15 13:22:51 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	process_quote(t_token **head, char *input, int *i)
 		return ;
 	}
 	if (len == 1)
-		create_list(head, "", type);// null or empty string?
+		create_list(head, "", type);
 	else
 	{
 		value = copy_part(input, *i +1, len -1);

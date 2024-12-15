@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 19:26:29 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/15 12:50:22 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/15 13:28:33 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	valid_next(t_token *token)
 {
-	t_token *current;
+	t_token	*current;
 
 	current = token->prev;
 	while (token && token->type == WHITESPACE)
@@ -24,8 +24,8 @@ int	valid_next(t_token *token)
 	if (current->type != PIPE)
 	{
 		if (token->type != WORD && token->type != SINGLE_QUOTE
-		&& token->type != DOUBLE_QUOTE)
-		return (false);
+			&& token->type != DOUBLE_QUOTE)
+			return (false);
 	}
 	return (true);
 }
@@ -38,9 +38,6 @@ int	valid_prev(t_token *token)
 		return (false);
 	if (token->type == PIPE)
 		return (false);
-	/* if (token->type != WORD && token->type != SINGLE_QUOTE
-		&& token->type != DOUBLE_QUOTE)
-		return (false); */
 	return (true);
 }
 

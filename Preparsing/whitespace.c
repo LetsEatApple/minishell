@@ -6,12 +6,12 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 19:33:25 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/15 12:35:21 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/15 13:26:06 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-//continue here, if start.value == NULL check
+
 void	connect_words(t_token **head)
 {
 	t_token	*ptr;
