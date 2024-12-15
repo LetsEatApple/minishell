@@ -6,11 +6,19 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:10:19 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/10 21:42:25 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 19:26:54 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	is_wspace(char c)
+{
+	if (c == ' ' || c == '\t' || c == '\n' \
+		|| c == '\f' || c == '\v' || c == '\r')
+		return (true);
+	return (false);
+}
 
 t_token_type	check_char(char c)
 {
@@ -23,9 +31,12 @@ t_token_type	check_char(char c)
 	type = WORD;
 	while (non_char[i])
 	{
-		if (c == non_char[i])
+		if (c == non_char[i] || is_wspace(c) == true)
 		{
-			type = i;
+			if (c == non_char[i])
+				type = i;
+			else
+				type = WHITESPACE;
 			return (type);
 		}
 		i++;
@@ -86,34 +97,6 @@ int	get_value_len(char *input, int i, t_token_type type)
 		i++;
 	}
 	return (len);
-}
-
-void	check_syntax(t_token **head)
-{
-	t_token	*ptr;
-
-	if (head == NULL)
-		return ;
-	ptr = *head;
-	while (ptr != NULL)
-	{
-		if (ptr->type > 1 && ptr->type < 7)
-		{
-			if (ptr->next == NULL || ptr->next->type != WORD)
-			{
-				syntax_error(head, ptr->value[0]);
-				return ;
-			}
-			if (ptr->type == PIPE && ptr->prev->type != WORD
-				&& ptr->prev->type != SINGLE_QUOTE
-				&& ptr->prev->type != DOUBLE_QUOTE)
-			{
-				syntax_error(head, ptr->value[0]);
-				return ;
-			}
-		}
-		ptr = ptr->next;
-	}
 }
 
 /* void	add_to_list(t_token **head, char **words)

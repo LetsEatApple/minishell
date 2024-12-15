@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_command.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:15:59 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/13 13:00:11 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/15 14:12:22 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	ft_command(char **cmd, char **env)
 {
-	/* if (is_built_in(data->token_list->cmd[0]))
-		ft_built_ins(data->token_list->cmd[0]);
-	else */
-	ft_exec(cmd, env);
+	if (is_built_in(cmd[0]))
+		ft_built_ins(cmd, env);
+	else
+		ft_exec(cmd, env);
 }
 
 void	ft_exec(char **cmd, char **env)

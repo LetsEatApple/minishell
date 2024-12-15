@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 17:00:28 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/12 12:35:34 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/12 19:36:41 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	replace_envvar(t_data *data)
 	t_token	*ptr;
 
 	ptr = data->token_list;
-	while (ptr != NULL)
+	while (ptr)
 	{
 		if (ptr->value != NULL && check_dollar(ptr->value) == true
 			&& ptr->type != SINGLE_QUOTE)
@@ -87,8 +87,9 @@ void	replace_envvar(t_data *data)
 void	preparsing(t_data *data)
 {
 	count_ops(data);
-	get_files(data->token_list);
 	replace_envvar(data);
+	handle_whitespaces(data, &data->token_list);
+	get_files(data->token_list);
 	search_cmd(&data->token_list);
 	modify_cmd(data);
 }

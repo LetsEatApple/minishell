@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 15:06:06 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/10 15:16:53 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/15 12:38:21 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	delete_rest(t_token *start, t_token *end)
 	ptr = start->next;
 	while (ptr != end)
 	{
-		if (ptr->value != NULL)
+		if (ptr->value != NULL && ptr->value[0] != '\0')
 			free(ptr->value);
 		if (ptr->next == NULL)
 		{

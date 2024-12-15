@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/13 13:18:37 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/15 14:11:25 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ void	init_msh(t_data *data)
 {
 	lexing(data);
 	if (data->token_list != NULL)
-	{
 		preparsing(data);
+	if (data->token_list != NULL)
+	{
+		//print_list(data->token_list);
 		if (data->pipes || data->redirs)
 		{
 			get_root(data);

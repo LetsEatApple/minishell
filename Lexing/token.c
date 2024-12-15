@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:20:31 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/13 13:31:54 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/15 14:12:06 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_token	*new_token(char *value, t_token_type type)
 	new -> cmd = NULL;
 	new -> type = type;
 	new -> file = 0;
+	new -> word = 0;
 	new->node = 0;
 	new->root = 0;
 	new -> next = NULL;
