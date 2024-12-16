@@ -6,7 +6,7 @@
 #    By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2024/12/16 11:46:53 by grmullin         ###   ########.fr        #
+#    Updated: 2024/12/16 12:36:32 by grmullin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,9 @@ Environment/env_vars.c \
 Execution/ft_command.c \
 Execution/exec.c \
 Execution/exec_utils.c \
+Parsing/two_tokens.c \
 Execution/Builtins/builtins.c \
 Execution/Builtins/ft_echo.c \
-Lexing/error.c \
 Lexing/lexing.c \
 Lexing/lexing_utils.c \
 Lexing/utils.c \
@@ -30,6 +30,7 @@ Lexing/syntax.c \
 Parsing/build_tree.c \
 Parsing/get_root.c \
 Parsing/parsing_utils.c \
+error.c \
 Preparsing/preparsing.c \
 Preparsing/env.c \
 Preparsing/prep_utils.c \
@@ -58,7 +59,7 @@ $(LIBFT):
 	@make -C $(LIBFT_DIR) -s
 
 $(NAME): $(LIBFT) $(MINISHELL_H) $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LDFLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LDFLAGS) -o $(NAME)
 
 clean:
 	@make clean -C $(LIBFT_DIR)

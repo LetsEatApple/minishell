@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:51:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/15 14:12:00 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/16 12:24:17 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	print_arr(char **cmd)
 	}
 }
 
-void	print_list(t_token *token_list)
+void	print_token_list(t_token *token_list)
 {
 	t_token	*ptr;
 
@@ -38,15 +38,15 @@ void	print_list(t_token *token_list)
 	while (ptr != NULL)
 	{
 		if (ptr -> value != NULL)
-			printf("[value: %s, type: %d] ", ptr->value, ptr->type);
+			printf("value: '%s', type: %s\n", ptr->value, get_token_type(ptr->type));
 		else if (ptr->cmd != NULL)
 		{
 			print_arr(ptr->cmd);
-			printf(", type: %d] ", ptr->type);
+			printf(", type: %s\n", get_token_type(ptr->type));
 		}
 		else
-			printf("[value: NULL, type: %d] ", ptr->type);
-		printf("word = %d ", ptr->word);
+			printf("value: NULL, type: %s\n ", get_token_type(ptr->type));
+	//	printf("word = %d ", ptr->word);
 		ptr = ptr -> next;
 	}
 	printf("\n");

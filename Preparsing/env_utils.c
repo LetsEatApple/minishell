@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:59:01 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/12 19:30:27 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/16 12:55:38 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ t_token	*cut_token(char	*s)
 	}
 	return (head);
 }
-//print_list(head);
 
 char	*reconnect(t_token **head)
 {

@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/16 11:47:24 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/16 12:36:15 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,8 @@ int				ft_wait(int pid1, t_node *node);
 int				handle_redir_in(t_node *node, char **envp);
 int				handle_redir_out(t_node *node, char **envp);
 char			*ft_get_first_word(char *s);
-void			ft_exec_command(char *input, char **env);
-void			ft_path_checker(char *paths, char *cmd, char **env);
 void			ft_exec(char **cmd, char **env);
-void			create_outfile(char *outfile, char **envp);
-
+void			handle_two_tokens(t_data *data);
 /*              Env.vars            */
 int				get_key_len(char *env);
 char			*get_env(t_data *data, char *new);
@@ -67,7 +64,7 @@ void			free_split(char **s);
 int				lexing(t_data *data);
 void			create_list(t_token **head, char *value, t_token_type type);
 void			clearlist(t_token **head);
-void			print_list(t_token *token_list);
+void			print_token_list(t_token *token_list);
 void			print_arr(char **cmd);
 t_token_type	check_char(char c);
 char			*copy_part(char *input, int start, int len);

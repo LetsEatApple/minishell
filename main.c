@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/16 11:46:22 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/16 12:57:42 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ void	init_msh(t_data *data)
 		preparsing(data);
 	if (data->token_list != NULL)
 	{
-		//print_list(data->token_list);
-		if (data->pipes || data->redirs)
+	//	print_token_list(data->token_list);
+		if (list_size(data->token_list) == 2 && (data->redirs || data->pipes))
+			handle_two_tokens(data);
+		else if (data->pipes || data->redirs)
 		{
 			get_root(data);
 			parsing(data);
@@ -45,10 +47,7 @@ void	init_msh(t_data *data)
 			clear_table(data);
 		}
 		else
-		{
-//			printf("type is '%s'\n", get_token_type(data->token_list->type));
 			ft_command(data->token_list->cmd, data->env);
-		}
 	}
 	free_data(data);
 }

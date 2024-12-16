@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/16 11:27:17 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/16 12:53:20 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,10 +153,7 @@ int	handle_redir_out(t_node *node, char **envp)
 		print_error("Error: Open: File could not be created\n", 1);
 	dup2(outfile, STDOUT_FILENO);
 	close(outfile);
-	if (node->left->cmd) // remove when fixed
-		execute(node->left, envp);
-	// else
-	// 	create_outfile(node->right->value, envp);
+	execute(node->left, envp);
 	return (res);
 }
 

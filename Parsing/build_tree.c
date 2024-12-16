@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/16 11:22:19 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/16 12:50:54 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	build_right_branch(t_node *root, t_token *t_list, int ops)
 	next_op = NULL;
 	while (current->node == 1)
 		current = current->next;
-//	print_token(current);
 	if (root->left == NULL)
 	{
 		if (current->type == CMD) // remove this line when fixed
