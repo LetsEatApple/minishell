@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/13 18:53:19 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:46:22 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ void	init_msh(t_data *data)
 {
 	lexing(data);
 	if (data->token_list != NULL)
-	{
 		preparsing(data);
+	if (data->token_list != NULL)
+	{
+		//print_list(data->token_list);
 		if (data->pipes || data->redirs)
 		{
 			get_root(data);

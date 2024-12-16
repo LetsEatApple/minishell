@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/13 16:48:03 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:47:24 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int				is_whitespace(char c);
 int				print_env(char **env);
 
 /*              Builtins            */
-int				is_built_in(char *value);
-void			ft_built_ins(char *input);
-int				ft_echo(t_data *data);
+int				is_built_in(char *cmd);
+void			ft_built_ins(char **cmd, char **env);
+int				ft_echo(char **cmd);
 
 /*             Execution           */
 void			ft_command(char **cmd, char **env);
@@ -67,7 +67,8 @@ void			free_split(char **s);
 int				lexing(t_data *data);
 void			create_list(t_token **head, char *value, t_token_type type);
 void			clearlist(t_token **head);
-void			print_token_list(t_data *data);
+void			print_list(t_token *token_list);
+void			print_arr(char **cmd);
 t_token_type	check_char(char c);
 char			*copy_part(char *input, int start, int len);
 char			**split_string(char *input, int start, int len);
@@ -88,6 +89,9 @@ void			store_cmd(t_token *start, t_token *end, int len);
 int				check_dollar(char *s);
 void			switch_value(t_token *token, char **env);
 void			modify_cmd(t_data *data);
+void			delete_rest(t_token *start, t_token *end);
+void			delete_node(t_token **head, t_token *todelete);
+void			handle_whitespaces(t_data *data, t_token **head);
 
 /*                Parsing             */
 void			get_root(t_data *data);

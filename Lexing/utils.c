@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:51:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/13 13:39:00 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/15 14:12:00 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	print_arr(char **cmd)
 	int	i;
 
 	i = 0;
+	printf("[cmd: ");
 	while (cmd[i] != NULL)
 	{
 		if (cmd[i][0] != '\0')
@@ -27,22 +28,26 @@ void	print_arr(char **cmd)
 	}
 }
 
-void print_token_list(t_data *data)
+void	print_list(t_token *token_list)
 {
 	t_token	*ptr;
 
-	if (data->token_list == NULL)
-		return;
-	ptr = data->token_list;
-	while (ptr != NULL) {
-		if (ptr->value != NULL)
-			printf("value: %s, type: %s\n", ptr->value, get_token_type(ptr->type));
-		else if (ptr->cmd != NULL) {
+	if (token_list == NULL)
+		return ;
+	ptr = token_list;
+	while (ptr != NULL)
+	{
+		if (ptr -> value != NULL)
+			printf("[value: %s, type: %d] ", ptr->value, ptr->type);
+		else if (ptr->cmd != NULL)
+		{
 			print_arr(ptr->cmd);
-			printf(", type: %s\n", get_token_type(ptr->type));
-		} else
-			printf("value: NULL, type: %s\n", get_token_type(ptr->type));
-		// printf("file = %d\n", ptr->file);
-		ptr = ptr->next;
+			printf(", type: %d] ", ptr->type);
+		}
+		else
+			printf("[value: NULL, type: %d] ", ptr->type);
+		printf("word = %d ", ptr->word);
+		ptr = ptr -> next;
 	}
+	printf("\n");
 }
