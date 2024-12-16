@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/13 13:22:59 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:22:19 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,13 @@ void	build_right_branch(t_node *root, t_token *t_list, int ops)
 	next_op = NULL;
 	while (current->node == 1)
 		current = current->next;
+//	print_token(current);
 	if (root->left == NULL)
 	{
-		if (current->type == CMD)
+		if (current->type == CMD) // remove this line when fixed
 			root->left = create_node(current);
-		else
-		{
-			create_outfile(current); // how necessary
-			return ;
-		}
+		else if (current->next->type == CMD)
+			root->left = create_node(current->next);
 	}
 	if (ops)
 	{
@@ -109,5 +107,10 @@ void	build_left_branch(t_node *root, t_token *t_list, int ops)
 		build_left_branch(root->left, t_list, ops);
 	}
 	else
-		root->left = create_node(current->prev);
+	{
+		if (current->prev)
+			root->left = create_node(current->prev);
+		else if (current->next->next->type == CMD)
+			root->left = create_node(current->next->next);
+	}
 }

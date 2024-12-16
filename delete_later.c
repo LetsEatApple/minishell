@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:48:08 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/13 13:20:27 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/16 10:04:37 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,32 @@
 
 void    print_node(t_node *node)
 {
+	if (node->cmd)
+	{
+		int i = 0;
+		while (node->cmd[i])
+		{
+			printf("currnode is c-m-d '%s'\n", node->cmd[i]);
+			i++;
+		}
+	}
+	else
+		printf("currnode is '%s'\n", node->value);
+}
+
+void    print_token(t_token *node)
+{
     if (node->cmd)
 	{
 		int i = 0;
 		while (node->cmd[i])
 		{
-			printf("created node for '%s'\n", node->cmd[i]);
+			printf("current is '%s' type '%s'\n", node->cmd[i], get_token_type(node->type));;
 			i++;
 		}
 	}
 	else
-		printf("created node for '%s'\n", node->value);
+		printf("current is '%s' type '%s'\n", node->value, get_token_type(node->type));;
 }
 
 void print_tree(t_node *node, int level)
@@ -34,7 +49,10 @@ void print_tree(t_node *node, int level)
 	print_tree(node->right, level + 1);
 	for (int i = 0; i < level; i++)
 		printf("    ");
-	printf("Node Value: '%s', Type: %s\n", node->value, get_token_type(node->type));
+	if (node->value)
+		printf("Node Value: '%s', Type: %s\n", node->value, get_token_type(node->type));
+	else
+		printf("Node Value: '%s', Type: %s\n", node->cmd[0], get_token_type(node->type));
 	print_tree(node->left, level + 1);
 }
 

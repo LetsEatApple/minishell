@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/13 13:43:20 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:27:17 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,20 @@ void	execute(t_node *node, char **env)
 	// if (node->type != CMD)
 	// 	printf("Init w/ '%s', Type: %s\n", node->value, get_token_type(node->type));
 	if (node->type == PIPE)
-		handle_pipe(node, env);
+	{
+		if (handle_pipe(node, env) == 1)
+			return ;
+	}	
 	else if (node->type == REDIR_IN)
-		handle_redir_in(node, env);
+	{
+		if (handle_redir_in(node, env) == 1)
+			return ;
+	}
 	else if (node->type == REDIR_OUT)
-		handle_redir_out(node, env);
+	{
+		if (handle_redir_out(node, env) == 1)
+			return ;
+	}
 	else if (node->type == CMD)
 		ft_command(node->cmd, env);
 }
@@ -63,6 +72,35 @@ int	handle_pipe(t_node *node, char **envp)
 	return (0);
 }
 
+t_node	*get_current(t_node *node)
+{
+	if (node->left->type == REDIR_IN) // goes here if a pipe is present
+	{
+		while (node->left->type == REDIR_IN)
+		{
+			if (open(node->right->value, O_RDONLY) == -1)
+			{
+				printf("bash: %s: No such file or directory\n", node->right->value);
+				return (NULL);
+			}
+			node->left = node->left->left;
+		}
+	}
+	else if (node->right->type == REDIR_IN) // goes here if no pipe is present
+	{
+		while (node->right->type == REDIR_IN)
+		{
+			node = node->right;
+			if (open(node->left->value, O_RDONLY) == -1)
+			{
+				printf("bash: %s: No such file or directory\n", node->left->value);
+				return (NULL);
+			}
+		}
+	}
+	return (node);
+}
+
 int	handle_redir_in(t_node *node, char **envp)
 {
 	t_node	*current;
@@ -70,31 +108,32 @@ int	handle_redir_in(t_node *node, char **envp)
 	int		original_stdin;
 	int		infile;
 
-	current = node;
 	final_file = NULL;
-	while (current->left && current->left->type == REDIR_IN)
-		current = current->left;
-	if (current->right && current->right->value)
+	current = get_current(node);
+	if (current != NULL)
+	{
 		final_file = current->right->value;
-	if (!final_file)
-		return (1);
-	infile = open(final_file, O_RDONLY);
-	if (infile == -1)
-	{
-		perror("Error opening input file");
-		return (1);
-	}
-	original_stdin = dup(STDIN_FILENO);
-	if (dup2(infile, STDIN_FILENO) == -1)
-	{
+		if (!final_file)
+			return (1);
+		infile = open(final_file, O_RDONLY);
+		if (infile == -1)
+		{
+			printf("bash: %s: No such file or directory\n", final_file);
+			return (1);
+		}
+		original_stdin = dup(STDIN_FILENO);
+		if (dup2(infile, STDIN_FILENO) == -1)
+		{
+			close(infile);
+			return (1);
+		}
 		close(infile);
-		return (1);
+		execute(node->left, envp);
+		dup2(original_stdin, STDIN_FILENO);
+		close(original_stdin);
+		return (0);
 	}
-	close(infile);
-	execute(node->left, envp);
-	dup2(original_stdin, STDIN_FILENO);
-	close(original_stdin);
-	return (0);
+	return (1);
 }
 
 int	handle_redir_out(t_node *node, char **envp)
@@ -114,7 +153,10 @@ int	handle_redir_out(t_node *node, char **envp)
 		print_error("Error: Open: File could not be created\n", 1);
 	dup2(outfile, STDOUT_FILENO);
 	close(outfile);
-	execute(node->left, envp);
+	if (node->left->cmd) // remove when fixed
+		execute(node->left, envp);
+	// else
+	// 	create_outfile(node->right->value, envp);
 	return (res);
 }
 
