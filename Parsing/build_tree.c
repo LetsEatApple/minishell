@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/16 12:50:54 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/17 14:45:36 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ t_node	*create_node(t_token *token)
 	new_node->left = NULL;
 	new_node->right = NULL;
 	new_node->node = 1;
-//	print_node(new_node);
 	return (new_node);
 }
 
@@ -53,7 +52,8 @@ void	parsing(t_data *data)
 		ops = og_ops - ops;
 	}
 	build_right_branch(data->root, data->token_list, ops);
-//	print_tree(data->root, 0);
+	// print_tree(data->root, 0);
+	// printf("\n\n");
 }
 
 void	build_right_branch(t_node *root, t_token *t_list, int ops)
@@ -67,7 +67,7 @@ void	build_right_branch(t_node *root, t_token *t_list, int ops)
 		current = current->next;
 	if (root->left == NULL)
 	{
-		if (current->type == CMD) // remove this line when fixed
+		if (current->type == CMD)
 			root->left = create_node(current);
 		else if (current->next->type == CMD)
 			root->left = create_node(current->next);

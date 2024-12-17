@@ -6,7 +6,7 @@
 #    By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2024/12/16 12:36:32 by grmullin         ###   ########.fr        #
+#    Updated: 2024/12/17 11:12:57 by grmullin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,7 @@ $(LIBFT):
 	@make -C $(LIBFT_DIR) -s
 
 $(NAME): $(LIBFT) $(MINISHELL_H) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LDFLAGS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LDFLAGS) -o $(NAME)
 
 clean:
 	@make clean -C $(LIBFT_DIR)
