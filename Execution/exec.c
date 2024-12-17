@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/17 17:06:58 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:41:04 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	execute(t_node *node, char **env)
 {
 	// if (node->type != CMD)
-	// 	ft_printf_fd("Init w/ '%s' in init \n", node->value);
+	// 	ft_printf_fd(node->value);
 	if (node->type == PIPE)
 		handle_pipe(node, env);
 	else if (node->type == REDIR_IN)
@@ -126,9 +126,11 @@ int	handle_redir_in(t_node *node, char **envp)
 
 int	handle_redir_out(t_node *node, char **envp)
 {
+	int	original_stdout;
 	int	outfile;
 	int	res;
 
+	original_stdout = dup(STDOUT_FILENO);
 	res = 0;
 	while (node->right->type == REDIR_OUT)
 	{
@@ -142,6 +144,8 @@ int	handle_redir_out(t_node *node, char **envp)
 	dup2(outfile, STDOUT_FILENO);
 	close(outfile);
 	execute(node->left, envp);
+	dup2(original_stdout, STDOUT_FILENO);
+	close(original_stdout);
 	return (res);
 }
 
