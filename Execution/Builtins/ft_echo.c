@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:20:07 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/15 13:30:58 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/17 16:51:45 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_echo(char **cmd)
 	int	n;
 
 	n = 0;
-	printf("size: %d\n", ft_arrlen(cmd));
+//	printf("size: %d\n", ft_arrlen(cmd));
 	if (ft_arrlen(cmd) > 1 && ft_strncmp(cmd[1], "-n", 3) == 0)
 		n = 1;
 	i = n +1;

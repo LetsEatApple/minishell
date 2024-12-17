@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_command.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:15:59 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/15 14:12:22 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:07:49 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ void	ft_exec(char **cmd, char **env)
 {
 	int		id;
 
-//	printf("about to exec '%s'\n", cmd[0]);
+	//ft_printf_fd(cmd[0]);
 	id = fork();
 	if (id < 0)
 		return ;
 	if (id == 0)
 	{
 		if (execve(cmd[0], cmd, env) == -1)
-			printf("command not found: %s\n", cmd[0]);
+			printf("%s: command not found\n", cmd[0]);
 		free_split(env);
 		free_split(cmd);
 		exit (127);

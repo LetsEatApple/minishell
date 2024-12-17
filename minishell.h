@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/17 15:31:13 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:05:19 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int				handle_redir_out(t_node *node, char **envp);
 char			*ft_get_first_word(char *s);
 void			ft_exec(char **cmd, char **env);
 void			handle_two_tokens(t_data *data);
-void			ft_printf_fd(char *full_str, char *print);
+void			ft_printf_fd(char *print);
 /*              Env.vars            */
 int				get_key_len(char *env);
 char			*get_env(t_data *data, char *new);
