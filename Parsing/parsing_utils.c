@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:11:11 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/16 16:12:40 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:14:22 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 
 int	ops_before_root(t_token *token_list)
 {
-	int	ops;
+	t_token	*list_copy;
+	int		ops;
 
+	list_copy = token_list;
 	ops = 0;
-	while (token_list && token_list->next)
+	while (list_copy && list_copy->next)
 	{
-		if (token_list->node)
+		if (list_copy->node)
 			break ;
-		if (token_list->type > 1 && token_list->type < 7)
+		if (list_copy->type > 1 && list_copy->type < 7)
 			ops++;
-		token_list = token_list->next;
+		list_copy = list_copy->next;
 	}
 	return (ops);
 }

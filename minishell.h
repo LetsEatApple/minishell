@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/17 11:53:52 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:31:13 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,11 @@ t_node			*get_first_pipe(t_token *t_list);
 t_node			*get_first_redir(t_token *t_list);
 t_node			*create_node(t_token *token);
 void			parsing(t_data *data);
-void			build_left_branch(t_node *root, t_token *t_list, int ops);
-void			build_right_branch(t_node *root, t_token *t_list, int ops);
+void			build_left_branch(t_data *data, t_node *root, t_token *t_list);
+void			build_right_branch(t_data *data, t_node *root, t_token *t_list);
 void			free_ast(t_node *head);
 int				ops_before_root(t_token *token_list);
+t_token			*get_first_command(t_token *current);
 t_token			*find_prev_op(t_token *token_list); // merge?
 t_token			*find_next_op(t_token *token_list);
 void			clear_table(t_data *data);

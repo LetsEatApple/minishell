@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:24:42 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/16 12:51:55 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:18:23 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	get_root(t_data *data)
 		data->root = get_first_redir(data->token_list);
 		data->redirs--;
 	}
+	data->ops--;
 }
 
 t_node	*get_first_pipe(t_token *t_list)
