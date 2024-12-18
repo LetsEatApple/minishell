@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:20:07 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/15 13:30:58 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:12:05 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	ft_echo(char **cmd)
 	int	n;
 
 	n = 0;
-	printf("size: %d\n", ft_arrlen(cmd));
 	if (ft_arrlen(cmd) > 1 && ft_strncmp(cmd[1], "-n", 3) == 0)
 		n = 1;
 	i = n +1;

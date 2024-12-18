@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:29:00 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/12 18:13:40 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:49:56 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ void	replace_specialp(t_token **head, char **env)
 	{
 		if (ptr->type == ENV && ft_strncmp("$", ptr->value, 2) != 0)
 		{
-			value = search_env(ptr->value, env);
+			if (ft_strncmp(ptr->value, "$?", 3) == 0)
+				value = ft_itoa(g_signal);
+			else
+				value = search_env(ptr->value, env);
 			free(ptr->value);
 			ptr->value = value;
 		}

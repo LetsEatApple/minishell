@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:59:01 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/12 19:30:27 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:03:51 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,22 @@ void	process_specialp(t_token **head, char *s, int *i)
 
 	size = 0;
 	j = *i;
-	printf("in process sp\n");
 	while (s[j])
 	{
 		if (j != *i && check_seperator(s[j]) == true)
+		{
+			if (s[j] == '?')
+			{
+				size++;
+				j++;
+			}
 			break ;
+		}
 		size++;
 		j++;
 	}
 	sp = copy_part(s, *i, size);
-	printf("sp = %s\n", sp);
+	//printf("sp = %s\n", sp);
 	create_list(head, sp, ENV);
 	*i += size;
 }

@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/15 14:10:03 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:49:31 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ int				print_env(char **env);
 
 /*              Builtins            */
 int				is_built_in(char *cmd);
-void			ft_built_ins(char **cmd, char **env);
+int				ft_built_ins(char **cmd, char **env);
 int				ft_echo(char **cmd);
+int				ft_arrlen(char **cmd);
 
 /*             execute           */
 void			ft_command(char **cmd, char **env);
@@ -58,7 +59,7 @@ void			create_outfile(t_token *outfile);
 int				get_key_len(char *env);
 char			*get_env(t_data *data, char *new);
 char			**init_envp(char **envp);
-int				print_env_all(char **env);
+int				print_env_all(char **cmd, char **env);
 void			print_env_sing(t_data *data, char *env);
 int				print_env(char **env);
 void			free_split(char **s);
@@ -110,6 +111,7 @@ void			clear_table(t_data *data);
 /*               Error               */
 void			syntax_error(t_token **head, char c);
 void			print_error(char *str, int n);
+void			print_err(const char *error, char *target);
 
 /*              Delete              */
 void			print_node(t_node *node);
