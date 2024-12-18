@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:44:35 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/17 17:04:18 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/18 11:46:19 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	ft_printf_fd(char *print)
 	free(bash);
 	free(final);
 }
-void	print_error(char *str, int n)
+void	print_error(char *str, int signal)
 {
 	printf("%s\n", str);
-	g_signal = n;
+	g_signal = signal;
 }

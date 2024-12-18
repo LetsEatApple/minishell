@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/17 17:05:19 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/18 11:40:46 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ int				ft_echo(char **cmd);
 /*             Execution           */
 void			ft_command(char **cmd, char **env);
 void			execute(t_node *node, char **env);
-int				handle_pipe(t_node *node, char **envp);
+void			handle_pipe(t_node *node, char **envp);
 int				ft_wait(int pid1, t_node *node);
-int				handle_redir_in(t_node *node, char **envp);
-int				handle_redir_out(t_node *node, char **envp);
+void			handle_redir_in(t_node *node, char **envp);
+void			handle_redir_out(t_node *node, char **envp);
+void			handle_redir_append(t_node *node, char **envp);
 char			*ft_get_first_word(char *s);
 void			ft_exec(char **cmd, char **env);
 void			handle_two_tokens(t_data *data);
@@ -108,7 +109,7 @@ void			clear_table(t_data *data);
 
 /*               Error               */
 void			syntax_error(t_token **head, char c);
-void			print_error(char *str, int n);
+void			print_error(char *str, int signal);
 
 /*              Delete              */
 void            print_token(t_token *node);
