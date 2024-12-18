@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:01:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/18 15:47:44 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/18 17:24:25 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void	modify_cmd(t_data *data)
 	{
 		if (ptr->type == CMD)
 		{
-			printf("%s\n", ptr->cmd[0]);
 			if (is_built_in(ptr->cmd[0]) == false)
 				get_path(ptr, data);
 		}

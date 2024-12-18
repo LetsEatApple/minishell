@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:15:59 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/18 15:49:24 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/18 17:23:07 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_command(char **cmd, char **env)
 {
-	printf("cmd = %s\n", cmd[0]);
 	if (is_built_in(cmd[0]))
 		ft_built_ins(cmd, env);
 	else
