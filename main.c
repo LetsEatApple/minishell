@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/15 14:11:25 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:00:10 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@ void	handle_sig(int sig)
 void	init_msh(t_data *data)
 {
 	lexing(data);
+	print_list(data->token_list);
 	if (data->token_list != NULL)
 		preparsing(data);
 	if (data->token_list != NULL)
 	{
-		//print_list(data->token_list);
+		print_list(data->token_list);
 		if (data->pipes || data->redirs)
 		{
 			get_root(data);

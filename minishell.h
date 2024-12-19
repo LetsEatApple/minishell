@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/18 15:49:31 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:01:15 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void			modify_cmd(t_data *data);
 void			delete_rest(t_token *start, t_token *end);
 void			delete_node(t_token **head, t_token *todelete);
 void			handle_whitespaces(t_data *data, t_token **head);
+void			delete_arg(t_token **head);
 
 /*                Parsing             */
 void			get_root(t_data *data);

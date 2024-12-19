@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 15:06:06 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/15 12:38:21 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:02:32 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,23 @@ void	delete_rest(t_token *start, t_token *end)
 		end->prev = start;
 }
 
+void	delete_arg(t_token **head)
+{
+	t_token	*ptr;
+
+	ptr = *head;
+	while (ptr)
+	{
+		if (ptr->arg == 1)
+		{
+			delete_node(head, ptr);
+			ptr = *head;
+		}
+		else
+			ptr = ptr->next;
+	}
+}
+
 void	store_cmd(t_token *start, t_token *end, int len)
 {
 	t_token	*ptr;
@@ -45,17 +62,22 @@ void	store_cmd(t_token *start, t_token *end, int len)
 	i = 0;
 	while (ptr != end)
 	{
-		if (ptr->value == NULL)
-			ptr->value = ft_strdup("");
-		cmd[i] = ft_strdup(ptr->value);
+		if (ptr->arg == 1)
+		{
+			if (ptr->value == NULL)
+				ptr->value = ft_strdup("");
+			cmd[i] = ft_strdup(ptr->value);
+			i++;
+		}
 		ptr = ptr->next;
-		i++;
+		
 	}
 	cmd[i] = NULL;
 	free(start->value);
 	start->value = NULL;
 	start->cmd = cmd;
 	start->type = CMD;
-	if (len != 1)
-		delete_rest(start, end);
+	start->arg = 0;
+	/* if (len != 1)
+		delete_rest(start, end); */
 }

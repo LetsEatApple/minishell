@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/18 17:42:03 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/19 11:03:59 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_token
 	char			**cmd;
 	t_token_type	type;
 	int				file;
-	//int				cmd;
+	int				arg;
 	int				node;
 	int				root;
 	int				word;
