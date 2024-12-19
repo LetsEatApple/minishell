@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:44:35 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/18 11:46:19 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:19:11 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,15 @@ char	*ft_get_first_word(char *s)
 	return (new);
 }
 
-void	ft_printf_fd(char *print)
-{
-	char	*final;
-	char	*bash;
+// void	ft_printf_fd(char *print)
+// {
+// 	char	*final;
+// 	char	*bash;
 
-	bash = ft_strjoin("bash: ", print);
-	final = ft_strjoin(bash, ": No such file or directory\n");
-	ft_putstr_fd(final, 2);
-	free(bash);
-	free(final);
-}
-void	print_error(char *str, int signal)
-{
-	printf("%s\n", str);
-	g_signal = signal;
-}
+// 	bash = ft_strjoin("bash: ", print);
+// 	final = ft_strjoin(bash, ": No such file or directory\n");
+// 	ft_putstr_fd(final, 2);
+// 	free(bash);
+// 	free(final);
+// }
+

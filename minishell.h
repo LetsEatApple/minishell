@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/18 11:40:46 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:58:43 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,19 @@ int				print_env(char **env);
 
 /*              Builtins            */
 int				is_built_in(char *cmd);
-void			ft_built_ins(char **cmd, char **env);
+void			ft_built_ins(t_data *data, char **cmd);
 int				ft_echo(char **cmd);
 
 /*             Execution           */
-void			ft_command(char **cmd, char **env);
-void			execute(t_node *node, char **env);
-void			handle_pipe(t_node *node, char **envp);
+void			ft_command(t_data *data, char **cmd);
+void			execute(t_data *data, t_node *node);
+void			handle_pipe(t_data *data, t_node *node);
 int				ft_wait(int pid1, t_node *node);
-void			handle_redir_in(t_node *node, char **envp);
-void			handle_redir_out(t_node *node, char **envp);
-void			handle_redir_append(t_node *node, char **envp);
+void			handle_redir_in(t_data *data, t_node *node);
+void			handle_redir_out(t_data *data, t_node *node);
+void			handle_redir_append(t_data *data, t_node *node);
 char			*ft_get_first_word(char *s);
-void			ft_exec(char **cmd, char **env);
+void			ft_exec(t_data *data, char **cmd);
 void			handle_two_tokens(t_data *data);
 void			ft_printf_fd(char *print);
 /*              Env.vars            */
@@ -109,7 +109,8 @@ void			clear_table(t_data *data);
 
 /*               Error               */
 void			syntax_error(t_token **head, char c);
-void			print_error(char *str, int signal);
+void			printf_error(char *str, int signal);
+void			print_error_fd(const char *error, char *target);
 
 /*              Delete              */
 void            print_token(t_token *node);

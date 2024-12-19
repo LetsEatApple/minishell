@@ -6,56 +6,56 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/18 11:38:12 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:49:35 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	execute(t_node *node, char **env)
+void	execute(t_data *data, t_node *node)
 {
 	// if (node->type != CMD)
 	// 	ft_printf_fd(node->value);
 	if (node->type == PIPE)
-		handle_pipe(node, env);
+		handle_pipe(data, node);
 	else if (node->type == REDIR_IN)
-		handle_redir_in(node, env);
+		handle_redir_in(data, node);
 	else if (node->type == REDIR_OUT)
-		handle_redir_out(node, env);
+		handle_redir_out(data, node);
 	else if (node->type == REDIR_OUT_APPEND)
-		handle_redir_append(node, env);
+		handle_redir_append(data, node);
 	else if (node->type == CMD)
-		ft_command(node->cmd, env);
+		ft_command(data, node->cmd);
 }
 
-void	handle_pipe(t_node *node, char **envp)
+void	handle_pipe(t_data *data, t_node *node)
 {
 	int		fd[2];
 	pid_t	leftpid;
 	pid_t	rightpid;
 
 	if (pipe(fd) == -1)
-		print_error("Error making pipe", 1);
+		printf_error("Error making pipe", 1);
 	leftpid = fork();
 	if (leftpid < 0)
-		print_error("Error with fork()\n", 1);
+		printf_error("Error with fork()\n", 1);
 	if (leftpid == 0)
 	{
 		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
-		execute(node->left, envp);
+		execute(data, node->left);
 		exit(EXIT_SUCCESS);
 	}
 	rightpid = fork();
 	if (rightpid < 0)
-		print_error("Error with fork()\n", 1);
+		printf_error("Error with fork()\n", 1);
 	if (rightpid == 0)
 	{
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
-		execute(node->right, envp);
+		execute(data, node->right);
 		exit(EXIT_SUCCESS);
 	}
 	close(fd[0]);

@@ -6,11 +6,20 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:11:11 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/17 15:14:22 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/19 13:14:12 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+t_token	*get_first_command(t_token *current)
+{
+	if (current->type == CMD)
+			return(current);
+	else if (current->next->type == CMD)
+			return(current->next);
+	return (NULL);
+}
 
 int	ops_before_root(t_token *token_list)
 {

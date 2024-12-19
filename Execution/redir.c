@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/18 11:51:26 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:35:37 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,27 @@
 
 t_node	*get_current(t_node *node)
 {
+	int	fd;
+
+	fd = 0;
 	if (node->type == REDIR_IN) // goes here if a pipe is present
 	{
-		if (open(node->right->value, O_RDONLY) == -1)
+		fd = open(node->right->value, O_RDONLY);
+		if (fd == -1)
 		{
-			ft_printf_fd(node->right->value);
+			print_error_fd("bash: %s: No such file or directory\n", node->right->value);
 			return (NULL);
 		}
+		close(fd);
 		while (node->left->type == REDIR_IN)
 		{
-			if (open(node->left->right->value, O_RDONLY) == -1)
+			fd = open(node->left->right->value, O_RDONLY);
+			if (fd == -1)
 			{
-				ft_printf_fd(node->left->right->value);
+				print_error_fd("bash: %s: No such file or directory\n", node->right->value);
 				return (NULL);
 			}
+			close(fd);
 			node->left = node->left->left;
 		}
 	}
@@ -46,19 +53,19 @@ t_node	*get_current(t_node *node)
 	return (node);
 }
 
-void	handle_redir_in(t_node *node, char **envp)
+void	handle_redir_in(t_data *data, t_node *node)
 {
 	t_node	*current;
 	char	*final_file;
 	int		original_stdin;
 	int		infile;
 
-	final_file = NULL;
 	current = get_current(node);
-	if (current)
-		final_file = current->right->value;
+	if (!current)
+		return ;
+	final_file = current->right->value;
 	if (!final_file)
-		perror("malloc error");
+		return ;
 	infile = open(final_file, O_RDONLY);
 	original_stdin = dup(STDIN_FILENO);
 	if (dup2(infile, STDIN_FILENO) == -1)
@@ -67,12 +74,12 @@ void	handle_redir_in(t_node *node, char **envp)
 		return ;
 	}
 	close(infile);
-	execute(node->left, envp);
+	execute(data, node->left);
 	dup2(original_stdin, STDIN_FILENO);
 	close(original_stdin);
 }
 
-void	handle_redir_out(t_node *node, char **envp)
+void	handle_redir_out(t_data *data, t_node *node)
 {
 	int	original_stdout;
 	int	outfile;
@@ -88,15 +95,15 @@ void	handle_redir_out(t_node *node, char **envp)
 	}
 	outfile = open(node->right->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (outfile < 0)
-		print_error("Error: Open: File could not be created\n", 1);
+		printf_error("Error: Open: File could not be created\n", 1);
 	dup2(outfile, STDOUT_FILENO);
 	close(outfile);
-	execute(node->left, envp);
+	execute(data, node->left);
 	dup2(original_stdout, STDOUT_FILENO);
 	close(original_stdout);
 }
 
-void	handle_redir_append(t_node *node, char **envp)
+void	handle_redir_append(t_data *data, t_node *node)
 {
 	int	original_stdout;
 	int	outfile;
@@ -112,10 +119,10 @@ void	handle_redir_append(t_node *node, char **envp)
 	}
 	outfile = open(node->right->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (outfile < 0)
-		print_error("Error: Open: File could not be created\n", 1);
+		printf_error("Error: Open: File could not be created\n", 1);
 	dup2(outfile, STDOUT_FILENO);
 	close(outfile);
-	execute(node->left, envp);
+	execute(data, node->left);
 	dup2(original_stdout, STDOUT_FILENO);
 	close(original_stdout);
 }

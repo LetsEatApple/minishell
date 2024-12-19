@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/18 11:53:03 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:36:00 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	parsing(t_data *data)
 		build_left_branch(data, data->root, data->token_list);
 	build_right_branch(data, data->root, data->token_list);
 	// printf("\n");
-	// print_tree(data->root, 0);
+//	print_tree(data->root, 0);
 }
 
 void	build_right_branch(t_data *data, t_node *root, t_token *t_list)
@@ -74,15 +74,6 @@ void	build_right_branch(t_data *data, t_node *root, t_token *t_list)
 	}
 }
 
-t_token	*get_first_command(t_token *current)
-{
-	if (current->type == CMD)
-			return(current);
-	else if (current->next->type == CMD)
-			return(current->next);
-	return (NULL);
-}
-
 void	build_left_branch(t_data *data, t_node *root, t_token *t_list)
 {
 	t_token	*current;
@@ -102,9 +93,10 @@ void	build_left_branch(t_data *data, t_node *root, t_token *t_list)
 	}
 	else
 	{
-		if (current->prev)
+		if (current->prev && current->prev->value)
 			root->left = create_node(current->prev);
-		else if (current->next->next->type == CMD)
+		else if (current->next && current->next->next 
+			&& current->next->next->type == CMD)
 			root->left = create_node(current->next->next);
 	}
 }

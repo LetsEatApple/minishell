@@ -6,21 +6,21 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:15:59 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/17 17:43:01 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:41:59 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_command(char **cmd, char **env)
+void	ft_command(t_data *data, char **cmd)
 {
 	if (is_built_in(cmd[0]))
-		ft_built_ins(cmd, env);
+		ft_built_ins(data, cmd);
 	else
-		ft_exec(cmd, env);
+		ft_exec(data, cmd);
 }
 
-void	ft_exec(char **cmd, char **env)
+void	ft_exec(t_data *data, char **cmd)
 {
 	int		id;
 
@@ -29,11 +29,11 @@ void	ft_exec(char **cmd, char **env)
 		return ;
 	if (id == 0)
 	{
-		if (execve(cmd[0], cmd, env) == -1)
+		if (execve(cmd[0], cmd, data->env) == -1)
+		{
 			printf("%s: command not found\n", cmd[0]);
-		free_split(env);
-		free_split(cmd);
-		exit (127);
+			exit (127);
+		}
 	}
 	wait(NULL);
 	return ;

@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/17 17:29:11 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:23:59 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	init_msh(t_data *data)
 		{
 			get_root(data);
 			parsing(data);
-			execute(data->root, data->env);
+			execute(data, data->root);
 			clear_table(data);
 		}
 		else
-			ft_command(data->token_list->cmd, data->env);
+			ft_command(data, data->token_list->cmd);
 	}
 	free_data(data);
 }

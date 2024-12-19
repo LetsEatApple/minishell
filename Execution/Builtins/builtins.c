@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 15:22:13 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/12 20:11:12 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:57:23 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_built_ins(char **cmd, char **env)
+void	ft_built_ins(t_data *data, char **cmd)
 {
-	(void) env;
+	(void)data;
 	if (ft_strncmp(cmd[0], "echo", 4) == 0)
 		ft_echo(cmd);
     // else if (ft_strncmp(s, "cd", 2) == 0)
