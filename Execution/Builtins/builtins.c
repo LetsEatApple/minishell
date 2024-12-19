@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 15:22:13 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/18 15:50:06 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:24:41 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	ft_built_ins(char **cmd, char **env)
 		return(ft_echo(cmd));
     // else if (ft_strncmp(s, "cd", 3) == 0)
     //     return (ft_cd(s)); // needs to be passed ENVP
-    // else if (ft_strncmp(s, "pwd", 4) == 0)
-    //     return (ft_pwd(s));
+	if (ft_strncmp(cmd[0], "pwd", 4) == 0)
+		return (ft_pwd(cmd, env));
     // else if (ft_strncmp(s, "export", 7) == 0)
     //     return (ft_export(s));
     // else if (ft_strncmp(s, "unset", 6))

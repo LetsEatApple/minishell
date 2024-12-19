@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:20:07 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/18 15:12:05 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:45:13 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,36 @@ int	ft_echo(char **cmd)
 	}
 	if (n == 0)
 		printf("\n");
+	return (0);
+}
+
+int	ft_pwd(char **cmd, char** env)
+{
+	int		i;
+	int		size;
+	char	*pwd;
+
+	if (ft_arrlen(cmd) != 1 && cmd[1][0] == '-')
+	{
+		print_err("invalid option: %s\n", cmd[1]);
+		return (2);
+	}
+	i = 0;
+	while (env[i])
+	{
+		if (strncmp(env[i], "PWD=", 4) == 0)
+			break ;
+		i++;
+	}
+	if (env[i] == NULL)
+	{
+		printf("no var\n"); //adjust
+		return (0); //adjust
+	}
+	size = ft_strlen(env[i]) - 4;
+	pwd = ft_substr(env[i], 4, size);
+	printf("%s\n", pwd);
+	free(pwd);
 	return (0);
 }
 
