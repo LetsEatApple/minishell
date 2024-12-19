@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/19 14:36:00 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:59:36 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	build_right_branch(t_data *data, t_node *root, t_token *t_list)
 		current = current->next;
 	if (root->left == NULL)
 		root->left = create_node(get_first_command(current));
-	if (data->ops)
+	if (find_next_op(current))
 	{
 		next_op = find_next_op(current);
 		data->ops--;

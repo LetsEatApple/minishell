@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/19 14:35:37 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:02:42 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_node	*get_current(t_node *node)
 			fd = open(node->left->right->value, O_RDONLY);
 			if (fd == -1)
 			{
-				print_error_fd("bash: %s: No such file or directory\n", node->right->value);
+				print_error_fd("bash: %s: No such file or directory\n", node->left->right->value);
 				return (NULL);
 			}
 			close(fd);
@@ -43,7 +43,8 @@ t_node	*get_current(t_node *node)
 		while (node->right->type == REDIR_IN)
 		{
 			node = node->right;
-			if (open(node->left->value, O_RDONLY) == -1)
+			fd = open(node->left->value, O_RDONLY);
+			if (fd == -1)
 			{
 				printf("bash: %s: No such file or directory\n", node->left->value);
 				return (NULL);
