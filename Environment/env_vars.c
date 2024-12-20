@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 11:53:44 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/18 15:29:23 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/20 12:12:08 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	print_env_all(char **cmd, char **env)
 
 	if (ft_arrlen(cmd) != 1)
 	{
-		print_err("invalid argument/option: %s\n", cmd[1]);
+		print_error_fd("invalid argument/option: %s\n", cmd[1]);
 		return (0); // adjust value
 	}
 	i = 0;

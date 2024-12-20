@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:20:07 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/20 12:06:20 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/20 12:13:01 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_pwd(char **cmd, char** env)
 
 	if (ft_arrlen(cmd) != 1 && cmd[1][0] == '-')
 	{
-		print_err("invalid option: %s\n", cmd[1]);
+		print_error_fd("invalid option: %s\n", cmd[1]);
 		return (2);
 	}
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/20 12:01:06 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/20 12:15:47 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int				print_env(char **env);
 
 /*              Builtins            */
 int				is_built_in(char *cmd);
-void			ft_built_ins(t_data *data, char **cmd);
+int				ft_built_ins(t_data *data, char **cmd);
 int				ft_echo(char **cmd);
 int				ft_arrlen(char **cmd);
 int				ft_pwd(char **cmd, char** env);
@@ -55,6 +55,7 @@ char			*ft_get_first_word(char *s);
 void			ft_exec(t_data *data, char **cmd);
 void			handle_two_tokens(t_data *data);
 void			ft_printf_fd(char *print);
+
 /*              Env.vars            */
 int				get_key_len(char *env);
 char			*get_env(t_data *data, char *new);
