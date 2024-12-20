@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/19 12:58:43 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/20 12:01:06 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int				print_env(char **env);
 int				is_built_in(char *cmd);
 void			ft_built_ins(t_data *data, char **cmd);
 int				ft_echo(char **cmd);
+int				ft_arrlen(char **cmd);
+int				ft_pwd(char **cmd, char** env);
 
 /*             Execution           */
 void			ft_command(t_data *data, char **cmd);
@@ -57,7 +59,7 @@ void			ft_printf_fd(char *print);
 int				get_key_len(char *env);
 char			*get_env(t_data *data, char *new);
 char			**init_envp(char **envp);
-int				print_env_all(char **env);
+int				print_env_all(char **cmd, char **env);
 void			print_env_sing(t_data *data, char *env);
 int				print_env(char **env);
 void			free_split(char **s);
@@ -91,6 +93,7 @@ void			modify_cmd(t_data *data);
 void			delete_rest(t_token *start, t_token *end);
 void			delete_node(t_token **head, t_token *todelete);
 void			handle_whitespaces(t_data *data, t_token **head);
+void			delete_arg(t_token **head);
 
 /*                Parsing             */
 void			get_root(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:20:31 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/15 14:12:06 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:15:42 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_token	*new_token(char *value, t_token_type type)
 	new -> cmd = NULL;
 	new -> type = type;
 	new -> file = 0;
+	new -> arg = 0;
 	new -> word = 0;
 	new->node = 0;
 	new->root = 0;
@@ -68,7 +69,7 @@ void	clearlist(t_token **head)
 	while (ptr != NULL)
 	{
 		next = ptr->next;
-		if (ptr->value)
+		if (ptr->value != NULL)
 		{
 			free(ptr->value);
 			ptr->value = NULL;

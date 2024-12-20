@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   preparsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 17:00:28 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/17 15:06:59 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/20 12:04:32 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,35 @@ void	search_cmd(t_token **head)
 		if ((ptr->type == WORD || ptr->type < 2) && ptr->file == false)
 		{
 			temp = ptr;
+			while (ptr && ptr->type != PIPE)
+			{
+				if ((ptr->type == WORD || ptr->type < 2) && ptr->file == false)
+				{
+					len++;
+					ptr->arg = 1;
+				}
+				ptr = ptr->next;
+			}
+			store_cmd(temp, ptr, len);
+		}
+		else
+			ptr = ptr->next;
+	}
+}
+
+/* void	search_cmd(t_token **head)
+{
+	t_token	*ptr;
+	t_token	*temp;
+	int		len;
+
+	ptr = *head;
+	while (ptr != NULL)
+	{
+		len = 0;
+		if ((ptr->type == WORD || ptr->type < 2) && ptr->file == false)
+		{
+			temp = ptr;
 			while (ptr && (ptr->type == WORD || ptr->type < 2))
 			{
 				len++;
@@ -68,7 +97,7 @@ void	search_cmd(t_token **head)
 		else
 			ptr = ptr->next;
 	}
-}
+} */
 
 void	replace_envvar(t_data *data)
 {
@@ -92,5 +121,6 @@ void	preparsing(t_data *data)
 	handle_whitespaces(data, &data->token_list);
 	get_files(data->token_list);
 	search_cmd(&data->token_list);
+	delete_arg(&data->token_list);
 	modify_cmd(data);
 }

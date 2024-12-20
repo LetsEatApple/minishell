@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:20:07 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/17 16:51:45 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/20 12:06:20 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	ft_echo(char **cmd)
 	int	n;
 
 	n = 0;
-//	printf("size: %d\n", ft_arrlen(cmd));
 	if (ft_arrlen(cmd) > 1 && ft_strncmp(cmd[1], "-n", 3) == 0)
 		n = 1;
 	i = n +1;
@@ -42,6 +41,36 @@ int	ft_echo(char **cmd)
 	}
 	if (n == 0)
 		printf("\n");
+	return (0);
+}
+
+int	ft_pwd(char **cmd, char** env)
+{
+	int		i;
+	int		size;
+	char	*pwd;
+
+	if (ft_arrlen(cmd) != 1 && cmd[1][0] == '-')
+	{
+		print_err("invalid option: %s\n", cmd[1]);
+		return (2);
+	}
+	i = 0;
+	while (env[i])
+	{
+		if (strncmp(env[i], "PWD=", 4) == 0)
+			break ;
+		i++;
+	}
+	if (env[i] == NULL)
+	{
+		printf("no var\n"); //adjust
+		return (0); //adjust
+	}
+	size = ft_strlen(env[i]) - 4;
+	pwd = ft_substr(env[i], 4, size);
+	printf("%s\n", pwd);
+	free(pwd);
 	return (0);
 }
 
