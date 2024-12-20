@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:24:42 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/18 11:23:21 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:27:58 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,17 @@ void	get_root(t_data *data)
 	data->ops--;
 }
 
-t_node	*get_first_pipe(t_token *t_list)
+t_node	*get_first_pipe(t_token *t_list) // fix here
 {
+	t_node *new_node;
+
 	while (t_list->next)
 	{
 		if (t_list->type == PIPE)
 		{
 			t_list->root = 1;
-			return (create_node(t_list));
+			new_node = create_node(t_list);
+			return (new_node);
 		}
 		t_list = t_list->next;
 	}
@@ -43,13 +46,16 @@ t_node	*get_first_pipe(t_token *t_list)
 
 t_node	*get_first_redir(t_token *t_list)
 {
+	t_node *new_node;
+
 	while (t_list->next)
 	{
 		if (t_list->type == REDIR_IN || t_list->type == REDIR_OUT \
 			|| t_list->type == REDIR_OUT_APPEND || t_list->type == HEREDOC)
 		{
 			t_list->root = 1;
-			return (create_node(t_list));
+			new_node = create_node(t_list);
+			return (new_node);
 		}
 		t_list = t_list->next;
 	}

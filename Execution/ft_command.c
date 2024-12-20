@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_command.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:15:59 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/20 12:05:38 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:32:47 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ void	ft_exec(t_data *data, char **cmd)
 			printf("%s: command not found\n", cmd[0]);
 			exit (127);
 		}
+		clear_table(data);
+		free_split(cmd);
+		exit(EXIT_SUCCESS);
 	}
 	wait(NULL);
 	return ;

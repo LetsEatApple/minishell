@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/19 15:02:42 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:28:35 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_node	*get_current(t_node *node)
 			return (NULL);
 		}
 		close(fd);
-		while (node->left->type == REDIR_IN)
+		while (node->left && node->left->type == REDIR_IN)
 		{
 			fd = open(node->left->right->value, O_RDONLY);
 			if (fd == -1)
@@ -90,7 +90,9 @@ void	handle_redir_out(t_data *data, t_node *node)
 	{
 		outfile = open(node->right->left->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (outfile < 0)
-			perror("open error");
+		{
+			printf_error("Error: Open: File could not be created\n", 1);
+		}
 		close(outfile);
 		node->right = node->right->right;
 	}

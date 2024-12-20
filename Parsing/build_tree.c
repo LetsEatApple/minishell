@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/20 17:10:51 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/20 17:21:20 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_node	*create_node(t_token *token)
 	if (token->type != CMD)
 	{
 		new_node->cmd = NULL;
-		new_node->value = ft_strdup(token->value);
+		new_node->value = token->value;
 	}
 	else
 	{
@@ -78,24 +78,27 @@ void	build_left_branch(t_data *data, t_node *root, t_token *t_list)
 {
 	t_token	*current;
 	t_token	*prev_op;
+	t_token	*prev_op_next;
 
 	current = t_list;
 	prev_op = NULL;
+	prev_op_next = NULL;
 	while (current->node == 0)
 		current = current->next;
 	if (ops_before_root(t_list))
 	{
 		prev_op = find_prev_op(current);
+		prev_op_next = (find_prev_op(current))->next;
 		root->left = create_node(prev_op);
-		root->left->right = create_node(prev_op->next);
+		root->left->right = create_node(prev_op_next);
 		data->ops--;
 		build_left_branch(data, root->left, t_list);
 	}
 	else
 	{
-		if (current->prev && current->prev->value)
+		if (current->prev)
 			root->left = create_node(current->prev);
-		else if (current->next && current->next->next 
+		else if (current->next->next 
 			&& current->next->next->type == CMD)
 			root->left = create_node(current->next->next);
 	}

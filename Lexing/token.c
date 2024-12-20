@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:20:31 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/19 12:15:42 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/20 17:01:19 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ void	clearlist(t_token **head)
 	while (ptr != NULL)
 	{
 		next = ptr->next;
-		if (ptr->value != NULL)
-		{
-			free(ptr->value);
-			ptr->value = NULL;
-		}
+		// if (ptr->value != NULL)
+		// {
+		// 	free(ptr->value);
+		// 	ptr->value = NULL;
+		// }
 		if (ptr->cmd && !ptr->node)
 		{
 			free_split(ptr->cmd);
