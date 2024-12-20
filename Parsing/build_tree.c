@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/19 14:59:36 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:14:23 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ void	build_left_branch(t_data *data, t_node *root, t_token *t_list)
 	}
 	else
 	{
-		if (current->prev && current->prev->value)
+//		printf("curr.prev.type is '%s'\n", get_token_type(current->prev->type));
+		if (current->prev)
 			root->left = create_node(current->prev);
 		else if (current->next && current->next->next 
 			&& current->next->next->type == CMD)
