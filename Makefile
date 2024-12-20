@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+         #
+#    By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2024/12/18 11:31:58 by grmullin         ###   ########.fr        #
+#    Updated: 2024/12/20 18:20:21 by lhagemos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ Execution/redir.c \
 Parsing/two_tokens.c \
 Execution/Builtins/builtins.c \
 Execution/Builtins/ft_echo.c \
+Execution/Builtins/ft_exit.c \
 Lexing/lexing.c \
 Lexing/lexing_utils.c \
 Lexing/utils.c \
