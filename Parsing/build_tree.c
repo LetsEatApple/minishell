@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/19 14:59:36 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/20 17:10:51 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	parsing(t_data *data)
 		build_left_branch(data, data->root, data->token_list);
 	build_right_branch(data, data->root, data->token_list);
 	// printf("\n");
-//	print_tree(data->root, 0);
+	print_tree(data->root, 0);
 }
 
 void	build_right_branch(t_data *data, t_node *root, t_token *t_list)

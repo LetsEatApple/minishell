@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/20 12:15:47 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:11:39 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int				ft_built_ins(t_data *data, char **cmd);
 int				ft_echo(char **cmd);
 int				ft_arrlen(char **cmd);
 int				ft_pwd(char **cmd, char** env);
+int				ft_exit(t_data *data, char **cmd);
 
 /*             Execution           */
 void			ft_command(t_data *data, char **cmd);

@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 15:22:13 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/20 12:07:22 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:10:58 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	ft_built_ins(t_data *data, char **cmd)
     //     return (ft_unset(node, envp));
 	if (!ft_strncmp(cmd[0], "env", 4))
 		return (print_env_all(cmd, data->env));
-    //     return (ft_exit());
+	if(!ft_strncmp(cmd[0], "exit", 5))
+		return(ft_exit(data, cmd));
 	return (0);
 }
 
