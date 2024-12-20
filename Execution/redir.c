@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/20 15:28:35 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/20 17:40:17 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_node	*get_current(t_node *node)
 	int	fd;
 
 	fd = 0;
-	if (node->type == REDIR_IN) // goes here if a pipe is present
+	if (node->left->type == REDIR_IN) // goes here if a pipe is present
 	{
 		fd = open(node->right->value, O_RDONLY);
 		if (fd == -1)
@@ -38,17 +38,23 @@ t_node	*get_current(t_node *node)
 			node->left = node->left->left;
 		}
 	}
-	else if (node->right->type == REDIR_IN) // goes here if no pipe is present
+	if (node->right->type == REDIR_IN) // goes here if no pipe is present
 	{
+		fd = open(node->right->right->value, O_RDONLY);
+		if (fd == -1)
+		{
+			print_error_fd("bash: %s: No such file or directory\n", node->right->right->value);
+			return (NULL);
+		}
 		while (node->right->type == REDIR_IN)
 		{
-			node = node->right;
-			fd = open(node->left->value, O_RDONLY);
+			fd = open(node->right->left->value, O_RDONLY);
 			if (fd == -1)
 			{
-				printf("bash: %s: No such file or directory\n", node->left->value);
+				printf("bash: %s: No such file or directory\n", node->right->left->value);
 				return (NULL);
 			}
+			node = node->right;
 		}
 	}
 	return (node);
@@ -57,17 +63,13 @@ t_node	*get_current(t_node *node)
 void	handle_redir_in(t_data *data, t_node *node)
 {
 	t_node	*current;
-	char	*final_file;
 	int		original_stdin;
 	int		infile;
 
 	current = get_current(node);
 	if (!current)
 		return ;
-	final_file = current->right->value;
-	if (!final_file)
-		return ;
-	infile = open(final_file, O_RDONLY);
+	infile = open(current->right->value, O_RDONLY);
 	original_stdin = dup(STDIN_FILENO);
 	if (dup2(infile, STDIN_FILENO) == -1)
 	{

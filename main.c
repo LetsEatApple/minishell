@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/20 12:52:00 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/20 17:28:19 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	init_msh(t_data *data)
 		preparsing(data);
 	if (data->token_list != NULL)
 	{
-		print_token_list(data->token_list);
+		//print_token_list(data->token_list);
 		if (list_size(data->token_list) == 2 && (data->redirs || data->pipes))
 			handle_two_tokens(data);
 		else if (data->pipes || data->redirs)

@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/20 17:05:49 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/20 17:40:22 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	parsing(t_data *data)
 	if (ops_before_root(data->token_list))
 		build_left_branch(data, data->root, data->token_list);
 	build_right_branch(data, data->root, data->token_list);
-	// printf("\n");
+//	printf("\n");
 //	print_tree(data->root, 0);
 }
 
