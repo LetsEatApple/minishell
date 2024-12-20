@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:50:56 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/12 17:42:16 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:19:22 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,16 @@ void	delete_node(t_token **head, t_token *todelete)
 	if (*head == todelete)
 	{
 		*head = (*head)->next;
+		if ((*head)->prev->value != NULL)
+			free((*head)->prev->value);
 		free((*head)->prev);
 		(*head)->prev = NULL;
 	}
 	else if (todelete->next == NULL)
 	{
 		ptr = todelete->prev;
+		if (todelete->value != NULL)
+			free(todelete->value);
 		free(todelete);
 		ptr->next = NULL;
 	}
@@ -48,6 +52,8 @@ void	delete_node(t_token **head, t_token *todelete)
 		ptr = todelete->prev;
 		ptr->next = todelete->next;
 		todelete->next->prev = ptr;
+		if (todelete->value != NULL)
+			free(todelete->value);
 		free(todelete);
 		todelete = NULL;
 	}

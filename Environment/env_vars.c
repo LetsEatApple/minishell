@@ -3,19 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   env_vars.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 11:53:44 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/13 12:52:58 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/20 12:12:08 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	print_env_all(char **env)
+int	print_env_all(char **cmd, char **env)
 {
 	int	i;
 
+	if (ft_arrlen(cmd) != 1)
+	{
+		print_error_fd("invalid argument/option: %s\n", cmd[1]);
+		return (0); // adjust value
+	}
 	i = 0;
 	while (env[i])
 	{

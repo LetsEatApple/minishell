@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:51:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/16 12:24:17 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/20 13:14:18 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ void	print_token_list(t_token *token_list)
 	while (ptr != NULL)
 	{
 		if (ptr -> value != NULL)
-			printf("value: '%s', type: %s\n", ptr->value, get_token_type(ptr->type));
+			printf("[value: '%s', type: %s] ", ptr->value, get_token_type(ptr->type));
 		else if (ptr->cmd != NULL)
 		{
 			print_arr(ptr->cmd);
-			printf(", type: %s\n", get_token_type(ptr->type));
+			printf(" , type: %s] ", get_token_type(ptr->type));
 		}
 		else
-			printf("value: NULL, type: %s\n ", get_token_type(ptr->type));
+			printf("[value: NULL, type: %s] ", get_token_type(ptr->type));
 	//	printf("word = %d ", ptr->word);
 		ptr = ptr -> next;
 	}

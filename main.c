@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/19 14:23:59 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/20 12:52:00 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@ void	handle_sig(int sig)
 void	init_msh(t_data *data)
 {
 	lexing(data);
+	//print_token_list(data->token_list);
 	if (data->token_list != NULL)
 		preparsing(data);
 	if (data->token_list != NULL)
 	{
-	//	print_token_list(data->token_list);
+		print_token_list(data->token_list);
 		if (list_size(data->token_list) == 2 && (data->redirs || data->pipes))
 			handle_two_tokens(data);
 		else if (data->pipes || data->redirs)
