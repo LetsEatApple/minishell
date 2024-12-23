@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/20 15:28:35 by grmullin         ###   ########.fr       */
+/*   Updated: 2024/12/23 19:59:01 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,45 @@
 
 t_node	*get_current(t_node *node)
 {
-	int	fd;
+	t_node	*temp;
+	int		infile;
+	int		fd;
 
 	fd = 0;
-	if (node->type == REDIR_IN) // goes here if a pipe is present
+	temp = node;
+	if (temp->left->type == REDIR_IN) // goes here if a pipe is present
 	{
-		fd = open(node->right->value, O_RDONLY);
-		if (fd == -1)
+		infile = open(temp->right->value, O_RDONLY);
+		if (infile == -1)
 		{
-			print_error_fd("bash: %s: No such file or directory\n", node->right->value);
+			print_error_fd("bash: %s: No such file or directory\n", temp->right->value);
 			return (NULL);
 		}
-		close(fd);
-		while (node->left && node->left->type == REDIR_IN)
+		close(infile);
+		while (temp->left && temp->left->type == REDIR_IN)
 		{
-			fd = open(node->left->right->value, O_RDONLY);
+			fd = open(temp->left->right->value, O_RDONLY);
 			if (fd == -1)
 			{
-				print_error_fd("bash: %s: No such file or directory\n", node->left->right->value);
+				print_error_fd("bash: %s: No such file or directory\n", temp->left->right->value);
 				return (NULL);
 			}
 			close(fd);
-			node->left = node->left->left;
+			temp->left = temp->left->left;
 		}
 	}
 	else if (node->right->type == REDIR_IN) // goes here if no pipe is present
 	{
 		while (node->right->type == REDIR_IN)
 		{
-			node = node->right;
-			fd = open(node->left->value, O_RDONLY);
-			if (fd == -1)
+			infile = open(node->right->left->value, O_RDONLY);
+			if (infile == -1)
 			{
-				printf("bash: %s: No such file or directory\n", node->left->value);
+				printf("bash: %s: No such file or directory\n", node->right->left->value);
 				return (NULL);
 			}
+			node = node->right;
+			close (infile);
 		}
 	}
 	return (node);
