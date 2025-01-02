@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/02 18:18:34 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/02 18:20:49 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*left_redir_ins(t_node *node)
 		fd = open(node->left->right->value, O_RDONLY);
 		if (fd == -1)
 		{
-			print_error_fd("bash: %s: No such file or directory\n", temp->right->value);
+			print_error_fd("bash: %s: No such file or directory\n", node->right->value);
 			return (NULL);
 		}
 		close(fd);
