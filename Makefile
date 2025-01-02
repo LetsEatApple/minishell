@@ -6,7 +6,7 @@
 #    By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2024/12/18 11:31:58 by grmullin         ###   ########.fr        #
+#    Updated: 2025/01/02 18:09:29 by grmullin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ Execution/ft_command.c \
 Execution/exec.c \
 Execution/exec_utils.c \
 Execution/redir.c \
+Execution/redir_out_append.c \
 Parsing/two_tokens.c \
 Execution/Builtins/builtins.c \
 Execution/Builtins/ft_echo.c \

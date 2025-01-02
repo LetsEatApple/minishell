@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/02 17:46:04 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/02 17:57:32 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ void			handle_redir_append(t_data *data, t_node *node);
 char			*ft_get_first_word(char *s);
 void			ft_exec(t_data *data, char **cmd);
 void			handle_two_tokens(t_data *data);
+char			*left_redir_ins(t_node *node);
+char			*right_redir_ins(t_node *node);
+
 // void			free_node(t_node *node);
 
 /*              Env.vars            */
