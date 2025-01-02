@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/20 12:05:51 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/02 17:59:12 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,17 @@
 void	execute(t_data *data, t_node *node)
 {
 	// if (node->type != CMD)
-	// 	ft_printf_fd(node->value);
+	// {
+	// 	ft_putstr_fd("executing '", 2);
+	// 	ft_putstr_fd(node->value, 2);
+	// 	ft_putstr_fd("'\n", 2);
+	// }
+	// else
+	// {
+	// 	ft_putstr_fd("executing '", 2);
+	// 	ft_putstr_fd(node->cmd[0], 2);
+	// 	ft_putstr_fd("'\n", 2);
+	// 	}
 	if (node->type == PIPE)
 		handle_pipe(data, node);
 	else if (node->type == REDIR_IN)
@@ -77,14 +87,14 @@ int	ft_wait(int pid1, t_node *node)
 	if (check == 1) // all of this sep. ft
 	{
 		node->right->value = ft_get_first_word(node->right->value);
-		printf("bash: %s: Nooo such file or directory\n", node->right->value);
+		printf("bash: %s: No such file or directory\n", node->right->value);
 		free(node->right->value);
 		exit (EXIT_FAILURE);
 	}
 	else if (check == 2)
 	{
 		node->right->value = ft_get_first_word(node->right->value);
-		printf("%s:nnv %s: No suchgdg file or directory\n", node->left->value, node->right->value);
+		printf("%s: what %s: No such file or directory\n", node->left->value, node->right->value);
 		free(node->right->value);
 		exit (EXIT_FAILURE);
 	}
