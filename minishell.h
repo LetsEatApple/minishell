@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/20 12:15:47 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/02 17:46:04 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void			handle_redir_append(t_data *data, t_node *node);
 char			*ft_get_first_word(char *s);
 void			ft_exec(t_data *data, char **cmd);
 void			handle_two_tokens(t_data *data);
-void			ft_printf_fd(char *print);
+// void			free_node(t_node *node);
 
 /*              Env.vars            */
 int				get_key_len(char *env);
@@ -101,6 +101,7 @@ void			get_root(t_data *data);
 t_node			*get_first_pipe(t_token *t_list);
 t_node			*get_first_redir(t_token *t_list);
 t_node			*create_node(t_token *token);
+char			*get_infile(t_node *node);
 void			parsing(t_data *data);
 void			build_left_branch(t_data *data, t_node *root, t_token *t_list);
 void			build_right_branch(t_data *data, t_node *root, t_token *t_list);
@@ -117,7 +118,7 @@ void			printf_error(char *str, int signal);
 void			print_error_fd(const char *error, char *target);
 
 /*              Delete              */
-void            print_token(t_token *node);
+void			print_token(t_token *node);
 void			print_node(t_node *node);
 void			print_tree(t_node *node, int level);
 const char		*get_token_type(t_token_type type);
