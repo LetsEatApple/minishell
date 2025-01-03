@@ -6,13 +6,13 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:48:08 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/16 10:04:37 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/03 17:24:09 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    print_node(t_node *node)
+char	*print_node(t_node *node)
 {
 	if (node->cmd)
 	{
@@ -22,9 +22,11 @@ void    print_node(t_node *node)
 			printf("currnode is c-m-d '%s'\n", node->cmd[i]);
 			i++;
 		}
+		return (node->cmd[0]);
 	}
 	else
 		printf("currnode is '%s'\n", node->value);
+	return (node->value);
 }
 
 void    print_token(t_token *node)

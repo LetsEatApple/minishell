@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/20 17:40:22 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:22:24 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_node	*create_node(t_token *token)
 		token->cmd = NULL;
 	}
 	new_node->type = token->type;
+
 	token->node = 1;
 	new_node->left = NULL;
 	new_node->right = NULL;
@@ -43,8 +44,8 @@ void	parsing(t_data *data)
 	if (ops_before_root(data->token_list))
 		build_left_branch(data, data->root, data->token_list);
 	build_right_branch(data, data->root, data->token_list);
-//	printf("\n");
-//	print_tree(data->root, 0);
+	// printf("\n");
+	// print_tree(data->root, 0);
 }
 
 void	build_right_branch(t_data *data, t_node *root, t_token *t_list)
@@ -54,17 +55,45 @@ void	build_right_branch(t_data *data, t_node *root, t_token *t_list)
 
 	current = t_list;
 	next_op = NULL;
+	// ft_putstr_fd("in brb w/\t", 2);
+	// ft_putstr_fd(root->value, 2);
+	// ft_putstr_fd("\n", 2);
+	// printf("ops %d\n", data->ops);
+	// print_tree(data->root, 0);
+	// ft_putstr_fd("\n", 2);
 	while (current->node == 1)
 		current = current->next;
 	if (root->left == NULL)
-		root->left = create_node(get_first_command(current));
-	if (find_next_op(current))
+		root->left = create_node(get_first_command(t_list));
+
+	if (data->ops)
 	{
 		next_op = find_next_op(current);
-		data->ops--;
-		root->right = create_node(next_op);
-		root->right->left = create_node(next_op->prev);
-		build_right_branch(data, root->right, t_list);
+		if (!next_op && data->ops)
+		{
+			next_op = find_prev_op(current);
+			data->ops--;
+			root->left = create_node(next_op);
+			if (redirs_between_pipes(t_list))
+				root->right->left = create_node(redirs_between_pipes(t_list));
+			else
+				root->right->left = create_node(next_op->prev);
+			build_right_branch(data, root->left, t_list);
+		}
+		else
+		{
+			data->ops--;
+			root->right = create_node(next_op);
+			if (redirs_between_pipes(t_list))
+			{
+				root->right->left = create_node(redirs_between_pipes(t_list));
+				data->ops--;
+				build_right_branch(data, root->right->left, t_list);		
+			}
+			else
+				root->right->left = create_node(next_op->prev);
+			build_right_branch(data, root->right, t_list);
+		}
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/02 17:57:32 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/03 17:23:51 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void			delete_arg(t_token **head);
 void			get_root(t_data *data);
 t_node			*get_first_pipe(t_token *t_list);
 t_node			*get_first_redir(t_token *t_list);
+t_token			*redirs_between_pipes(t_token *t_list);
 t_node			*create_node(t_token *token);
 char			*get_infile(t_node *node);
 void			parsing(t_data *data);
@@ -110,7 +111,7 @@ void			build_left_branch(t_data *data, t_node *root, t_token *t_list);
 void			build_right_branch(t_data *data, t_node *root, t_token *t_list);
 void			free_ast(t_node *head);
 int				ops_before_root(t_token *token_list);
-t_token			*get_first_command(t_token *current);
+t_token			*get_first_command(t_token *real);
 t_token			*find_prev_op(t_token *token_list); // merge?
 t_token			*find_next_op(t_token *token_list);
 void			clear_table(t_data *data);
@@ -122,7 +123,7 @@ void			print_error_fd(const char *error, char *target);
 
 /*              Delete              */
 void			print_token(t_token *node);
-void			print_node(t_node *node);
+char			*print_node(t_node *node);
 void			print_tree(t_node *node, int level);
 const char		*get_token_type(t_token_type type);
 
