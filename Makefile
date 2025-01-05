@@ -6,7 +6,7 @@
 #    By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2024/12/20 18:20:21 by lhagemos         ###   ########.fr        #
+#    Updated: 2025/01/05 18:25:18 by lhagemos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,15 +15,20 @@ FILES := main.c \
 delete_later.c \
 Init/init.c \
 Init/free.c \
-Environment/env_vars.c \
 Execution/ft_command.c \
 Execution/exec.c \
 Execution/exec_utils.c \
 Execution/redir.c \
 Parsing/two_tokens.c \
 Execution/Builtins/builtins.c \
-Execution/Builtins/ft_echo.c \
-Execution/Builtins/ft_exit.c \
+Execution/Builtins/what.c \
+Execution/Builtins/exit.c \
+Execution/Builtins/ft_builtins.c \
+Execution/Builtins/unset.c \
+Execution/Builtins/Export/export.c \
+Execution/Builtins/Export/elist.c \
+Execution/Builtins/Export/exp_utils1.c \
+Execution/Builtins/Export/exp_utils2.c \
 Lexing/lexing.c \
 Lexing/lexing_utils.c \
 Lexing/utils.c \

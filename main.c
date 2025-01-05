@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/20 12:52:00 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/05 22:32:16 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	init_msh(t_data *data)
 		preparsing(data);
 	if (data->token_list != NULL)
 	{
-		print_token_list(data->token_list);
+		//print_token_list(data->token_list);
 		if (list_size(data->token_list) == 2 && (data->redirs || data->pipes))
 			handle_two_tokens(data);
 		else if (data->pipes || data->redirs)
@@ -77,6 +77,8 @@ int main(int ac, char **av, char **envp)
 			init_msh(&data);
 	}
 	free_split(data.env);
+	free(data.pwd);
+	clear_elist(&data.e_list);
 	rl_clear_history();
 	return (g_signal);
 }

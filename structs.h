@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/20 12:00:03 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/03 15:14:23 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,22 @@ typedef struct s_token
 	struct s_token	*prev;
 }	t_token;
 
+typedef struct s_env
+{
+	char			*var;
+	char			*value;
+	int				index;
+	int				exp;
+	struct s_env	*next;
+	struct s_env	*prev;
+}	t_env;
+
 typedef struct s_data
 {
 	char	*input;
 	char	**env;
+	char	*pwd;
+	t_env	*e_list;
 	int		ops;
 	int		pipes;
 	int		redirs;

@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/20 15:11:39 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/05 22:22:10 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdbool.h>
+# include <linux/limits.h>
 # include "structs.h"
 # include "Libft/libft.h"
 
@@ -41,8 +42,24 @@ int				is_built_in(char *cmd);
 int				ft_built_ins(t_data *data, char **cmd);
 int				ft_echo(char **cmd);
 int				ft_arrlen(char **cmd);
-int				ft_pwd(char **cmd, char** env);
+int				ft_pwd(t_data *data, char **cmd);
+char			*getpwd();
 int				ft_exit(t_data *data, char **cmd);
+int				ft_export(t_data *data, char **cmd);
+void			clear_elist(t_env **head);
+t_env			*arr2list(t_data *data);
+int				lst_size(t_env *head, int i);
+void			make_list(t_env **head, char *value, int exp);
+int				is_smaller(char *next, char *min, int ind);
+int				check_var(char *s, t_env *head);
+void			replace_val(char *s, t_env **head);
+void			reset_index(t_env **head);
+char			**list2arr(t_data *data);
+int				charnstr(char *s, char c);
+int				split_point(char *s);
+void			print_exp_var(t_env *evar);
+int				ft_unset(t_data *data, char **cmd);
+int				ft_cd(t_data *data, char **cmd);
 
 /*             Execution           */
 void			ft_command(t_data *data, char **cmd);

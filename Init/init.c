@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:20:45 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/17 14:59:49 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/05 12:01:01 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	init_data(t_data *data, int ac, char **envp)
 		return (0);
 	data->input = NULL;
 	data->env = init_envp(envp);
+	data->e_list = arr2list(data);
+	data->pwd = getpwd(); //upate when cd used
 	data->token_list = NULL;
 	data->pipes = 0;
 	data->redirs = 0;
