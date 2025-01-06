@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_root.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:24:42 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/20 16:27:58 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/06 11:10:10 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	get_root(t_data *data)
 
 t_node	*get_first_pipe(t_token *t_list) // fix here
 {
-	t_node *new_node;
+	t_node	*new_node;
 
 	while (t_list->next)
 	{
@@ -46,7 +46,7 @@ t_node	*get_first_pipe(t_token *t_list) // fix here
 
 t_node	*get_first_redir(t_token *t_list)
 {
-	t_node *new_node;
+	t_node	*new_node;
 
 	while (t_list->next)
 	{

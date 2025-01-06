@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 15:06:06 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/19 12:02:32 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/06 11:00:11 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	store_cmd(t_token *start, t_token *end, int len)
 			i++;
 		}
 		ptr = ptr->next;
-		
 	}
 	cmd[i] = NULL;
 	free(start->value);

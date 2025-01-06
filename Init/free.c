@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:21:57 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/19 14:27:07 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/06 11:21:44 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,31 @@ void	free_ast(t_node *head)
 	}
 	free(head);
 	head = NULL;
+}
+
+void	clear_elist(t_env **head)
+{
+	t_env	*ptr;
+	t_env	*next;
+
+	if (!head || !*head)
+		return ;
+	ptr = *head;
+	while (ptr != NULL)
+	{
+		next = ptr->next;
+		if (ptr->value != NULL)
+		{
+			free(ptr->value);
+			ptr->value = NULL;
+		}
+		if (ptr->var != NULL)
+		{
+			free(ptr->var);
+			ptr->var = NULL;
+		}
+		free(ptr);
+		ptr = next;
+	}
+	*head = NULL;
 }

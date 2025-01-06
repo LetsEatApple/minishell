@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:11:11 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/03 18:03:39 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/06 15:08:46 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,11 @@ t_token	*redirs_between_pipes(t_token *t_list)
 {
 	t_token	*list_copy;
 	int	first_pipe;
-	int	sec_pipe;
+	//int	sec_pipe;
 
 	list_copy = t_list;
 	first_pipe = 0;
-	sec_pipe = 0;
+	//sec_pipe = 0;
 	while (list_copy && list_copy->next)
 	{
 		if (list_copy->type == PIPE && list_copy->node == 1)
