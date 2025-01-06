@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/03 18:22:41 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/05 14:33:45 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ char	*get_infile(t_node *node)
 		infile = left_redir_ins(node);
 	else if (node->right->type == REDIR_IN)
 		infile = right_redir_ins(node);
+	if (infile == NULL)
+		return (NULL);
 	fd = open(infile, O_RDONLY);
 	if (fd == -1)
 	{

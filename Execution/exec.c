@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/03 13:46:31 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/05 15:31:31 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	execute(t_data *data, t_node *node)
 		handle_redir_out(data, node);
 	else if (node->type == REDIR_OUT_APPEND)
 		handle_redir_append(data, node);
+	// else if (node->type == HEREDOC)
+	// 	handle_heredoc(data, node);
 	else if (node->type == CMD)
 		ft_command(data, node->cmd);
 }
