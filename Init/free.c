@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:21:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/05 15:33:17 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/06 11:21:44 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	clear_elist(t_env **head)
 	t_env	*next;
 
 	if (!head || !*head)
-		return;
+		return ;
 	ptr = *head;
 	while (ptr != NULL)
 	{

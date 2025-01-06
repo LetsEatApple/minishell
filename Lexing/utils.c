@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:51:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/20 13:14:18 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/06 10:58:42 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	print_arr(char **cmd)
 	}
 }
 
-void	print_token_list(t_token *token_list)
+/* void	print_token_list(t_token *token_list)
 {
 	t_token	*ptr;
 
@@ -38,7 +38,10 @@ void	print_token_list(t_token *token_list)
 	while (ptr != NULL)
 	{
 		if (ptr -> value != NULL)
-			printf("[value: '%s', type: %s] ", ptr->value, get_token_type(ptr->type));
+		{
+			printf("[value: '%s', ", ptr->value);
+			printf("type: %s] ", get_token_type(ptr->type));
+		}
 		else if (ptr->cmd != NULL)
 		{
 			print_arr(ptr->cmd);
@@ -50,4 +53,4 @@ void	print_token_list(t_token *token_list)
 		ptr = ptr -> next;
 	}
 	printf("\n");
-}
+} */

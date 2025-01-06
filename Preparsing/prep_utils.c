@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:50:56 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/05 22:26:48 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:44:50 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ int	list_size(t_token *head)
 	return (size);
 }
 
+static void	free_node(t_token *ptr)
+{
+	if (ptr->value != NULL) //&& todelete->value[0] != '\0' ?
+		free(ptr->value);
+	free(ptr);
+}
+
 void	delete_node(t_token **head, t_token *todelete)
 {
 	t_token	*ptr;
@@ -34,17 +41,13 @@ void	delete_node(t_token **head, t_token *todelete)
 	if (*head == todelete)
 	{
 		*head = (*head)->next;
-		if ((*head)->prev->value != NULL)
-			free((*head)->prev->value);
-		free((*head)->prev);
+		free_node((*head)->prev);
 		(*head)->prev = NULL;
 	}
 	else if (todelete->next == NULL)
 	{
 		ptr = todelete->prev;
-		if (todelete->value != NULL && todelete->value[0] != '\0')
-			free(todelete->value);
-		free(todelete);
+		free_node(todelete);
 		ptr->next = NULL;
 	}
 	else
@@ -52,9 +55,7 @@ void	delete_node(t_token **head, t_token *todelete)
 		ptr = todelete->prev;
 		ptr->next = todelete->next;
 		todelete->next->prev = ptr;
-		if (todelete->value != NULL)
-			free(todelete->value);
-		free(todelete);
+		free_node(todelete);
 		todelete = NULL;
 	}
 }
@@ -82,3 +83,21 @@ void	delete_nullword(t_data *data, t_token **head)
 			ptr = ptr->next;
 	}
 }
+
+void	connect_val(t_token *ptr, t_token *start)
+{
+	char	*value;
+
+	value = start->value;
+	start->value = ft_strjoin(start->value, ptr->next->value);
+	if (value != NULL && value[0] != '\0')
+		free(value);
+}
+
+/* if (ptr->next && ptr->next->word == 1)
+{
+	value = start->value;
+	start->value = ft_strjoin(start->value, ptr->next->value);
+	if (value != NULL && value[0] != '\0')
+		free(value);
+} */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:44:35 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/19 12:19:11 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/06 11:05:54 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,3 @@ char	*ft_get_first_word(char *s)
 // 	free(bash);
 // 	free(final);
 // }
-

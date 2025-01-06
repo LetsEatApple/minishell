@@ -6,7 +6,7 @@
 #    By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2025/01/05 18:25:18 by lhagemos         ###   ########.fr        #
+#    Updated: 2025/01/06 10:47:10 by lhagemos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ Lexing/syntax.c \
 Parsing/build_tree.c \
 Parsing/get_root.c \
 Parsing/parsing_utils.c \
-error.c \
+Init/error.c \
 Preparsing/preparsing.c \
 Preparsing/env.c \
 Preparsing/prep_utils.c \

@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 15:22:13 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/05 22:34:31 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/06 10:52:36 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_pwd(t_data *data, char **cmd)
 		print_error_fd("invalid option: %s\n", cmd[1]);
 		return (2);
 	}
-	if (data->pwd != NULL) 
+	if (data->pwd != NULL)
 		printf("%s\n", data->pwd);
 	else
 	{
@@ -91,7 +91,7 @@ int	ft_cd(t_data *data, char **cmd)
 {
 	int		size;
 	char	*path;
-	
+
 	size = ft_arrlen(cmd);
 	if (size == 1)
 		path = get_home(data->e_list);
@@ -108,5 +108,5 @@ int	ft_cd(t_data *data, char **cmd)
 		print_error_fd("%s: No such file or directory\n", path);
 	free(data->pwd);
 	data->pwd = getpwd();
-	return 0;
+	return (0);
 }

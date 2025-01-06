@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/05 22:32:16 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/06 11:04:01 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,20 @@ void	handle_sig(int sig)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	if (sig == SIGQUIT)
+	else if (sig == SIGQUIT)
 	{
 		printf("sigquit\n");
 	}
 }
 
+//print_token_list(data->token_list);
 void	init_msh(t_data *data)
 {
 	lexing(data);
-	//print_token_list(data->token_list);
 	if (data->token_list != NULL)
 		preparsing(data);
 	if (data->token_list != NULL)
 	{
-		//print_token_list(data->token_list);
 		if (list_size(data->token_list) == 2 && (data->redirs || data->pipes))
 			handle_two_tokens(data);
 		else if (data->pipes || data->redirs)
@@ -53,7 +52,15 @@ void	init_msh(t_data *data)
 	free_data(data);
 }
 
-int main(int ac, char **av, char **envp)
+void	clear_program(t_data *data)
+{
+	free_split(data->env);
+	free(data->pwd);
+	clear_elist(&data->e_list);
+	rl_clear_history();
+}
+
+int	main(int ac, char **av, char **envp)
 {
 	t_data	data;
 
@@ -76,9 +83,6 @@ int main(int ac, char **av, char **envp)
 		if (data.input)
 			init_msh(&data);
 	}
-	free_split(data.env);
-	free(data.pwd);
-	clear_elist(&data.e_list);
-	rl_clear_history();
+	clear_program(&data);
 	return (g_signal);
 }

@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 11:09:29 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/05 22:34:51 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/06 10:54:15 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_built_ins(t_data *data, char **cmd)
 {
 	if (ft_strncmp(cmd[0], "echo", 5) == 0)
-		return(ft_echo(cmd));
+		return (ft_echo(cmd));
 	if (ft_strncmp(cmd[0], "cd", 3) == 0)
 		return (ft_cd(data, cmd));
 	if (ft_strncmp(cmd[0], "pwd", 4) == 0)
@@ -26,8 +26,8 @@ int	ft_built_ins(t_data *data, char **cmd)
 		return (ft_unset(data, cmd));
 	if (ft_strncmp(cmd[0], "env", 4) == 0)
 		return (print_env_all(cmd, data->env));
-	if(!ft_strncmp(cmd[0], "exit", 5))
-		return(ft_exit(data, cmd));
+	if (!ft_strncmp(cmd[0], "exit", 5))
+		return (ft_exit(data, cmd));
 	return (0);
 }
 
@@ -57,7 +57,7 @@ int	ft_arrlen(char **cmd)
 	return (i);
 }
 
-char	*getpwd()
+char	*getpwd(void)
 {
 	char	*pwd;
 	char	*save;

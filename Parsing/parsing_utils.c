@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:11:11 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/19 13:14:12 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/06 11:11:01 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 t_token	*get_first_command(t_token *current)
 {
 	if (current->type == CMD)
-			return(current);
+		return (current);
 	else if (current->next->type == CMD)
-			return(current->next);
+		return (current->next);
 	return (NULL);
 }
 
@@ -61,7 +61,7 @@ t_token	*find_next_op(t_token *token_list)
 	current = token_list;
 	while (current)
 	{
-		if (current->node == 0 && (current->type > 1 
+		if (current->node == 0 && (current->type > 1
 				&& current->type < 7))
 			return (current);
 		current = current->next;

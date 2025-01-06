@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/20 17:21:20 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/06 11:11:20 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	build_left_branch(t_data *data, t_node *root, t_token *t_list)
 	{
 		if (current->prev)
 			root->left = create_node(current->prev);
-		else if (current->next->next 
+		else if (current->next->next
 			&& current->next->next->type == CMD)
 			root->left = create_node(current->next->next);
 	}

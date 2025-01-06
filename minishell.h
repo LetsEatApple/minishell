@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/05 22:22:10 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:45:47 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int				ft_built_ins(t_data *data, char **cmd);
 int				ft_echo(char **cmd);
 int				ft_arrlen(char **cmd);
 int				ft_pwd(t_data *data, char **cmd);
-char			*getpwd();
+char			*getpwd(void);
 int				ft_exit(t_data *data, char **cmd);
 int				ft_export(t_data *data, char **cmd);
 void			clear_elist(t_env **head);
@@ -113,6 +113,7 @@ void			delete_rest(t_token *start, t_token *end);
 void			delete_node(t_token **head, t_token *todelete);
 void			handle_whitespaces(t_data *data, t_token **head);
 void			delete_arg(t_token **head);
+void			connect_val(t_token *ptr, t_token *start);
 
 /*                Parsing             */
 void			get_root(t_data *data);
@@ -135,7 +136,7 @@ void			printf_error(char *str, int signal);
 void			print_error_fd(const char *error, char *target);
 
 /*              Delete              */
-void            print_token(t_token *node);
+void			print_token(t_token *node);
 void			print_node(t_node *node);
 void			print_tree(t_node *node, int level);
 const char		*get_token_type(t_token_type type);
