@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 15:22:13 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/06 10:52:36 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/06 15:27:17 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,10 @@ int	ft_cd(t_data *data, char **cmd)
 	if (path == NULL || path[0] == '\0')
 		return (0);
 	if (chdir(path) < 0)
-		print_error_fd("%s: No such file or directory\n", path);
+	{
+		print_error_fd("cd: %s: ", path);
+		perror("");
+	}
 	free(data->pwd);
 	data->pwd = getpwd();
 	return (0);
