@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 15:22:13 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/06 15:27:17 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/06 15:49:51 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ char	*get_home(t_env *head)
 	char	*home;
 
 	ptr = head;
+	home = NULL;
 	while (ptr)
 	{
 		if (strncmp("HOME", ptr->var, 5) == 0)
