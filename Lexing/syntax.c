@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 19:26:29 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/15 13:28:33 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/05 16:01:38 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	valid_next(t_token *token)
 {
 	t_token	*current;
 
+	if (!token)
+		return (false);
 	current = token->prev;
 	while (token && token->type == WHITESPACE)
 		token = token->next;

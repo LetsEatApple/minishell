@@ -6,11 +6,11 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 12:15:00 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/20 12:03:23 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/06 11:04:31 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	syntax_error(t_token **head, char c)
 {

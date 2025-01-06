@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 19:33:25 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/15 14:15:28 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:47:15 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	connect_words(t_token **head)
 {
 	t_token	*ptr;
 	t_token	*start;
-	char	*value;
 
 	ptr = *head;
 	while (ptr)
@@ -27,12 +26,7 @@ void	connect_words(t_token **head)
 			while (ptr && ptr->word == 1)
 			{
 				if (ptr->next && ptr->next->word == 1)
-				{
-					value = start->value;
-					start->value = ft_strjoin(start->value, ptr->next->value);
-					if (value != NULL && value[0] != '\0')
-						free(value);
-				}
+					connect_val(ptr, start);
 				ptr = ptr->next;
 			}
 			delete_rest(start, ptr);
@@ -44,7 +38,7 @@ void	connect_words(t_token **head)
 
 int	is_token_op(t_token *token)
 {
-	if(token->type >= 2 && token->type <= 6)
+	if (token->type >= 2 && token->type <= 6)
 		return (true);
 	return (false);
 }

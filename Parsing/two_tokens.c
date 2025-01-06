@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   two_tokens.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:15:24 by grmullin          #+#    #+#             */
-/*   Updated: 2024/12/18 11:26:44 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/06 11:09:34 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	handle_two_tokens(t_data *data)
 
 	file_name = NULL;
 	if ((data->token_list->type == REDIR_OUT
-		|| data->token_list->type == REDIR_OUT_APPEND)
+			|| data->token_list->type == REDIR_OUT_APPEND)
 		&& data->token_list->next->type == WORD)
 	{
 		file_name = data->token_list->next->value;
