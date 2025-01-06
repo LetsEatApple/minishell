@@ -6,11 +6,11 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 12:15:00 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/06 15:55:30 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/06 16:00:08 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	syntax_error(t_token **head, char c)
 {
