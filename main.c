@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/06 15:00:46 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/08 15:56:44 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ volatile __sig_atomic_t	g_signal = 0;
 
 void	handle_sig(int sig)
 {
+	g_signal = 128 + sig;
 	if (sig == SIGINT)
 	{
 		write(1, "\n", 1);
@@ -67,12 +68,14 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	g_signal = 0;
 	init_data(&data, ac, envp);
-	signal(SIGINT, handle_sig);
-	signal(EOF, handle_sig);
+/* 	signal(SIGINT, handle_sig);
+	signal(EOF, handle_sig); */
 	while ("It's been a")
 	{
-		if (g_signal == 1)
-			handle_sig(SIGINT);
+		/* if (g_signal == 1)
+			handle_sig(SIGINT); */
+		signal(SIGINT, handle_sig);
+		signal(EOF, handle_sig);
 		data.input = readline("minihell: ");
 		if (data.input == NULL)
 		{

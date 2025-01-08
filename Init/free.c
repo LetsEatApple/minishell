@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:21:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/06 11:21:44 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:56:34 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,11 @@ void	free_ast(t_node *head)
 		free_split(head->cmd);
 		head->cmd = NULL;
 	}
-	if (head->value)
+/* 	if (head->value)
 	{
 		free(head->value);
 		head->value = NULL;
-	}
+	} */
 	free(head);
 	head = NULL;
 }

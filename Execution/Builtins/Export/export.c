@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 11:17:26 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/05 17:50:52 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/08 15:11:47 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,13 @@ int	check_args(char **cmd)
 	i = 0;
 	while (cmd[i])
 	{
-		if (cmd[i][0] == '-')
+		if (i == 1 && cmd[i][0] == '-')
 		{
-			print_error_fd("invalid option: %s\n", cmd[i]);
-			if (i == 1)
-				return (false);
+			print_error_fd("invalid option: %s\n", cmd[i], 2);
+			return (false);
 		}
 		if (ft_isalpha(cmd[i][0]) == false && cmd[i][0] != '_')
-			print_error_fd("not a valid identifier: %s\n", cmd[i]);
+			print_error_fd("not a valid identifier: %s\n", cmd[i], 1);
 		i++;
 	}
 	return (true);
@@ -111,10 +110,11 @@ void	process_args(char **cmd, t_data *data)
 	}
 }
 
-int	ft_export(t_data *data, char **cmd)
+void	ft_export(t_data *data, char **cmd)
 {
 	int	size;
 
+	g_signal = 0;
 	size = ft_arrlen(cmd);
 	if (size == 1)
 	{
@@ -125,10 +125,9 @@ int	ft_export(t_data *data, char **cmd)
 	else
 	{
 		if (check_args(cmd) == false)
-			return (2);
+			return ;
 		process_args(cmd, data);
 		free_split(data->env);
 		data->env = list2arr(data);
 	}
-	return (0);
 }

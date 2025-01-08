@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/06 15:03:16 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/08 15:59:09 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	ft_wait(int pid1, t_node *node)
 	if (check == 1) // all of this sep. ft
 	{
 		node->right->value = ft_get_first_word(node->right->value);
-		printf("bash: %s: No such file or directory\n", node->right->value);
+		printf("%s: No such file or directory\n", node->right->value);
 		free(node->right->value);
 		exit (EXIT_FAILURE);
 	}

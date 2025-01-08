@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/06 15:00:02 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/08 15:16:21 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,17 @@ void			free_data(t_data *data);
 int				init_data(t_data *data, int ac, char **envp);
 void			handle_sig(int sig);
 int				is_whitespace(char c);
-int				print_env(char **env);
 
 /*              Builtins            */
 int				is_built_in(char *cmd);
-int				ft_built_ins(t_data *data, char **cmd);
-int				ft_echo(char **cmd);
+void			ft_built_ins(t_data *data, char **cmd);
+void			ft_echo(char **cmd);
 int				ft_arrlen(char **cmd);
-int				ft_pwd(t_data *data, char **cmd);
+void			ft_pwd(t_data *data, char **cmd);
 char			*getpwd(void);
-int				ft_exit(t_data *data, char **cmd);
-int				ft_export(t_data *data, char **cmd);
+void			ft_env(char **cmd, char **env);
+void			ft_exit(t_data *data, char **cmd);
+void			ft_export(t_data *data, char **cmd);
 void			clear_elist(t_env **head);
 t_env			*arr2list(t_data *data);
 int				lst_size(t_env *head, int i);
@@ -58,8 +58,8 @@ char			**list2arr(t_data *data);
 int				charnstr(char *s, char c);
 int				split_point(char *s);
 void			print_exp_var(t_env *evar);
-int				ft_unset(t_data *data, char **cmd);
-int				ft_cd(t_data *data, char **cmd);
+void			ft_unset(t_data *data, char **cmd);
+void			ft_cd(t_data *data, char **cmd);
 
 /*             Execution           */
 void			ft_command(t_data *data, char **cmd);
@@ -81,9 +81,6 @@ char			*right_redir_ins(t_node *node);
 int				get_key_len(char *env);
 char			*get_env(t_data *data, char *new);
 char			**init_envp(char **envp);
-int				print_env_all(char **cmd, char **env);
-void			print_env_sing(t_data *data, char *env);
-int				print_env(char **env);
 void			free_split(char **s);
 
 /*              Lexing              */
@@ -138,7 +135,7 @@ void			clear_table(t_data *data);
 /*               Error               */
 void			syntax_error(t_token **head, char c);
 void			printf_error(char *str, int signal);
-void			print_error_fd(const char *error, char *target);
+void			print_error_fd(const char *error, char *target, int sig);
 
 /*              Delete              */
 void			print_token(t_token *node);

@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:50:56 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/06 14:44:50 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/08 15:26:48 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	list_size(t_token *head)
 
 static void	free_node(t_token *ptr)
 {
-	if (ptr->value != NULL) //&& todelete->value[0] != '\0' ?
+	if (ptr->value != NULL && ptr->value[0] != '\0')
 		free(ptr->value);
 	free(ptr);
 }

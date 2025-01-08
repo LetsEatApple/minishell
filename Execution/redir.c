@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/06 15:04:20 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/08 18:16:45 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*left_redir_ins(t_node *node)
 		fd = open(node->left->right->value, O_RDONLY);
 		if (fd == -1)
 		{
-			print_error_fd("bash: %s: No such file or directory\n", node->left->right->value);
+			print_error_fd("%s: No such file or directory\n", node->left->right->value, 1);
 			return (NULL);
 		}
 		close(fd);
@@ -32,7 +32,7 @@ char	*left_redir_ins(t_node *node)
 	fd = open(node->right->value, O_RDONLY);
 	if (fd == -1)
 	{
-		print_error_fd("bash: %s: No such file or directory\n", node->right->value);
+		print_error_fd("%s: No such file or directory\n", node->right->value, 1);
 		return (NULL);
 	}
 	close(fd);
@@ -51,7 +51,7 @@ char	*right_redir_ins(t_node *node)
 	fd = open(node->right->left->value, O_RDONLY);
 	if (fd == -1)
 	{
-		print_error_fd("bash: %s: No such file or directory\n", node->right->left->value);
+		print_error_fd("%s: No such file or directory\n", node->right->left->value, 1);
 		return (NULL);
 	}
 	close(fd);
@@ -60,7 +60,7 @@ char	*right_redir_ins(t_node *node)
 		fd = open(node->right->left->value, O_RDONLY);
 		if (fd == -1)
 		{
-			print_error_fd("bash: %s: No such file or directory\n", node->right->left->value);
+			print_error_fd("%s: No such file or directory\n", node->right->left->value, 1);
 			return (NULL);
 		}
 		close(fd);
@@ -83,7 +83,7 @@ char	*get_infile(t_node *node)
 	fd = open(infile, O_RDONLY);
 	if (fd == -1)
 	{
-		print_error_fd("bash: %s: No such file or directory\n", infile);
+		print_error_fd("%s: No such file or directory\n", infile, 1);
 		return (NULL);
 	}
 	close(fd);
@@ -110,6 +110,8 @@ void	handle_redir_in(t_data *data, t_node *node)
 	if (!current)
 		return ;
 	current->right->value = get_infile(node);
+	if (current->right->value == NULL)
+		return ;
 	infile = open(current->right->value, O_RDONLY);
 	original_stdin = dup(STDIN_FILENO);
 	if (dup2(infile, STDIN_FILENO) == -1)

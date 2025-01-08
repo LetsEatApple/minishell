@@ -6,29 +6,30 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 11:09:29 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/06 10:54:15 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/08 14:26:43 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_built_ins(t_data *data, char **cmd)
+void	ft_built_ins(t_data *data, char **cmd)
 {
 	if (ft_strncmp(cmd[0], "echo", 5) == 0)
-		return (ft_echo(cmd));
-	if (ft_strncmp(cmd[0], "cd", 3) == 0)
-		return (ft_cd(data, cmd));
-	if (ft_strncmp(cmd[0], "pwd", 4) == 0)
-		return (ft_pwd(data, cmd));
-	if (ft_strncmp(cmd[0], "export", 7) == 0)
-		return (ft_export(data, cmd));
-	if (ft_strncmp(cmd[0], "unset", 6) == 0)
-		return (ft_unset(data, cmd));
-	if (ft_strncmp(cmd[0], "env", 4) == 0)
-		return (print_env_all(cmd, data->env));
-	if (!ft_strncmp(cmd[0], "exit", 5))
-		return (ft_exit(data, cmd));
-	return (0);
+		ft_echo(cmd);
+	else if (ft_strncmp(cmd[0], "cd", 3) == 0)
+		ft_cd(data, cmd);
+	else if (ft_strncmp(cmd[0], "pwd", 4) == 0)
+		ft_pwd(data, cmd);
+	else if (ft_strncmp(cmd[0], "export", 7) == 0)
+		ft_export(data, cmd);
+	else if (ft_strncmp(cmd[0], "unset", 6) == 0)
+		ft_unset(data, cmd);
+	else if (ft_strncmp(cmd[0], "env", 4) == 0)
+		ft_env(cmd, data->env);
+	else if (!ft_strncmp(cmd[0], "exit", 5))
+		ft_exit(data, cmd);
+	else
+		g_signal = 127;
 }
 
 int	is_built_in(char *cmd)

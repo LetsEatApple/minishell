@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:15:24 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/06 11:09:34 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/08 18:17:31 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ void	handle_two_tokens(t_data *data)
 	{
 		file_name = data->token_list->next->value;
 		if (open(file_name, O_RDONLY) == -1)
-			printf("bash: %s: No such file or directory\n", file_name);
+			print_error_fd("%s: No such file or directory\n", file_name, 1);
 	}
 }

@@ -6,18 +6,19 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 15:22:13 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/06 15:27:17 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/08 15:39:31 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_echo(char **cmd)
+void	ft_echo(char **cmd)
 {
 	int	i;
 	int	n;
 
 	n = 0;
+	g_signal = 0;
 	if (ft_arrlen(cmd) > 1 && ft_strncmp(cmd[1], "-n", 3) == 0)
 		n = 1;
 	i = n +1;
@@ -31,34 +32,36 @@ int	ft_echo(char **cmd)
 	}
 	if (n == 0)
 		printf("\n");
-	return (0);
 }
 
-int	ft_pwd(t_data *data, char **cmd)
+void	ft_pwd(t_data *data, char **cmd)
 {
+	g_signal = 0;
 	if (ft_arrlen(cmd) != 1 && cmd[1][0] == '-')
 	{
-		print_error_fd("invalid option: %s\n", cmd[1]);
-		return (2);
+		print_error_fd("invalid option: %s\n", cmd[1], 2);
+		return ;
 	}
 	if (data->pwd != NULL)
 		printf("%s\n", data->pwd);
 	else
-	{
-		perror("getcwd failed");
-		return (1);
-	}
-	return (0);
+		perror("getcwd:");
 }
 
-int	print_env_all(char **cmd, char **env)
+//env in bash returns 125/127 but is not a built in there
+//should we choose 2 instead (Misuse of Shell Builtin)?
+void	ft_env(char **cmd, char **env)
 {
 	int	i;
 
+	g_signal = 0;
 	if (ft_arrlen(cmd) != 1)
 	{
-		print_error_fd("invalid argument/option: %s\n", cmd[1]);
-		return (2); // adjust value 125/127
+		if (cmd[1][0] == '-')
+			print_error_fd("env: invalid option: %s\n", cmd[1], 125);
+		else
+			print_error_fd("env: invalid argument: %s\n", cmd[1], 127);
+		return ;
 	}
 	i = 0;
 	while (env[i])
@@ -66,7 +69,6 @@ int	print_env_all(char **cmd, char **env)
 		printf("%s\n", env[i]);
 		i++;
 	}
-	return (0);
 }
 
 char	*get_home(t_env *head)
@@ -87,11 +89,12 @@ char	*get_home(t_env *head)
 	return (home);
 }
 
-int	ft_cd(t_data *data, char **cmd)
+void	ft_cd(t_data *data, char **cmd)
 {
 	int		size;
 	char	*path;
 
+	g_signal = 0;
 	size = ft_arrlen(cmd);
 	if (size == 1)
 		path = get_home(data->e_list);
@@ -99,17 +102,23 @@ int	ft_cd(t_data *data, char **cmd)
 		path = cmd[1];
 	if (size > 2)
 	{
-		print_error_fd("%s: too many arguments\n", cmd[0]);
-		return (1);
+		print_error_fd("%s: too many arguments\n", cmd[0], 1);
+		return ;
 	}
 	if (path == NULL || path[0] == '\0')
-		return (0);
+		return ;
 	if (chdir(path) < 0)
 	{
-		print_error_fd("cd: %s: ", path);
+		print_error_fd("cd: %s: ", path, 1);
 		perror("");
 	}
-	free(data->pwd);
-	data->pwd = getpwd();
-	return (0);
+	path = getpwd();
+	if (path == NULL)
+		perror("cd: error retrieving current directory: getcwd: cannot access parent directories");
+	else
+	{
+		free(path);
+		free(data->pwd);
+		data->pwd = getpwd();
+	}
 }

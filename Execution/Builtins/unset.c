@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 17:27:20 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/06 14:27:14 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/08 15:37:26 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,19 @@ void	check_varg(char *arg, t_env *head)
 	}
 }
 
-int	ft_unset(t_data *data, char **cmd)
+void	ft_unset(t_data *data, char **cmd)
 {
 	int	size;
 	int	i;
 
+	g_signal = 0;
 	size = ft_arrlen(cmd);
 	if (size == 1)
-		return (0); //adjust if needed
+		return ;
 	if (cmd[1][0] == '-')
 	{
-		print_error_fd("invalid option: %s\n", cmd[1]);
-		return (2); //adjust if needed
+		print_error_fd("invalid option: %s\n", cmd[1], 2);
+		return ;
 	}
 	i = 1;
 	while (cmd[i])
@@ -95,5 +96,4 @@ int	ft_unset(t_data *data, char **cmd)
 	}
 	free_split(data->env);
 	data->env = list2arr(data);
-	return (0);
 }
