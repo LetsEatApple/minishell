@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:51:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/06 10:58:42 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:07:28 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	print_arr(char **cmd)
 	}
 }
 
-/* void	print_token_list(t_token *token_list)
+void	print_token_list(t_token *token_list)
 {
 	t_token	*ptr;
 
@@ -50,7 +50,8 @@ void	print_arr(char **cmd)
 		else
 			printf("[value: NULL, type: %s] ", get_token_type(ptr->type));
 	//	printf("word = %d ", ptr->word);
+		printf("\n");
 		ptr = ptr -> next;
 	}
 	printf("\n");
-} */
+}

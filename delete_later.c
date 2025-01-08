@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:48:08 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/03 17:24:09 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:05:20 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ void    print_token(t_token *node)
 		int i = 0;
 		while (node->cmd[i])
 		{
-			printf("current is '%s' type '%s'\n", node->cmd[i], get_token_type(node->type));;
+			printf("token is '%s' type '%s'\n", node->cmd[i], get_token_type(node->type));;
 			i++;
 		}
 	}
 	else
-		printf("current is '%s' type '%s'\n", node->value, get_token_type(node->type));;
+		printf("token is '%s' type '%s'\n", node->value, get_token_type(node->type));;
 }
 
 void print_tree(t_node *node, int level)

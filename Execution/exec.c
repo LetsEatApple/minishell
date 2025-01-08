@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/06 15:54:54 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/08 16:49:33 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	execute(t_data *data, t_node *node)
 	// }
 	// else
 	// {
-	// 	ft_putstr_fd("executing '", 2);
+	// 	ft_putstr_fd("executing cmd '", 2);
 	// 	ft_putstr_fd(node->cmd[0], 2);
 	// 	ft_putstr_fd("'\n", 2);
 	// 	}
@@ -86,7 +86,7 @@ int	ft_wait(int pid1, t_node *node)
 	waitpid(pid1, &status1, WUNTRACED);
 	if (WIFEXITED(status1))
 		check = WEXITSTATUS(status1);
-	if (check == 1) // all of this sep. ft
+	if (check == 1)
 	{
 		node->right->value = ft_get_first_word(node->right->value);
 		printf("bash: %s: No such file or directory\n", node->right->value);

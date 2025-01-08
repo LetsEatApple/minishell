@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/06 15:01:30 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/08 16:50:25 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,6 @@ void	build_right_branch(t_data *data, t_node *root, t_token *t_list)
 
 	current = t_list;
 	next_op = NULL;
-	// ft_putstr_fd("in brb w/\t", 2);
-	// ft_putstr_fd(root->value, 2);
-	// ft_putstr_fd("\n", 2);
-	// printf("ops %d\n", data->ops);
-	// print_tree(data->root, 0);
-	// ft_putstr_fd("\n", 2);
 	while (current->node == 1)
 		current = current->next;
 	if (root->left == NULL)
@@ -117,7 +111,7 @@ void	build_left_branch(t_data *data, t_node *root, t_token *t_list)
 	if (ops_before_root(t_list))
 	{
 		prev_op = find_prev_op(current);
-		prev_op_next = (find_prev_op(current))->next;
+		prev_op_next = (find_prev_op(current))->next; // check how necessary
 		root->left = create_node(prev_op);
 		root->left->right = create_node(prev_op_next);
 		data->ops--;

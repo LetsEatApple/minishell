@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:21:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/06 11:21:44 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/08 16:45:39 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,6 @@ void	free_ast(t_node *head)
 	{
 		free_split(head->cmd);
 		head->cmd = NULL;
-	}
-	if (head->value)
-	{
-		free(head->value);
-		head->value = NULL;
 	}
 	free(head);
 	head = NULL;

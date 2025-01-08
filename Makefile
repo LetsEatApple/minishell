@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+         #
+#    By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2025/01/06 15:00:17 by lhagemos         ###   ########.fr        #
+#    Updated: 2025/01/08 16:47:34 by grmullin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

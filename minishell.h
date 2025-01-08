@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/06 15:00:02 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:06:44 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void			free_split(char **s);
 int				lexing(t_data *data);
 void			create_list(t_token **head, char *value, t_token_type type);
 void			clearlist(t_token **head);
-void			print_token_list(t_token *token_list);
+void			print_token(t_token *token_list);
 void			print_arr(char **cmd);
 t_token_type	check_char(char c);
 char			*copy_part(char *input, int start, int len);
@@ -141,7 +141,7 @@ void			printf_error(char *str, int signal);
 void			print_error_fd(const char *error, char *target);
 
 /*              Delete              */
-void			print_token(t_token *node);
+void			print_token_list(t_token *token_list);
 char			*print_node(t_node *node);
 void			print_tree(t_node *node, int level);
 const char		*get_token_type(t_token_type type);
