@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 18:19:29 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/20 19:06:19 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/08 15:09:02 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,26 +50,20 @@ int	get_code(char *arg)
 	return (code);
 }
 
-int	ft_exit(t_data *data, char **cmd)
+void	ft_exit(t_data *data, char **cmd)
 {
-	int	code;
 	int	size;
 
-	code = g_signal;
 	size = ft_arrlen(cmd);
 	if (size > 1 && check_arg(cmd[1]) == false)
-	{
-		print_error_fd("exit: %s: numeric argument required\n", cmd[1]);
-		code = 2;
-	}
+		print_error_fd("exit: %s: numeric argument required\n", cmd[1], 2);
 	if (check_arg(cmd[1]) == true && size > 2)
 	{
-		ft_putstr_fd("exit: too many arguments\n", 2);
-		return (1);
+		print_error_fd("%s: too many arguments\n", cmd[0], 1);
+		return ;
 	}
 	if (size == 2 && check_arg(cmd[1]) == true)
-		code = get_code(cmd[1]);
-	//printf("code: %d\n", code);
+		g_signal = get_code(cmd[1]);
 	free_data(data);
-	exit(code);
+	exit(g_signal);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/08 18:35:54 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/08 18:46:48 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	ft_wait(int pid1, t_node *node)
 	if (check == 1)
 	{
 		node->right->value = ft_get_first_word(node->right->value);
-		printf("bash: %s: No such file or directory\n", node->right->value);
+		printf("%s: No such file or directory\n", node->right->value);
 		free(node->right->value);
 		exit (EXIT_FAILURE);
 	}
