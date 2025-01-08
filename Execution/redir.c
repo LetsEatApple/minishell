@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/08 17:58:04 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/08 18:27:40 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*left_redir_ins(t_node *node)
 		fd = open(node->left->right->value, O_RDONLY);
 		if (fd == -1)
 		{
-			print_error_fd("bash: %s: No such file or directory\n", node->left->right->value);
+			perror(node->left->right->value);
 			return (NULL);
 		}
 		close(fd);
@@ -32,7 +32,7 @@ char	*left_redir_ins(t_node *node)
 	fd = open(node->right->value, O_RDONLY);
 	if (fd == -1)
 	{
-		print_error_fd("bash: %s: No such file or directory\n", node->right->value);
+		perror(node->right->value);
 		return (NULL);
 	}
 	close(fd);
@@ -48,7 +48,7 @@ char	*right_redir_ins(t_node *node)
 	fd = open(node->right->left->value, O_RDONLY);
 	if (fd == -1)
 	{
-		print_error_fd("bash: %s: No such file or directory\n", node->right->left->value);
+		perror(node->right->left->value);
 		return (NULL);
 	}
 	close(fd);
@@ -57,7 +57,7 @@ char	*right_redir_ins(t_node *node)
 		fd = open(node->right->left->value, O_RDONLY);
 		if (fd == -1)
 		{
-			print_error_fd("bash: %s: No such file or directory\n", node->right->left->value);
+			perror(node->right->left->value);
 			return (NULL);
 		}
 		close(fd);
@@ -82,7 +82,7 @@ char	*get_infile(t_node *node)
 	fd = open(infile, O_RDONLY);
 	if (fd == -1)
 	{
-		print_error_fd("bash: %s: No such file or directory\n", infile);
+		perror(infile);
 		return (NULL);
 	}
 	close(fd);
