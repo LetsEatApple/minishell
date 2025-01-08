@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/08 16:49:33 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/08 18:35:54 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	ft_wait(int pid1, t_node *node)
 	else if (check == 2)
 	{
 		node->right->value = ft_get_first_word(node->right->value);
-		printf("%s: what %s: No such file or directory\n", node->left->value, node->right->value);
+		printf("%s: %s: No such file or directory\n", node->left->value, node->right->value);
 		free(node->right->value);
 		exit (EXIT_FAILURE);
 	}
