@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/08 18:27:40 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/08 19:58:31 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ char	*right_redir_ins(t_node *node)
 	int		fd;
 	char	*infile;
 
+	printf("we do go here right?\n");
 	infile = node->right->right->value;
+	printf("infileee is %s\n", infile);
 	fd = open(node->right->left->value, O_RDONLY);
 	if (fd == -1)
 	{
@@ -72,7 +74,12 @@ char	*get_infile(t_node *node)
 	char	*infile;
 	int		fd;
 
-	infile = node->right->value;
+	printf("entering get_infile w %s\n", node->value);
+	printf("right child is %s\n", node->right->value);
+	if (node->right->type == WORD)
+		infile = node->right->value;
+	else
+		infile = node->right->left->value;
 	if (node->left->type == REDIR_IN)
 		infile = left_redir_ins(node);
 	else if (node->right->type == REDIR_IN)
@@ -106,9 +113,10 @@ void	handle_redir_in(t_data *data, t_node *node)
 
 	infile = 0;
 	current = get_current(node);
+	printf("\ncurrent redir node is %s\nright child is %s\n\n", current->value, current->right->value);
 	if (!current)
 		return ;
-	current->right->value = get_infile(node);
+	current->right->value = get_infile(current);
 	if (current->right->value == NULL)
 		return ;
 	infile = open(current->right->value, O_RDONLY);
@@ -119,10 +127,24 @@ void	handle_redir_in(t_data *data, t_node *node)
 		return ;
 	}
 	close(infile);
+	// if (node->right->type != WORD)
+	// {
+	// 	execute(data, node->right);
+	// }
 	if (node->left->type == CMD)
+	{
+		// ft_putstr_fd("about to execute ", 2);
+		// print_node(node->left);
+		// ft_putstr_fd("\n", 2);
 		execute(data, node->left);
+	}
 	else
+	{
+		// ft_putstr_fd("about to execute ", 2);
+		// print_node(current->left);
+		// ft_putstr_fd("\n", 2);
 		execute(data, current->left);
+	}
 	dup2(original_stdin, STDIN_FILENO);
 	close(original_stdin);
 }
