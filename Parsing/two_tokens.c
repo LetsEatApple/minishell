@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:15:24 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/06 11:09:34 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/08 18:58:08 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,17 @@ void	handle_two_tokens(t_data *data)
 	{
 		file_name = data->token_list->next->value;
 		open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		//error here also possible but not likely
 	}
 	else if (data->token_list->type == REDIR_IN
 		&& data->token_list->next->type == WORD) // is ths line always true?
 	{
 		file_name = data->token_list->next->value;
 		if (open(file_name, O_RDONLY) == -1)
-			printf("bash: %s: No such file or directory\n", file_name);
+		{
+			perror(file_name);
+			g_signal = 1;
+			//print_error_fd("%s: No such file or directory\n", file_name, 1);
+		}
 	}
 }

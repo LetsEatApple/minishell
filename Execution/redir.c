@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/08 19:58:31 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/09 12:05:12 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ char	*left_redir_ins(t_node *node)
 		if (fd == -1)
 		{
 			perror(node->left->right->value);
+			g_signal = 1;
+			//print_error_fd("%s: No such file or directory\n", node->left->right->value, 1);
 			return (NULL);
 		}
 		close(fd);
@@ -33,6 +35,8 @@ char	*left_redir_ins(t_node *node)
 	if (fd == -1)
 	{
 		perror(node->right->value);
+		g_signal = 1;
+		//print_error_fd("%s: No such file or directory\n", node->right->value, 1);
 		return (NULL);
 	}
 	close(fd);
@@ -51,6 +55,8 @@ char	*right_redir_ins(t_node *node)
 	if (fd == -1)
 	{
 		perror(node->right->left->value);
+		//print_error_fd("%s: No such file or directory\n", node->right->left->value, 1);
+		g_signal = 1;
 		return (NULL);
 	}
 	close(fd);
@@ -60,6 +66,8 @@ char	*right_redir_ins(t_node *node)
 		if (fd == -1)
 		{
 			perror(node->right->left->value);
+			g_signal = 1;
+			//print_error_fd("%s: No such file or directory\n", node->right->left->value, 1);
 			return (NULL);
 		}
 		close(fd);
@@ -90,6 +98,8 @@ char	*get_infile(t_node *node)
 	if (fd == -1)
 	{
 		perror(infile);
+		g_signal = 1;
+		//print_error_fd("%s: No such file or directory\n", infile, 1);
 		return (NULL);
 	}
 	close(fd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 12:15:00 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/06 16:00:08 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/08 18:45:34 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ void	syntax_error(t_token **head, char c)
 	printf("syntax error near unexpected token '%c'\n", c);
 	clearlist(head);
 	*head = NULL;
+	g_signal = 2;
 }
 
-void	print_error_fd(const char *error, char *target)
+void	print_error_fd(const char *error, char *target, int sig)
 {
 	int		i;
 
@@ -35,6 +36,7 @@ void	print_error_fd(const char *error, char *target)
 			ft_putchar_fd(error[i], 2);
 		i++;
 	}
+	g_signal = sig;
 }
 
 void	printf_error(char *str, int signal)
