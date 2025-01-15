@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/15 19:16:46 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/15 19:22:06 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,10 @@ char	*get_infile(t_node *node)
 	int		fd;
 
 	infile = node->right->value;
+	if (node->right->type == WORD)
+		infile = node->right->value;
+	else
+		infile = node->right->left->value;
 	if (node->left->type == REDIR_IN)
 		infile = left_redir_ins(node);
 	else if (node->right->type == REDIR_IN)
