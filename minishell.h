@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/08 18:43:49 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/15 15:36:48 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int				ft_wait(int pid1, t_node *node);
 void			handle_redir_in(t_data *data, t_node *node);
 void			handle_redir_out(t_data *data, t_node *node);
 void			handle_redir_append(t_data *data, t_node *node);
+void			handle_heredoc(t_data *data, t_node *node);
 char			*ft_get_first_word(char *s);
 void			ft_exec(t_data *data, char **cmd);
 void			handle_two_tokens(t_data *data);
