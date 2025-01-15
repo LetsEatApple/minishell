@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir.c                                            :+:      :+:    :+:   */
+/*   redir_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/09 12:05:12 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:25:38 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ char	*left_redir_ins(t_node *node)
 		{
 			perror(node->left->right->value);
 			g_signal = 1;
-			//print_error_fd("%s: No such file or directory\n", node->left->right->value, 1);
 			return (NULL);
 		}
 		close(fd);
@@ -36,7 +35,6 @@ char	*left_redir_ins(t_node *node)
 	{
 		perror(node->right->value);
 		g_signal = 1;
-		//print_error_fd("%s: No such file or directory\n", node->right->value, 1);
 		return (NULL);
 	}
 	close(fd);
@@ -48,14 +46,11 @@ char	*right_redir_ins(t_node *node)
 	int		fd;
 	char	*infile;
 
-	printf("we do go here right?\n");
-	infile = node->right->right->value;
-	printf("infileee is %s\n", infile);
+	infile = node->right->left->value;
 	fd = open(node->right->left->value, O_RDONLY);
 	if (fd == -1)
 	{
 		perror(node->right->left->value);
-		//print_error_fd("%s: No such file or directory\n", node->right->left->value, 1);
 		g_signal = 1;
 		return (NULL);
 	}
@@ -67,31 +62,31 @@ char	*right_redir_ins(t_node *node)
 		{
 			perror(node->right->left->value);
 			g_signal = 1;
-			//print_error_fd("%s: No such file or directory\n", node->right->left->value, 1);
 			return (NULL);
 		}
 		close(fd);
-		infile = node->right->right->value;
+		infile = node->right->left->value;
 		node = node->right;
 	}
+	infile = node->right->value;
 	return (infile);
 }
-// enters on '<'
+// enters on first '<' in tree
 char	*get_infile(t_node *node)
 {
+	t_node	*temp;
 	char	*infile;
 	int		fd;
 
-	printf("entering get_infile w %s\n", node->value);
-	printf("right child is %s\n", node->right->value);
-	if (node->right->type == WORD)
-		infile = node->right->value;
+	temp = node;
+	if (temp->right->type == WORD)
+		infile = temp->right->value;
 	else
-		infile = node->right->left->value;
-	if (node->left->type == REDIR_IN)
-		infile = left_redir_ins(node);
-	else if (node->right->type == REDIR_IN)
-		infile = right_redir_ins(node);
+		infile = temp->right->left->value;
+	if (temp->left && temp->left->type == REDIR_IN)
+		infile = left_redir_ins(temp);
+	else if (temp->right && temp->right->type == REDIR_IN)
+		infile = right_redir_ins(temp);
 	if (infile == NULL)
 		return (NULL);
 	fd = open(infile, O_RDONLY);
@@ -99,20 +94,44 @@ char	*get_infile(t_node *node)
 	{
 		perror(infile);
 		g_signal = 1;
-		//print_error_fd("%s: No such file or directory\n", infile, 1);
 		return (NULL);
 	}
 	close(fd);
 	return (infile);
 }
 
-t_node	*get_current(t_node *node)
+t_node	*get_current(t_node *temp)
 {
-	while (node->left->type == REDIR_IN)
-		node = node->left;
-	while (node->right->type == REDIR_IN)
-		node = node->right;
-	return (node);
+	if (temp->left)
+	{
+			while (temp->left->type == REDIR_IN)
+		temp = temp->left;
+	}
+	if (temp->right)
+	{
+		while (temp->right->type == REDIR_IN)
+		temp = temp->right;
+	}
+	return (temp);
+}
+
+int	get_outfile(t_data *data)
+{
+	t_node	*temp;
+	char	*outfile;
+	int		outfile_fd;
+
+	temp = data->root;
+	while (temp->right->type != WORD)
+		temp = temp->right;
+	outfile = temp->right->value;
+	outfile_fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (outfile_fd == -1)
+	{
+		perror(outfile);
+		return (0);
+	}
+	return (outfile_fd);
 }
 
 void	handle_redir_in(t_data *data, t_node *node)
@@ -120,13 +139,16 @@ void	handle_redir_in(t_data *data, t_node *node)
 	t_node	*current;
 	int		original_stdin;
 	int		infile;
+	int		original_stdout;
+	int 	outfile;
 
 	infile = 0;
+	outfile = 0;
+	original_stdout = 0;
 	current = get_current(node);
-	printf("\ncurrent redir node is %s\nright child is %s\n\n", current->value, current->right->value);
 	if (!current)
 		return ;
-	current->right->value = get_infile(current);
+	current->right->value = get_infile(node);
 	if (current->right->value == NULL)
 		return ;
 	infile = open(current->right->value, O_RDONLY);
@@ -137,24 +159,26 @@ void	handle_redir_in(t_data *data, t_node *node)
 		return ;
 	}
 	close(infile);
-	// if (node->right->type != WORD)
-	// {
-	// 	execute(data, node->right);
-	// }
-	if (node->left->type == CMD)
+	if (node->left && node->left->type == EMPTY)
 	{
-		// ft_putstr_fd("about to execute ", 2);
-		// print_node(node->left);
-		// ft_putstr_fd("\n", 2);
+		execute(data, node->right);
+		return ;
+	}
+	if (!data->pipes && node->left && (node->left->type == REDIR_OUT ||
+		node->left->type == REDIR_OUT_APPEND))
+	{
+		original_stdout = dup(STDOUT_FILENO);
+		outfile = get_outfile(data);
+		if (!outfile)
+			return ;
+		dup2(outfile, STDOUT_FILENO); // check if -1
+		close(outfile);
+	}
+	if (node->left && node->left->type == CMD)
 		execute(data, node->left);
-	}
 	else
-	{
-		// ft_putstr_fd("about to execute ", 2);
-		// print_node(current->left);
-		// ft_putstr_fd("\n", 2);
 		execute(data, current->left);
-	}
+//	dup2(original_stdout, STDOUT_FILENO);
 	dup2(original_stdin, STDIN_FILENO);
 	close(original_stdin);
 }
