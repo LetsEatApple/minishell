@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/15 15:36:48 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:05:28 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <sys/types.h>
 # include <signal.h>
 # include <stdlib.h>
@@ -75,6 +76,7 @@ void			ft_exec(t_data *data, char **cmd);
 void			handle_two_tokens(t_data *data);
 char			*left_redir_ins(t_node *node);
 char			*right_redir_ins(t_node *node);
+int				get_outfile(t_data *data);
 
 // void			free_node(t_node *node);
 
@@ -121,7 +123,7 @@ void			get_root(t_data *data);
 t_node			*get_first_pipe(t_token *t_list);
 t_node			*get_first_redir(t_token *t_list);
 t_token			*redirs_between_pipes(t_token *t_list);
-t_node			*create_node(t_token *token);
+t_node			*create_node(t_token *new);
 char			*get_infile(t_node *node);
 void			parsing(t_data *data);
 void			build_left_branch(t_data *data, t_node *root, t_token *t_list);

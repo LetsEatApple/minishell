@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/14 13:48:24 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:06:20 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	execute(t_data *data, t_node *node)
 	// 	ft_putstr_fd(node->cmd[0], 2);
 	// 	ft_putstr_fd("'\n", 2);
 	// 	}
+	// if (node->type == EMPTY)
+		
 	if (node->type == PIPE)
 		handle_pipe(data, node);
 	else if (node->type == REDIR_IN)
@@ -47,10 +49,10 @@ void	handle_pipe(t_data *data, t_node *node)
 	pid_t	rightpid;
 
 	if (pipe(fd) == -1)
-		printf_error("Error making pipe", 1);
+		perror("pipe");
 	leftpid = fork();
 	if (leftpid < 0)
-		printf_error("Error with fork()\n", 1);
+		perror("fork");
 	if (leftpid == 0)
 	{
 		close(fd[0]);
@@ -61,7 +63,7 @@ void	handle_pipe(t_data *data, t_node *node)
 	}
 	rightpid = fork();
 	if (rightpid < 0)
-		printf_error("Error with fork()\n", 1);
+		perror("fork");
 	if (rightpid == 0)
 	{
 		close(fd[1]);

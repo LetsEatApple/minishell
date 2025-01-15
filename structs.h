@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/06 11:15:43 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/15 15:47:36 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ typedef enum e_token_type
 	WORD,					//7
 	CMD,					//8
 	ENV,					//9
-	WHITESPACE				//10
+	WHITESPACE,				//10
+	EMPTY					//11
 }	t_token_type;
 
 typedef struct s_node
@@ -70,6 +71,8 @@ typedef struct s_data
 	int		ops;
 	int		pipes;
 	int		redirs;
+	int		commands;
+	int		std_out_fd;
 	t_token	*token_list;
 	t_node	*root;
 }	t_data;
