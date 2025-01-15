@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/08 18:46:48 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:48:24 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	execute(t_data *data, t_node *node)
 		handle_redir_out(data, node);
 	else if (node->type == REDIR_OUT_APPEND)
 		handle_redir_append(data, node);
-	// else if (node->type == HEREDOC)
-	// 	handle_heredoc(data, node);
+	else if (node->type == HEREDOC)
+		handle_heredoc(data, node);
 	else if (node->type == CMD)
 		ft_command(data, node->cmd);
 }

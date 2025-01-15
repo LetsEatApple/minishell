@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:01:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/18 17:24:25 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:34:23 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,9 @@ void	modify_cmd(t_data *data)
 			if (is_built_in(ptr->cmd[0]) == false)
 				get_path(ptr, data);
 		}
+		if (ptr->type == SINGLE_QUOTE || ptr->type == DOUBLE_QUOTE)
+			ptr->type = WORD;
 		ptr = ptr->next;
 	}
+	
 }

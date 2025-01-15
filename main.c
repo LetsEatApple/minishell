@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/08 18:44:02 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:18:19 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	init_msh(t_data *data)
 		preparsing(data);
 	if (data->token_list != NULL)
 	{
-//		print_token_list(data->token_list);
+		print_token_list(data->token_list);
 		if (list_size(data->token_list) == 2 && (data->redirs || data->pipes))
 			handle_two_tokens(data);
 		else if (data->pipes || data->redirs)
@@ -50,6 +50,7 @@ void	init_msh(t_data *data)
 		else
 			ft_command(data, data->token_list->cmd);
 	}
+	add_history(data->input);
 	free_data(data);
 }
 
@@ -74,15 +75,15 @@ int	main(int ac, char **av, char **envp)
 	{
 		/* if (g_signal == 1)
 			handle_sig(SIGINT); */
-		signal(SIGINT, handle_sig);
-		signal(EOF, handle_sig);
+		if (isatty(STDIN_FILENO))
+			signal(SIGINT, handle_sig);
 		data.input = readline("minihell: ");
 		if (data.input == NULL)
 		{
 			printf("\n");
-			break ;
+				break ;
 		}
-		add_history(data.input);
+		//add_history(data.input);
 		if (data.input)
 			init_msh(&data);
 	}

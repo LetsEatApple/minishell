@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:15:24 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/08 18:58:08 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/12 16:35:17 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,6 @@ void	handle_two_tokens(t_data *data)
 			//print_error_fd("%s: No such file or directory\n", file_name, 1);
 		}
 	}
+	else if (data->token_list->type == HEREDOC)
+		handle_heredoc(data, NULL);
 }
