@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/15 16:06:20 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/15 17:06:26 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	execute(t_data *data, t_node *node)
 	// 	ft_putstr_fd(node->cmd[0], 2);
 	// 	ft_putstr_fd("'\n", 2);
 	// 	}
-	// if (node->type == EMPTY)
-		
 	if (node->type == PIPE)
 		handle_pipe(data, node);
 	else if (node->type == REDIR_IN)

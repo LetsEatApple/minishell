@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:15:59 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/15 16:06:14 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/15 19:15:52 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ void	ft_exec(t_data *data, char **cmd)
 	}
 	waitpid(id, &status, 0);
 	g_signal = WEXITSTATUS(status);
-	//wait(NULL);
+	dup2(data->std_out_fd , STDOUT_FILENO);
 	return ;
 }

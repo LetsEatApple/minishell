@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:46:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/14 14:50:59 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/15 17:04:35 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void	create_docfile(t_data *data, char *key)
 	free(history);
 	while(1)
 	{
-		//what if ctrl c or d
+		if (g_signal == 130)
+			break;
 		write(STDIN_FILENO,"> ", 3);
 		i = read(STDIN_FILENO, buffer, sizeof(buffer) - 1);
 		if (i == -1)
