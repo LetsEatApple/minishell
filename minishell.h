@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/15 15:35:17 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:21:11 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ extern volatile __sig_atomic_t	g_signal;
 void			init_msh(t_data *data);
 void			free_data(t_data *data);
 int				init_data(t_data *data, int ac, char **envp);
-void			handle_sig(int sig);
 int				is_whitespace(char c);
 
 /*              Builtins            */

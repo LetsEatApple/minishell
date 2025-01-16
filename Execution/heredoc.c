@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:46:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/14 14:50:59 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/15 17:17:06 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	create_docfile(t_data *data, char *key)
 	free(history);
 	while(1)
 	{
-		//what if ctrl c or d
 		write(STDIN_FILENO,"> ", 3);
 		i = read(STDIN_FILENO, buffer, sizeof(buffer) - 1);
 		if (i == -1)
@@ -71,6 +70,8 @@ void	create_docfile(t_data *data, char *key)
 		data->input = ft_strjoin(history, buffer);
 		free(history);
 		if(ft_strncmp(key, buffer, ft_strlen(key)) == 0)
+			break ;
+		if (g_signal == 130)
 			break ;
 		if (buffer[0] == '\0')
 			write (doc, "\n", 1);
@@ -100,6 +101,8 @@ void	handle_heredoc(t_data *data, t_node *node)
 	else
 		key = node->right->value;
 	create_docfile(data, key);
+	if (g_signal == 130)
+		return ;
 	if (node == NULL)
 		return ;
 	current = get_curr(node);
