@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/15 19:22:06 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/16 18:34:08 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ int	get_outfile(t_data *data)
 	int		outfile_fd;
 
 	temp = data->root;
+//	if (!temp)
+	
 	while (temp->right->type != WORD)
 		temp = temp->right;
 	outfile = temp->right->value;
@@ -140,13 +142,11 @@ void	handle_redir_in(t_data *data, t_node *node)
 {
 	t_node	*current;
 	int		original_stdin;
-	int		original_stdout;
 	int		infile;
 	int		outfile;
 
 	infile = 0;
 	current = get_current(node);
-	original_stdout = 0;
 	outfile = 0;
 	if (!current)
 		return ;
@@ -169,20 +169,25 @@ void	handle_redir_in(t_data *data, t_node *node)
 	if (!data->pipes && current->right && (current->right->type == REDIR_OUT ||
 		current->right->type == REDIR_OUT_APPEND))
 	{
-		original_stdout = dup(STDOUT_FILENO);
 		outfile = get_outfile(data);
 		if (!outfile)
 			return ;
 		data->outfile = outfile;
 		dup2(outfile, STDOUT_FILENO); // check if -1
 		close(outfile);
-		execute(data, current->left);
-		close(original_stdout);
+		if (current->left->type == CMD)
+			execute(data, current->left);
+		else
+			execute(data, node->left);
+		dup2(data->std_out_fd , STDOUT_FILENO);
 	}
-	if (node->left && node->left->type == CMD)
-		execute(data, node->left);
 	else
-		execute(data, current->left);
-	dup2(original_stdin, STDIN_FILENO);
+	{
+		if (node->left && node->left->type == CMD)
+			execute(data, node->left);
+		else
+			execute(data, current->left);
+	}
+	dup2(original_stdin , STDIN_FILENO);
 	close(original_stdin);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:44:35 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/06 11:05:54 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/16 18:37:13 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,3 @@ char	*ft_get_first_word(char *s)
 	}
 	return (new);
 }
-
-// void	ft_printf_fd(char *print)
-// {
-// 	char	*final;
-// 	char	*bash;
-
-// 	bash = ft_strjoin("bash: ", print);
-// 	final = ft_strjoin(bash, ": No such file or directory\n");
-// 	ft_putstr_fd(final, 2);
-// 	free(bash);
-// 	free(final);
-// }
