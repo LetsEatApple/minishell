@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/15 19:15:37 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:55:02 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ typedef struct s_data
 	int		redirs;
 	int		commands;
 	int		std_out_fd;
-	int		outfile;
 	t_token	*token_list;
 	t_node	*root;
 }	t_data;

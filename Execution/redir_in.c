@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/16 18:34:08 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/20 12:51:01 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*left_redir_ins(t_node *node)
 	while (node->left->type == REDIR_IN)
 	{
 		fd = open(node->left->right->value, O_RDONLY);
-		if (fd == -1)
+		if (fd < 0)
 		{
 			perror(node->left->right->value);
 			g_signal = 1;
@@ -75,7 +75,7 @@ char	*right_redir_ins(t_node *node)
 	return (infile);
 }
 // enters on '<'
-char	*get_infile(t_node *node)
+char	*get_infile_red_in(t_node *node)
 {
 	char	*infile;
 	int		fd;
@@ -102,40 +102,19 @@ char	*get_infile(t_node *node)
 	return (infile);
 }
 
-t_node	*get_current(t_node *temp)
+t_node	*get_current(t_node *node)
 {
-	if (temp->left)
+	if (node->left)
 	{
-			while (temp->left->type == REDIR_IN)
-		temp = temp->left;
+		while (node->left->type == REDIR_IN)
+			node = node->left;
 	}
-	if (temp->right)
+	if (node->right)
 	{
-		while (temp->right->type == REDIR_IN)
-		temp = temp->right;
+		while (node->right->type == REDIR_IN)
+			node = node->right;
 	}
-	return (temp);
-}
-
-int	get_outfile(t_data *data)
-{
-	t_node	*temp;
-	char	*outfile;
-	int		outfile_fd;
-
-	temp = data->root;
-//	if (!temp)
-	
-	while (temp->right->type != WORD)
-		temp = temp->right;
-	outfile = temp->right->value;
-	outfile_fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (outfile_fd == -1)
-	{
-		perror(outfile);
-		return (0);
-	}
-	return (outfile_fd);
+	return (node);
 }
 
 void	handle_redir_in(t_data *data, t_node *node)
@@ -150,7 +129,7 @@ void	handle_redir_in(t_data *data, t_node *node)
 	outfile = 0;
 	if (!current)
 		return ;
-	current->right->value = get_infile(node);
+	current->right->value = get_infile_red_in(node);
 	if (current->right->value == NULL)
 		return ;
 	infile = open(current->right->value, O_RDONLY);
@@ -166,13 +145,14 @@ void	handle_redir_in(t_data *data, t_node *node)
 		execute(data, node->right);
 		return ;
 	}
-	if (!data->pipes && current->right && (current->right->type == REDIR_OUT ||
-		current->right->type == REDIR_OUT_APPEND))
+	if (!data->pipes && current->right && current->right->type != WORD)
 	{
-		outfile = get_outfile(data);
+		if (current->right->type == REDIR_OUT)
+			outfile = get_outfile_red_out(current->right);
+		else if (current->right->type == REDIR_OUT_APPEND)
+			outfile = get_outfile_red_app(current->right);
 		if (!outfile)
 			return ;
-		data->outfile = outfile;
 		dup2(outfile, STDOUT_FILENO); // check if -1
 		close(outfile);
 		if (current->left->type == CMD)
@@ -183,10 +163,10 @@ void	handle_redir_in(t_data *data, t_node *node)
 	}
 	else
 	{
-		if (node->left && node->left->type == CMD)
+		if (current->left && current->left->type == CMD)
+			execute(data, current->left);	
+		else if(node->left && node->left->type == CMD)
 			execute(data, node->left);
-		else
-			execute(data, current->left);
 	}
 	dup2(original_stdin , STDIN_FILENO);
 	close(original_stdin);

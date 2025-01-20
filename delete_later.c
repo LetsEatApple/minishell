@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:48:08 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/14 16:22:59 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/20 12:30:26 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ char	*print_node(t_node *node)
 		int i = 0;
 		while (node->cmd[i])
 		{
-			printf("cmd node is'%s'\n", node->cmd[i]);
+		//	printf("cmd node is'%s'\n", node->cmd[i]);
 			i++;
 		}
 		return (node->cmd[0]);
 	}
-	else
-		printf(" node is'%s'\n", node->value);
+//	else
+	//	printf(" node is'%s'\n", node->value);
 	return (node->value);
 }
 

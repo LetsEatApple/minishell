@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/15 16:05:28 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:45:32 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,10 @@ void			ft_exec(t_data *data, char **cmd);
 void			handle_two_tokens(t_data *data);
 char			*left_redir_ins(t_node *node);
 char			*right_redir_ins(t_node *node);
-int				get_outfile(t_data *data);
+char			*get_infile_red_in(t_node *node);
+int				get_outfile(t_node *node);
+int				get_outfile_red_out(t_node *node);
+int				get_outfile_red_app(t_node *node);
 
 // void			free_node(t_node *node);
 
@@ -124,7 +127,6 @@ t_node			*get_first_pipe(t_token *t_list);
 t_node			*get_first_redir(t_token *t_list);
 t_token			*redirs_between_pipes(t_token *t_list);
 t_node			*create_node(t_token *new);
-char			*get_infile(t_node *node);
 void			parsing(t_data *data);
 void			build_left_branch(t_data *data, t_node *root, t_token *t_list);
 void			build_right_branch(t_data *data, t_node *root, t_token *t_list);
