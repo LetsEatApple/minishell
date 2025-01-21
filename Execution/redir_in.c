@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/20 12:51:01 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:52:51 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*right_redir_ins(t_node *node)
 		infile = node->right->left->value;
 	return (infile);
 }
-// enters on '<'
+
 char	*get_infile_red_in(t_node *node)
 {
 	char	*infile;
@@ -140,11 +140,6 @@ void	handle_redir_in(t_data *data, t_node *node)
 		return ;
 	}
 	close(infile);
-	if (node->left && node->left->type == EMPTY)
-	{
-		execute(data, node->right);
-		return ;
-	}
 	if (!data->pipes && current->right && current->right->type != WORD)
 	{
 		if (current->right->type == REDIR_OUT)
@@ -152,7 +147,10 @@ void	handle_redir_in(t_data *data, t_node *node)
 		else if (current->right->type == REDIR_OUT_APPEND)
 			outfile = get_outfile_red_app(current->right);
 		if (!outfile)
+		{
+			dup2(original_stdin , STDIN_FILENO);
 			return ;
+		}
 		dup2(outfile, STDOUT_FILENO); // check if -1
 		close(outfile);
 		if (current->left->type == CMD)

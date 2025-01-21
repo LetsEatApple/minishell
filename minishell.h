@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/17 18:45:32 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/21 13:40:20 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void			ft_cd(t_data *data, char **cmd);
 void			ft_command(t_data *data, char **cmd);
 void			execute(t_data *data, t_node *node);
 void			handle_pipe(t_data *data, t_node *node);
-int				ft_wait(int pid1, t_node *node);
+void			dup_exec(int close_fd, int dup_fd, int std);
+void			close_wait(int read, int write, pid_t left, pid_t right);
 void			handle_redir_in(t_data *data, t_node *node);
 void			handle_redir_out(t_data *data, t_node *node);
 void			handle_redir_append(t_data *data, t_node *node);

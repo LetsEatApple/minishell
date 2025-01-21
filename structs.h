@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/17 18:55:02 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:53:31 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ typedef enum e_token_type
 	WORD,					//7
 	CMD,					//8
 	ENV,					//9
-	WHITESPACE,				//10
-	EMPTY					//11
+	WHITESPACE				//10
 }	t_token_type;
 
 typedef struct s_node

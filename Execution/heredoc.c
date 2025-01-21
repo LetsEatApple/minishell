@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:46:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/15 17:04:35 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/21 13:46:19 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	create_docfile(t_data *data, char *key)
 	history = data->input;
 	data->input = ft_strjoin(data->input, "\n");
 	free(history);
-	while(1)
+	while (1)
 	{
 		if (g_signal == 130)
 			break;

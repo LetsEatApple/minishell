@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/15 17:10:36 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:04:48 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,19 +110,16 @@ void	build_left_branch(t_data *data, t_node *root, t_token *t_list)
 {
 	t_token	*current;
 	t_token	*prev_op;
-	t_token	*prev_op_next;
 
 	current = t_list;
 	prev_op = NULL;
-	prev_op_next = NULL;
 	while (current->node == 0)
 		current = current->next;
 	if (ops_before_root(t_list))
 	{
 		prev_op = find_prev_op(current);
-		prev_op_next = (find_prev_op(current))->next;
 		root->left = create_node(prev_op);
-		root->left->right = create_node(prev_op_next);
+		root->left->right = create_node(prev_op->next);
 		data->ops--;
 		build_left_branch(data, root->left, t_list);
 	}
@@ -130,8 +127,10 @@ void	build_left_branch(t_data *data, t_node *root, t_token *t_list)
 	{
 		if (current->prev)
 			root->left = create_node(current->prev);
-		else if (current->next->next // necessary?
+		else if (current->next->next
 			&& current->next->next->type == CMD)
 			root->left = create_node(current->next->next);
+		else 
+			return ;
 	}
 }

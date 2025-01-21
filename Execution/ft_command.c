@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:15:59 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/15 19:15:52 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:52:42 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,15 @@ void	ft_exec(t_data *data, char **cmd)
 	{
 		if (execve(cmd[0], cmd, data->env) == -1)
 		{
-			perror(cmd[0]);
-			g_signal = 127;
+			print_error_fd("%s: command not found\n", cmd[0], 127);
 			exit (g_signal);
 		}
 		clear_table(data);
 		free_split(cmd);
-		exit(g_signal); //exit(EXIT_SUCCESS); ????
+		exit(g_signal);
 	}
 	waitpid(id, &status, 0);
+	dup2(data->std_out_fd, STDOUT_FILENO);
 	g_signal = WEXITSTATUS(status);
-	dup2(data->std_out_fd , STDOUT_FILENO);
 	return ;
 }

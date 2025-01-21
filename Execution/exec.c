@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/17 19:12:50 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:52:32 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,10 @@
 
 void	execute(t_data *data, t_node *node)
 {
-	// if (node->type != CMD)
-	// {
-	// 	ft_putstr_fd("executing '", 2);
-	// 	ft_putstr_fd(node->value, 2);
-	// 	ft_putstr_fd("'\n", 2);
-	// }
-	// else
-	// {
-	// 	ft_putstr_fd("executing cmd '", 2);
-	// 	ft_putstr_fd(node->cmd[0], 2);
-	// 	ft_putstr_fd("'\n", 2);
-	// 	}
 	if (node->type == PIPE)
 		handle_pipe(data, node);
 	else if (node->type == REDIR_IN)
-		handle_redir_in(data, node);
+		handle_redir_in(data, node);	
 	else if (node->type == REDIR_OUT)
 		handle_redir_out(data, node);
 	else if (node->type == REDIR_OUT_APPEND)
@@ -53,52 +41,37 @@ void	handle_pipe(t_data *data, t_node *node)
 		perror("fork");
 	if (leftpid == 0)
 	{
-		close(fd[0]);
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[1]);
+		dup_exec(fd[0], fd[1], STDOUT_FILENO);
 		execute(data, node->left);
-		exit(EXIT_SUCCESS);
+		exit(g_signal);
 	}
 	rightpid = fork();
 	if (rightpid < 0)
 		perror("fork");
 	if (rightpid == 0)
 	{
-		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
+		dup_exec(fd[1], fd[0], STDIN_FILENO);
 		execute(data, node->right);
-		exit(EXIT_SUCCESS);
+		exit(g_signal);
 	}
-	close(fd[0]);
-	close(fd[1]);
-	waitpid(leftpid, NULL, 0);
-	waitpid(rightpid, NULL, 0);
+	close_wait(fd[0], fd[1], leftpid, rightpid);
 }
 
-int	ft_wait(int pid1, t_node *node)
+void	dup_exec(int close_fd, int dup_fd, int std)
 {
-	int	status1;
-	int	check;
+	close(close_fd);
+	dup2(dup_fd, std);
+	close(dup_fd);
+}
 
-	status1 = 0;
-	check = 0;
-	waitpid(pid1, &status1, WUNTRACED);
-	if (WIFEXITED(status1))
-		check = WEXITSTATUS(status1);
-	if (check == 1)
-	{
-		node->right->value = ft_get_first_word(node->right->value);
-		perror(node->right->value);
-		free(node->right->value);
-		exit (EXIT_FAILURE);
-	}
-	else if (check == 2)
-	{
-		node->right->value = ft_get_first_word(node->right->value);
-		perror(node->right->value);
-		free(node->right->value);
-		exit (EXIT_FAILURE);
-	}
-	return (check);
+void	close_wait(int read, int write, pid_t left, pid_t right)
+{
+	int	status;
+
+	status = 0;
+	close(read);
+	close(write);
+	waitpid(left, &status, 0);
+	waitpid(right, &status, 0);
+	g_signal = WEXITSTATUS(status);
 }
