@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 17:00:28 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/15 16:03:26 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:24:34 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	count_ops(t_data *data)
 			data->pipes++;
 		if (ptr->type == CMD)
 			data->commands++;
+		if (ptr->type == REDIR_IN)
+			data->red_in++;
 		ptr = ptr->next;
 	}
 	data->ops = data->redirs + data->pipes;

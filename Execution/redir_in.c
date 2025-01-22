@@ -6,19 +6,19 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/21 15:52:51 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:24:13 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*left_redir_ins(t_node *node)
+char	*left_redir_ins(t_node *node, t_token_type type)
 {
 	int		fd;
 	char	*infile;
 
 	infile = node->right->value;
-	while (node->left->type == REDIR_IN)
+	while (node->left->type == type)
 	{
 		fd = open(node->left->right->value, O_RDONLY);
 		if (fd < 0)
@@ -41,12 +41,11 @@ char	*left_redir_ins(t_node *node)
 	return (infile);
 }
 
-char	*right_redir_ins(t_node *node)
+char	*right_redir_ins(t_node *node, t_token_type type)
 {
 	int		fd;
 	char	*infile;
 
-	infile = node->right->right->value;
 	fd = open(node->right->left->value, O_RDONLY);
 	if (fd == -1)
 	{
@@ -55,7 +54,7 @@ char	*right_redir_ins(t_node *node)
 		return (NULL);
 	}
 	close(fd);
-	while (node->right->type == REDIR_IN)
+	while (node->right->type == type)
 	{
 		fd = open(node->right->left->value, O_RDONLY);
 		if (fd == -1)
@@ -68,9 +67,8 @@ char	*right_redir_ins(t_node *node)
 		infile = node->right->right->value;
 		node = node->right;
 	}
-	if (node->right->type == WORD)
-		infile = node->right->value;
-	else
+	infile = node->right->value;
+	if (node->right->type != WORD)
 		infile = node->right->left->value;
 	return (infile);
 }
@@ -80,15 +78,14 @@ char	*get_infile_red_in(t_node *node)
 	char	*infile;
 	int		fd;
 
-	infile = node->right->value;
 	if (node->right->type == WORD)
 		infile = node->right->value;
 	else
 		infile = node->right->left->value;
-	if (node->left->type == REDIR_IN)
-		infile = left_redir_ins(node);
-	else if (node->right->type == REDIR_IN)
-		infile = right_redir_ins(node);
+	if (node->left && node->left->type == REDIR_IN)
+		infile = left_redir_ins(node, REDIR_IN);
+	else if (node->right && node->right->type == REDIR_IN)
+		infile = right_redir_ins(node, REDIR_IN);
 	if (infile == NULL)
 		return (NULL);
 	fd = open(infile, O_RDONLY);
@@ -122,17 +119,22 @@ void	handle_redir_in(t_data *data, t_node *node)
 	t_node	*current;
 	int		original_stdin;
 	int		infile;
-	int		outfile;
+	char	*outfile;
+	int		fd;
 
-	infile = 0;
+	fd = 0;
 	current = get_current(node);
-	outfile = 0;
+	outfile = NULL;
 	if (!current)
 		return ;
 	current->right->value = get_infile_red_in(node);
 	if (current->right->value == NULL)
+	{
+		dup2(data->std_out_fd, STDOUT_FILENO);
 		return ;
+	}
 	infile = open(current->right->value, O_RDONLY);
+	data->infile = infile;
 	original_stdin = dup(STDIN_FILENO);
 	if (dup2(infile, STDIN_FILENO) == -1)
 	{
@@ -151,8 +153,13 @@ void	handle_redir_in(t_data *data, t_node *node)
 			dup2(original_stdin , STDIN_FILENO);
 			return ;
 		}
-		dup2(outfile, STDOUT_FILENO); // check if -1
-		close(outfile);
+		fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (dup2(fd, STDOUT_FILENO) == -1)
+		{
+			perror("dup2");
+			return ;
+		}
+		close(fd);
 		if (current->left->type == CMD)
 			execute(data, current->left);
 		else
@@ -162,7 +169,7 @@ void	handle_redir_in(t_data *data, t_node *node)
 	else
 	{
 		if (current->left && current->left->type == CMD)
-			execute(data, current->left);	
+			execute(data, current->left);
 		else if(node->left && node->left->type == CMD)
 			execute(data, node->left);
 	}

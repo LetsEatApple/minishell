@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/21 13:40:20 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/22 15:54:16 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,14 @@ void			handle_redir_out(t_data *data, t_node *node);
 void			handle_redir_append(t_data *data, t_node *node);
 void			handle_heredoc(t_data *data, t_node *node);
 char			*ft_get_first_word(char *s);
+int				check_for_infile(t_data *data, t_node *red_out);
 void			ft_exec(t_data *data, char **cmd);
 void			handle_two_tokens(t_data *data);
-char			*left_redir_ins(t_node *node);
-char			*right_redir_ins(t_node *node);
+char			*left_redir_ins(t_node *node, t_token_type type);
+char			*right_redir_ins(t_node *node, t_token_type type);
 char			*get_infile_red_in(t_node *node);
-int				get_outfile(t_node *node);
-int				get_outfile_red_out(t_node *node);
-int				get_outfile_red_app(t_node *node);
+char			*get_outfile_red_out(t_node *node);
+char			*get_outfile_red_app(t_node *node);
 
 // void			free_node(t_node *node);
 
@@ -136,6 +136,7 @@ int				ops_before_root(t_token *token_list);
 t_token			*get_first_command(t_token *real);
 t_token			*find_prev_op(t_token *token_list); // merge?
 t_token			*find_next_op(t_token *token_list);
+t_token			*get_prev_node(t_token *token);
 void			clear_table(t_data *data);
 
 /*               Error               */
