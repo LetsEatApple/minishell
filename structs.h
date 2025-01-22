@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/06 11:15:43 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:54:01 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ typedef enum e_token_type
 	WORD,					//7
 	CMD,					//8
 	ENV,					//9
-	WHITESPACE				//10
+	WHITESPACE,				//10
+	EMPTY					//11
 }	t_token_type;
 
 typedef struct s_node
@@ -61,6 +62,13 @@ typedef struct s_env
 	struct s_env	*prev;
 }	t_env;
 
+typedef struct s_doc
+{
+	char	*file;
+	int		fd;
+	char	*delimiter;
+}	t_doc;
+
 typedef struct s_data
 {
 	char	*input;
@@ -70,6 +78,9 @@ typedef struct s_data
 	int		ops;
 	int		pipes;
 	int		redirs;
+	int		commands;
+	int		std_out_fd;
+	int		outfile;
 	t_token	*token_list;
 	t_node	*root;
 }	t_data;

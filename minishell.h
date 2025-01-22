@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/15 16:21:11 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:48:04 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 
 # include <unistd.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <sys/types.h>
 # include <signal.h>
+# include <string.h>
 # include <stdlib.h>
 # include <string.h>
 # include <fcntl.h>
@@ -24,6 +26,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdbool.h>
+# include <errno.h>
 # include <linux/limits.h>
 # include "structs.h"
 # include "Libft/libft.h"
@@ -32,6 +35,7 @@ extern volatile __sig_atomic_t	g_signal;
 
 void			init_msh(t_data *data);
 void			free_data(t_data *data);
+void			handle_sig(int sig);
 int				init_data(t_data *data, int ac, char **envp);
 int				is_whitespace(char c);
 
@@ -74,6 +78,7 @@ void			ft_exec(t_data *data, char **cmd);
 void			handle_two_tokens(t_data *data);
 char			*left_redir_ins(t_node *node);
 char			*right_redir_ins(t_node *node);
+int				get_outfile(t_data *data);
 
 // void			free_node(t_node *node);
 
@@ -102,6 +107,7 @@ void			delete_nullword(t_data *data, t_token **head);
 void			replace_envvar(t_data *data);
 int				list_size(t_token *head);
 t_token			*cut_token(char	*s);
+int				check_seperator(char c);
 char			*reconnect(t_token **head);
 void			replace_specialp(t_token **head, char **env);
 char			*search_env(char *s, char **env);
@@ -120,7 +126,7 @@ void			get_root(t_data *data);
 t_node			*get_first_pipe(t_token *t_list);
 t_node			*get_first_redir(t_token *t_list);
 t_token			*redirs_between_pipes(t_token *t_list);
-t_node			*create_node(t_token *token);
+t_node			*create_node(t_token *new);
 char			*get_infile(t_node *node);
 void			parsing(t_data *data);
 void			build_left_branch(t_data *data, t_node *root, t_token *t_list);

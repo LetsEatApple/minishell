@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_root.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:24:42 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/06 11:10:10 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:41:24 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@ void	get_root(t_data *data)
 	if (data->pipes)
 	{
 		data->root = get_first_pipe(data->token_list);
-		data->pipes--;
+//		data->pipes--;
 	}
 	if (data->redirs && data->root == NULL)
 	{
 		data->root = get_first_redir(data->token_list);
-		data->redirs--;
+//		data->redirs--;
 	}
-	data->ops--;
+//	printf("root is %s\n", data->root->value);
+//	data->ops--;
 }
 
 t_node	*get_first_pipe(t_token *t_list) // fix here

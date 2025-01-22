@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   preparsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 17:00:28 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/20 12:04:32 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:03:26 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	count_ops(t_data *data)
 			data->redirs++;
 		if (ptr->type == PIPE)
 			data->pipes++;
+		if (ptr->type == CMD)
+			data->commands++;
 		ptr = ptr->next;
 	}
 	data->ops = data->redirs + data->pipes;
@@ -116,11 +118,11 @@ void	replace_envvar(t_data *data)
 
 void	preparsing(t_data *data)
 {
-	count_ops(data);
 	replace_envvar(data);
 	handle_whitespaces(data, &data->token_list);
 	get_files(data->token_list);
 	search_cmd(&data->token_list);
 	delete_arg(&data->token_list);
 	modify_cmd(data);
+	count_ops(data);
 }
