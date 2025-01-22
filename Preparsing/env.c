@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:29:00 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/18 14:49:56 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/22 13:38:51 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,19 @@ char	*search_env(char *s, char **env)
 	int		size;
 	char	*value;
 	char	*var;
+	char	*tmp;
 	int		len;
 
 	i = 0;
 	size = ft_strlen(s);
 	var = ft_substr(s, 1, size -1);
+	tmp = var;
+	var = ft_strjoin(var, "=");
 	value = NULL;
 	while (env[i] != NULL)
 	{
 		len = ft_strlen(env[i]);
-		if (strncmp(var, env[i], size -1) == 0)
+		if (strncmp(var, env[i], size) == 0)
 		{
 			value = ft_substr(env[i], size, len);
 			break ;
@@ -50,6 +53,7 @@ char	*search_env(char *s, char **env)
 		i++;
 	}
 	free(var);
+	free(tmp);
 	return (value);
 }
 

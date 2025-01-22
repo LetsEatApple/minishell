@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/21 13:40:20 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/22 13:43:19 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <signal.h>
+# include <string.h>
 # include <stdlib.h>
 # include <string.h>
 # include <fcntl.h>
@@ -25,6 +26,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdbool.h>
+# include <errno.h>
 # include <linux/limits.h>
 # include "structs.h"
 # include "Libft/libft.h"
@@ -33,8 +35,8 @@ extern volatile __sig_atomic_t	g_signal;
 
 void			init_msh(t_data *data);
 void			free_data(t_data *data);
-int				init_data(t_data *data, int ac, char **envp);
 void			handle_sig(int sig);
+int				init_data(t_data *data, int ac, char **envp);
 int				is_whitespace(char c);
 
 /*              Builtins            */
@@ -109,6 +111,7 @@ void			delete_nullword(t_data *data, t_token **head);
 void			replace_envvar(t_data *data);
 int				list_size(t_token *head);
 t_token			*cut_token(char	*s);
+int				check_seperator(char c);
 char			*reconnect(t_token **head);
 void			replace_specialp(t_token **head, char **env);
 char			*search_env(char *s, char **env);
