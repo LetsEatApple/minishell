@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/15 16:13:11 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/16 17:20:14 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,15 @@ void	clear_program(t_data *data)
 
 int	main(int ac, char **av, char **envp)
 {
-	t_data	data;
+	t_data		data;
 
-	(void)av;
+	(void)av; //?
 	g_signal = 0;
 	init_data(&data, ac, envp);
-/* 	signal(SIGINT, handle_sig);
-	signal(EOF, handle_sig); */
 	while ("It's been a")
 	{
-		/* if (g_signal == 1)
-			handle_sig(SIGINT); */
-		if (isatty(STDIN_FILENO))
-			signal(SIGINT, handle_sig);
+		//if (isatty(STDIN_FILENO))
+		signal(SIGINT, handle_sig);
 		data.input = readline("minihell: ");
 		if (data.input == NULL)
 		{

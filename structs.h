@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/22 17:29:35 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:06:42 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,13 @@ typedef struct s_env
 	struct s_env	*next;
 	struct s_env	*prev;
 }	t_env;
+
+typedef struct s_doc
+{
+	char	*file;
+	int		fd;
+	char	*delimiter;
+}	t_doc;
 
 typedef struct s_data
 {
