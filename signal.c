@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 13:38:32 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/23 18:00:37 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/23 18:10:28 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ void	set_sig_interactive(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	signal_print_nl(void)
+void	signal_print_nl(int sig)
 {
+	(void)sig;
 	write(1, "\n", 1);
 	//rl_on_new_line();
 }
