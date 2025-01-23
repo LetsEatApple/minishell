@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/22 18:06:33 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/23 13:13:23 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,9 @@ void			handle_redir_in(t_data *data, t_node *node);
 void			handle_redir_out(t_data *data, t_node *node);
 void			handle_redir_append(t_data *data, t_node *node);
 void			handle_heredoc(t_data *data, t_node *node);
+char			*expand_var(t_data *data, char *line);
+void			free_ptr(void *ptr);
+int				create_docfile(t_data *data, char *dm);
 char			*ft_get_first_word(char *s);
 int				check_for_infile(t_data *data, t_node *red_out);
 void			ft_exec(t_data *data, char **cmd);

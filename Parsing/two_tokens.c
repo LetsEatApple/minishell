@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   two_tokens.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:15:24 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/15 16:07:10 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:41:02 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,9 @@ void	handle_two_tokens(t_data *data)
 		}
 	}
 	else if (data->token_list->type == HEREDOC)
-		handle_heredoc(data, NULL);
+	{
+		data->doc.delimiter = data->token_list->next->value;
+		create_docfile(data, data->doc.delimiter);
+	}
+		//handle_heredoc(data, NULL);
 }
