@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:20:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/22 17:42:33 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/23 13:36:03 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	init_data(t_data *data, int ac, char **envp)
 	data->input = NULL;
 	data->env = init_envp(envp);
 	data->e_list = arr2list(data);
-	data->pwd = getpwd(); //upate when cd used
+	data->pwd = getpwd();
 	data->token_list = NULL;
 	data->pipes = 0;
 	data->redirs = 0;
@@ -28,10 +28,6 @@ int	init_data(t_data *data, int ac, char **envp)
 	data->std_out_fd = dup(STDOUT_FILENO);
 	data->root = NULL;
 	data->doc.file = NULL;
-	/* data->doc = malloc(sizeof(data->doc));
-	
-	data->doc->file = malloc(sizeof(char *));
-	data->doc->file = NULL; */
 	return (0);
 }
 
