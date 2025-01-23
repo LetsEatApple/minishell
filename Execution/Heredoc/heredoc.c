@@ -6,11 +6,11 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:46:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/22 17:39:41 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:58:58 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 void	handler(int sig)
 {
@@ -18,26 +18,15 @@ void	handler(int sig)
 		g_signal = 130;
 }
 
-t_node	*get_curr(t_node *node)
-{
-	while (node->left->type == HEREDOC)
-		node = node->left;
-	while (node->right->type == HEREDOC)
-		node = node->right;
-	return (node);
-}
-
 int	get_heredoc(t_data *data, t_node *node)
 {
 	while (node->right->type == HEREDOC && node->right->type != WORD)
 	{
 		data->doc.delimiter = node->right->left->value;
-		//printf("dm: %s\n", node->right->left->value);
 		create_docfile(data, data->doc.delimiter);
 		node = node->right;
 	}
 	data->doc.delimiter = node->right->value;
-	//printf("dm: %s\n", node->right->value);
 	if (create_docfile(data, data->doc.delimiter) == false)
 		return (false);
 	return (true);
@@ -45,7 +34,6 @@ int	get_heredoc(t_data *data, t_node *node)
 
 void	handle_heredoc(t_data *data, t_node *node)
 {
-	//t_node	*current;
 	int		original_stdin;
 
 	g_signal = 0;
@@ -53,9 +41,6 @@ void	handle_heredoc(t_data *data, t_node *node)
 		return ;
 	if (node == NULL)
 		return ;
-	/* current = get_curr(node);
-	if (!current)
-		return ; */
 	data->doc.fd = open(data->doc.file, O_RDONLY);
 	original_stdin = dup(STDIN_FILENO);
 	if (dup2(data->doc.fd, STDIN_FILENO) == -1)
@@ -66,11 +51,9 @@ void	handle_heredoc(t_data *data, t_node *node)
 	close(data->doc.fd);
 	if (node->left)
 	{
-		if(node->left->type == CMD)
+		if (node->left->type == CMD)
 			execute(data, node->left);
 	}
-/* 	else if (current->left)
-		execute(data, current->left); */
 	dup2(original_stdin, STDIN_FILENO);
 	close(original_stdin);
 }

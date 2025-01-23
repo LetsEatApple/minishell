@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/21 16:52:32 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:56:52 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	execute(t_data *data, t_node *node)
 	if (node->type == PIPE)
 		handle_pipe(data, node);
 	else if (node->type == REDIR_IN)
-		handle_redir_in(data, node);	
+		handle_redir_in(data, node);
 	else if (node->type == REDIR_OUT)
 		handle_redir_out(data, node);
 	else if (node->type == REDIR_OUT_APPEND)

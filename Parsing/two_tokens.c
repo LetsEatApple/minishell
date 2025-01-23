@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:15:24 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/22 17:41:02 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:52:35 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ void	handle_two_tokens(t_data *data)
 	if (data->token_list->type == REDIR_OUT)
 	{
 		file_name = data->token_list->next->value;
-		open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		//error here also possible but not likely
+		open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);//error here also possible but not likely
 	}
 	else if (data->token_list->type == REDIR_OUT_APPEND)
 	{
@@ -42,5 +41,4 @@ void	handle_two_tokens(t_data *data)
 		data->doc.delimiter = data->token_list->next->value;
 		create_docfile(data, data->doc.delimiter);
 	}
-		//handle_heredoc(data, NULL);
 }

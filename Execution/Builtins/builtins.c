@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 15:22:13 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/08 18:46:57 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:30:45 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_pwd(t_data *data, char **cmd)
 		perror("getcwd:");
 }
 
-//env in bash returns 125/127 but is not a built in there
+//env in bash returns 125/127 but is not a builtin there
 //should we choose 2 instead (Misuse of Shell Builtin)?
 void	ft_env(char **cmd, char **env)
 {

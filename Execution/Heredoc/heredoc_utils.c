@@ -6,19 +6,21 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:20:59 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/22 17:45:03 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:03:13 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 int	process_line(t_data *data, char **line, char *dm, int *status)
 {
-	char *tmp;
+	char	*tmp;
 
 	if (*line == NULL)
 	{
-		print_error_fd("warning: here-document delimited by end-of-file (wanted '%s')\n", dm, 0);
+		ft_putstr_fd("warning: ", 2);
+		print_error_fd("here-document delimited by end-of-file (wanted '%s')\n",
+			dm, 0);
 		*status = false;
 		return (false);
 	}
@@ -38,11 +40,11 @@ void	fill_heredoc(t_data *data, char *dm, int *status)
 	char	*line;
 
 	line = NULL;
-	while(1)
+	while (1)
 	{
-		//signal interactive
+		set_sig_interactive();
 		line = readline("> ");
-		//signal noninteractive
+		set_sig_noninteractive();
 		if (process_line(data, &line, dm, status) == false)
 			break ;
 		ft_putendl_fd(line, data->doc.fd);
@@ -53,9 +55,9 @@ void	fill_heredoc(t_data *data, char *dm, int *status)
 
 int	create_docfile(t_data *data, char *dm)
 {
-	int		status;
-	char	*tmp;
-	static int num;
+	int			status;
+	char		*tmp;
+	static int	num;
 
 	if (data->doc.file)
 	{

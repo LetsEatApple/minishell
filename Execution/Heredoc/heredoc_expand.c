@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc_utils.c                                    :+:      :+:    :+:   */
+/*   heredoc_expand.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:19:16 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/22 16:19:44 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:56:59 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 void	free_ptr(void *ptr)
 {
-	if(ptr != NULL)
+	if (ptr != NULL)
 	{
 		free(ptr);
 		ptr = NULL;
@@ -52,13 +52,24 @@ char	*save_previous(char *line, char *nl, int start, int len)
 	return (nl);
 }
 
-char	*expand_var(t_data *data, char *line)
+char	*get_var(t_data *data, char *nl, char *var)
 {
-	int	i;
-	int	sp;
-	char	*nl;
 	char	*tmp;
 	char	*tmp2;
+
+	tmp = nl;
+	tmp2 = replace_var(data, var);
+	nl = ft_strjoin(tmp, tmp2);
+	free_ptr(tmp);
+	free_ptr(tmp2);
+	return (nl);
+}
+
+char	*expand_var(t_data *data, char *line)
+{
+	int		i;
+	int		sp;
+	char	*nl;
 
 	i = 0;
 	sp = i;
@@ -67,21 +78,17 @@ char	*expand_var(t_data *data, char *line)
 	{
 		if (line[i] == '$')
 		{
-			nl = save_previous(line, nl, sp, i-sp);
+			nl = save_previous(line, nl, sp, i - sp);
 			sp = i +1;
 			while (line[sp] && check_seperator(line[sp]) == false)
 				sp++;
-			tmp = nl;
-			tmp2 = replace_var(data, ft_substr(line, i, sp -i));
-			nl = ft_strjoin(tmp, tmp2);
-			free_ptr(tmp);
-			free_ptr(tmp2);
+			nl = get_var(data, nl, ft_substr(line, i, sp - i));
 			i = sp;
 		}
 		else
 			i++;
 	}
 	if (line[sp] != '\0')
-		nl = save_previous(line, nl, sp, i-sp);
+		nl = save_previous(line, nl, sp, i - sp);
 	return (nl);
 }

@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 15:06:06 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/23 14:10:05 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:05:22 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,4 @@ void	store_cmd(t_token *start, t_token *end, int len)
 	start->cmd = cmd;
 	start->type = CMD;
 	start->arg = 0;
-	/* if (len != 1)
-		delete_rest(start, end); */
 }

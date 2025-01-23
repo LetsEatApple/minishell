@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/23 13:13:12 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:27:40 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef enum e_token_type
 	WORD,					//7
 	CMD,					//8
 	ENV,					//9
-	WHITESPACE				//10
+	WHITESPACE,				//10
 }	t_token_type;
 
 typedef struct s_node

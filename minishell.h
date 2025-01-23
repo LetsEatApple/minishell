@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/23 13:13:23 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:25:51 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void			free_data(t_data *data);
 void			handle_sig(int sig);
 int				init_data(t_data *data, int ac, char **envp);
 int				is_whitespace(char c);
+void			set_sig_interactive(void);
+void			set_sig_noninteractive(void);
 
 /*              Builtins            */
 int				is_built_in(char *cmd);
@@ -117,6 +119,7 @@ t_token			*cut_token(char	*s);
 int				check_seperator(char c);
 char			*reconnect(t_token **head);
 void			replace_specialp(t_token **head, char **env);
+char			*get_var_n_equals(char *s, int size);
 char			*search_env(char *s, char **env);
 void			store_cmd(t_token *start, t_token *end, int len);
 int				check_dollar(char *s);
