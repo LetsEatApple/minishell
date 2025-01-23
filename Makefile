@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+         #
+#    By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2025/01/15 16:12:05 by grmullin         ###   ########.fr        #
+#    Updated: 2025/01/22 16:24:54 by lhagemos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,8 @@ Execution/ft_command.c \
 Execution/exec.c \
 Execution/exec_utils.c \
 Execution/heredoc.c \
+Execution/heredoc_expand.c \
+Execution/heredoc_utils.c \
 Execution/redir_in.c \
 Execution/redir_out.c \
 Parsing/two_tokens.c \

@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/22 13:43:10 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:33:58 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,5 @@ typedef struct s_data
 	int		std_out_fd;
 	t_token	*token_list;
 	t_node	*root;
+	t_doc	doc;
 }	t_data;

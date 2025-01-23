@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:21:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/14 13:32:49 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/23 13:05:53 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,13 @@ void	free_data(t_data *data)
 		clearlist(&data->token_list);
 		data->token_list = NULL;
 	}
-	if (access("temp", F_OK) == 0)
-		unlink("temp");
+	if (data->doc.file)
+	{
+		if (access(data->doc.file, F_OK) == 0)
+			unlink(data->doc.file);
+		free(data->doc.file);
+		data->doc.file = NULL;
+	}
 }
 
 void	free_split(char **s)
