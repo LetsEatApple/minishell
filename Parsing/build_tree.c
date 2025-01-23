@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/23 13:13:33 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:12:09 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	parsing(t_data *data)
 		build_left_branch(data, data->root, data->token_list);
 	build_right_branch(data, data->root, data->token_list);
 	// printf("\n");
-	print_tree(data->root, 0);
+	//print_tree(data->root, 0);
 	// printf("\n");
 }
 

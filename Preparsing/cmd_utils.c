@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 15:06:06 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/22 13:51:58 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:10:05 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ void	store_cmd(t_token *start, t_token *end, int len)
 		ptr = ptr->next;
 	}
 	cmd[i] = NULL;
-	if (start->value[0] != '\0') // check for leaks E.G. $INvalid
-		free(start->value);
+	free(start->value);
 	start->value = NULL;
 	start->cmd = cmd;
 	start->type = CMD;
