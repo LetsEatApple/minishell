@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_expand.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:19:16 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/23 16:56:59 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:23:56 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ char	*replace_var(t_data *data, char *var)
 {
 	char	*val;
 
+	val = NULL;
 	if (ft_strncmp(var, "$", 2) == 0)
 		val = ft_strdup("$");
 	else if (ft_strncmp("$?", var, 3) == 0)

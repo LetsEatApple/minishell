@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:20:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/24 17:21:47 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:23:35 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	init_data(t_data *data, int ac, char **envp)
 	data->pipes = 0;
 	data->redirs = 0;
 	data->commands = 0;
-	data->exec = 0;
 	data->red_in = 0;
 	data->infile = 0;
 	data->ops = 0;

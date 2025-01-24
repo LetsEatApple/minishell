@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/24 17:22:42 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:26:54 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	build_right_branch(t_data *data, t_node *root, t_token *t_list)
 		current = current->next;
 	if (root->left == NULL)
 		root->left = create_node(get_first_command(t_list));
-		root->left = create_node(get_first_command(t_list));
 	if (data->ops > 1)
 	{
 		next_op = find_next_op(current);
@@ -97,19 +96,9 @@ void	build_right_branch(t_data *data, t_node *root, t_token *t_list)
 	else
 	{
 		while (current->next && current->node == 1)
-		while (current->next && current->node == 1)
 			current = current->next;
 		root->right = create_node(current);
 	}
-}
-
-t_token	*get_prev_node(t_token *token)
-{
-	if (token->prev->type == WORD || token->prev->type == CMD)
-		return (token->prev);
-	else if (token->next->type == CMD || token->next->type == WORD)
-		return (token->next);
-	return (NULL);
 }
 
 t_token	*get_prev_node(t_token *token)

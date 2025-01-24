@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/24 17:18:48 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:23:25 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct s_node
 	char			*value;
 	char			**cmd;
 	int				node;
-	int				exec;
 	int				exec;
 	t_token_type	type;
 	struct s_node	*left;

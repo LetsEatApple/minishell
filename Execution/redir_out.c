@@ -6,16 +6,14 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 18:08:47 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/24 17:21:21 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:26:00 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 char	*get_outfile_red_out(t_node *node)
-char	*get_outfile_red_out(t_node *node)
 {
-	char	*outfile;
 	char	*outfile;
 	int		fd;
 
@@ -110,7 +108,6 @@ char	*get_outfile_red_out(t_node *node)
 		return (0);
 	}
 	return (outfile);
-	return (outfile);
 }
 
 void	handle_redir_out(t_data *data, t_node *node)
@@ -137,7 +134,6 @@ void	handle_redir_out(t_data *data, t_node *node)
 	close(data->std_out_fd);
 }
 
-char	*get_outfile_red_app(t_node *node)
 char	*get_outfile_red_app(t_node *node)
 {
 	char	*file;

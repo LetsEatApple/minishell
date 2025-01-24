@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/24 17:20:14 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:25:20 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ char	*get_infile_red_in(t_node *node)
 	else
 		infile = node->right->left->value;
 	if (node->left && node->left->type == REDIR_IN)
-		infile = left_redir_ins(node);
+		infile = left_redir_ins(node, REDIR_IN);
 	else if (node->right && node->right->type == REDIR_IN)
-		infile = right_redir_ins(node);
+		infile = right_redir_ins(node, REDIR_IN);
 	if (infile == NULL)
 		return (NULL);
 	fd = open(infile, O_RDONLY);
@@ -119,8 +119,6 @@ void	handle_redir_in(t_data *data, t_node *node)
 	t_node	*current;
 	int		original_stdin;
 	int		infile;
-	char	*outfile;
-	int		fd;
 	char	*outfile;
 	int		fd;
 
