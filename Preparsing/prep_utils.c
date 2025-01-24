@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:50:56 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/08 15:26:48 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:16:57 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,3 @@ void	connect_val(t_token *ptr, t_token *start)
 	if (value != NULL && value[0] != '\0')
 		free(value);
 }
-
-/* if (ptr->next && ptr->next->word == 1)
-{
-	value = start->value;
-	start->value = ft_strjoin(start->value, ptr->next->value);
-	if (value != NULL && value[0] != '\0')
-		free(value);
-} */

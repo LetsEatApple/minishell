@@ -3,22 +3,25 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+         #
+#    By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2025/01/15 16:12:05 by grmullin         ###   ########.fr        #
+#    Updated: 2025/01/23 17:22:46 by lhagemos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := minishell
 FILES := main.c \
+signal.c \
 delete_later.c \
 Init/init.c \
 Init/free.c \
 Execution/ft_command.c \
 Execution/exec.c \
 Execution/exec_utils.c \
-Execution/heredoc.c \
+Execution/Heredoc/heredoc.c \
+Execution/Heredoc/heredoc_expand.c \
+Execution/Heredoc/heredoc_utils.c \
 Execution/redir_in.c \
 Execution/redir_out.c \
 Parsing/two_tokens.c \
@@ -44,6 +47,7 @@ Preparsing/preparsing.c \
 Preparsing/env.c \
 Preparsing/prep_utils.c \
 Preparsing/env_utils.c \
+Preparsing/env_utils2.c \
 Preparsing/cmd_utils.c \
 Preparsing/path.c \
 Preparsing/whitespace.c \

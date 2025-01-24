@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   preparsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 17:00:28 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/15 16:03:26 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:16:27 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	count_ops(t_data *data)
 			data->pipes++;
 		if (ptr->type == CMD)
 			data->commands++;
+		if (ptr->type == REDIR_IN)
+			data->red_in++;
 		ptr = ptr->next;
 	}
 	data->ops = data->redirs + data->pipes;
@@ -75,31 +77,6 @@ void	search_cmd(t_token **head)
 			ptr = ptr->next;
 	}
 }
-
-/* void	search_cmd(t_token **head)
-{
-	t_token	*ptr;
-	t_token	*temp;
-	int		len;
-
-	ptr = *head;
-	while (ptr != NULL)
-	{
-		len = 0;
-		if ((ptr->type == WORD || ptr->type < 2) && ptr->file == false)
-		{
-			temp = ptr;
-			while (ptr && (ptr->type == WORD || ptr->type < 2))
-			{
-				len++;
-				ptr = ptr->next;
-			}
-			store_cmd(temp, ptr, len);
-		}
-		else
-			ptr = ptr->next;
-	}
-} */
 
 void	replace_envvar(t_data *data)
 {

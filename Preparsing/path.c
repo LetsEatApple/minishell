@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:01:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/15 16:07:34 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:07:29 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,4 @@ void	modify_cmd(t_data *data)
 			ptr->type = WORD;
 		ptr = ptr->next;
 	}
-	
 }

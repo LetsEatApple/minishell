@@ -6,19 +6,11 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:59:01 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/20 12:04:53 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:22:13 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	check_seperator(char c)
-{
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
-		|| (c >= '0' && c <= '9') || c == '_')
-		return (false);
-	return (true);
-}
 
 void	process_specialp(t_token **head, char *s, int *i)
 {
@@ -43,7 +35,6 @@ void	process_specialp(t_token **head, char *s, int *i)
 		j++;
 	}
 	sp = copy_part(s, *i, size);
-	//printf("sp = %s\n", sp);
 	create_list(head, sp, ENV);
 	*i += size;
 }

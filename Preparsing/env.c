@@ -6,26 +6,11 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:29:00 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/12/18 14:49:56 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:21:53 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-/*          check if token contains '$'           */
-int	check_dollar(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == '$')
-			return (true);
-		i++;
-	}
-	return (false);
-}
 
 char	*search_env(char *s, char **env)
 {
@@ -37,12 +22,12 @@ char	*search_env(char *s, char **env)
 
 	i = 0;
 	size = ft_strlen(s);
-	var = ft_substr(s, 1, size -1);
+	var = get_var_n_equals(s, size -1);
 	value = NULL;
 	while (env[i] != NULL)
 	{
 		len = ft_strlen(env[i]);
-		if (strncmp(var, env[i], size -1) == 0)
+		if (strncmp(var, env[i], size) == 0)
 		{
 			value = ft_substr(env[i], size, len);
 			break ;

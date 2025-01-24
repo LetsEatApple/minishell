@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 19:33:25 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/10 11:36:53 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:05:32 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,5 @@ void	handle_whitespaces(t_data *data, t_token **head)
 {
 	check_words(head);
 	connect_words(head);
-	remove_whitespace(data, head);	
+	remove_whitespace(data, head);
 }

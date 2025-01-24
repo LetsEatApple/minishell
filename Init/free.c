@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:21:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/24 15:58:13 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:21:41 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,13 @@ void	free_data(t_data *data)
 		clearlist(&data->token_list);
 		data->token_list = NULL;
 	}
-	if (access("temp", F_OK) == 0)
-		unlink("temp");
+	if (data->doc.file)
+	{
+		if (access(data->doc.file, F_OK) == 0)
+			unlink(data->doc.file);
+		free(data->doc.file);
+		data->doc.file = NULL;
+	}
 }
 
 void	free_split(char **s)

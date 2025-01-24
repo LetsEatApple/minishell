@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/24 16:04:19 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:18:20 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <signal.h>
+# include <string.h>
 # include <stdlib.h>
 # include <string.h>
 # include <fcntl.h>
@@ -25,6 +26,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdbool.h>
+# include <errno.h>
 # include <linux/limits.h>
 # include "structs.h"
 # include "Libft/libft.h"
@@ -33,9 +35,11 @@ extern volatile __sig_atomic_t	g_signal;
 
 void			init_msh(t_data *data);
 void			free_data(t_data *data);
-int				init_data(t_data *data, int ac, char **envp);
 void			handle_sig(int sig);
+int				init_data(t_data *data, int ac, char **envp);
 int				is_whitespace(char c);
+void			set_sig_interactive(void);
+void			set_sig_noninteractive(void);
 
 /*              Builtins            */
 int				is_built_in(char *cmd);
@@ -72,11 +76,15 @@ void			handle_redir_in(t_data *data, t_node *node);
 void			handle_redir_out(t_data *data, t_node *node);
 void			handle_redir_append(t_data *data, t_node *node);
 void			handle_heredoc(t_data *data, t_node *node);
+char			*expand_var(t_data *data, char *line);
+void			free_ptr(void *ptr);
+int				create_docfile(t_data *data, char *dm);
 char			*ft_get_first_word(char *s);
+int				check_for_infile(t_data *data, t_node *red_out);
 void			ft_exec(t_data *data, char **cmd);
 void			handle_two_tokens(t_data *data);
-char			*left_redir_ins(t_node *node);
-char			*right_redir_ins(t_node *node);
+char			*left_redir_ins(t_node *node, t_token_type type);
+char			*right_redir_ins(t_node *node, t_token_type type);
 char			*get_infile_red_in(t_node *node);
 int				get_outfile(t_node *node);
 char			*get_outfile_red_out(t_node *node);
@@ -111,8 +119,10 @@ void			delete_nullword(t_data *data, t_token **head);
 void			replace_envvar(t_data *data);
 int				list_size(t_token *head);
 t_token			*cut_token(char	*s);
+int				check_seperator(char c);
 char			*reconnect(t_token **head);
 void			replace_specialp(t_token **head, char **env);
+char			*get_var_n_equals(char *s, int size);
 char			*search_env(char *s, char **env);
 void			store_cmd(t_token *start, t_token *end, int len);
 int				check_dollar(char *s);
@@ -138,6 +148,7 @@ int				ops_before_root(t_token *token_list);
 t_token			*get_first_command(t_token *real);
 t_token			*find_prev_op(t_token *token_list); // merge?
 t_token			*find_next_op(t_token *token_list);
+t_token			*get_prev_node(t_token *token);
 void			clear_table(t_data *data);
 
 /*               Error               */
