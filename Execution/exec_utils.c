@@ -6,11 +6,33 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:44:35 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/16 18:37:13 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/24 15:57:02 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	check_for_infile(t_data *data, t_node *red_out)
+{
+	t_node	*node;
+	char	*infile;
+
+	node = red_out;
+	if (data->red_in > 0 && data->infile == 0)
+	{
+		while (node->type != REDIR_IN)
+			node = node->right;
+	}
+	infile = get_infile_red_in(node);
+	data->infile = 1;
+	if (!infile)
+	{
+		dup2(data->std_out_fd, STDOUT_FILENO);
+		return (1);
+	}
+	execute(data, node);
+	return (0);
+}
 
 char	*ft_get_first_word(char *s)
 {

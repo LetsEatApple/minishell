@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/21 15:52:51 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/24 16:53:03 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*right_redir_ins(t_node *node)
 	int		fd;
 	char	*infile;
 
-	infile = node->right->right->value;
+//	infile = node->right->right->value;
 	fd = open(node->right->left->value, O_RDONLY);
 	if (fd == -1)
 	{
@@ -80,14 +80,13 @@ char	*get_infile_red_in(t_node *node)
 	char	*infile;
 	int		fd;
 
-	infile = node->right->value;
 	if (node->right->type == WORD)
 		infile = node->right->value;
 	else
 		infile = node->right->left->value;
-	if (node->left->type == REDIR_IN)
+	if (node->left && node->left->type == REDIR_IN)
 		infile = left_redir_ins(node);
-	else if (node->right->type == REDIR_IN)
+	else if (node->right && node->right->type == REDIR_IN)
 		infile = right_redir_ins(node);
 	if (infile == NULL)
 		return (NULL);
@@ -122,16 +121,20 @@ void	handle_redir_in(t_data *data, t_node *node)
 	t_node	*current;
 	int		original_stdin;
 	int		infile;
-	int		outfile;
+	char	*outfile;
+	int		fd;
 
-	infile = 0;
 	current = get_current(node);
-	outfile = 0;
+	outfile = NULL;
+	fd = 0;
 	if (!current)
 		return ;
 	current->right->value = get_infile_red_in(node);
 	if (current->right->value == NULL)
+	{
+		dup2(data->std_out_fd, STDOUT_FILENO);
 		return ;
+	}
 	infile = open(current->right->value, O_RDONLY);
 	original_stdin = dup(STDIN_FILENO);
 	if (dup2(infile, STDIN_FILENO) == -1)
@@ -151,8 +154,9 @@ void	handle_redir_in(t_data *data, t_node *node)
 			dup2(original_stdin , STDIN_FILENO);
 			return ;
 		}
-		dup2(outfile, STDOUT_FILENO); // check if -1
-		close(outfile);
+		fd = open(outfile,  O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		dup2(fd, STDOUT_FILENO); // check if -1
+		close(fd);
 		if (current->left->type == CMD)
 			execute(data, current->left);
 		else

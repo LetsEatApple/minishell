@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/21 13:40:20 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/24 16:04:19 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,10 @@ char			*left_redir_ins(t_node *node);
 char			*right_redir_ins(t_node *node);
 char			*get_infile_red_in(t_node *node);
 int				get_outfile(t_node *node);
-int				get_outfile_red_out(t_node *node);
-int				get_outfile_red_app(t_node *node);
+char			*get_outfile_red_out(t_node *node);
+char			*get_outfile_red_app(t_node *node);
+t_token			*get_prev_node(t_token *token);
+int         	check_for_infile(t_data *data, t_node *red_out);
 
 // void			free_node(t_node *node);
 

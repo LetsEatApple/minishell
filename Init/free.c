@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:21:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/14 13:32:49 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/24 15:58:13 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	clear_table(t_data *data)
 	}
 	data->pipes = 0;
 	data->redirs = 0;
+	data->infile = 0;
+	data->red_in = 0;
 }
 
 void	free_ast(t_node *head)
