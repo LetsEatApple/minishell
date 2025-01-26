@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:24:42 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/21 13:47:18 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:56:52 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,31 @@ t_node	*get_first_redir(t_token *t_list)
 			return (new_node);
 		}
 		t_list = t_list->next;
+	}
+	return (NULL);
+}
+
+t_token	*get_command(t_token *token)
+{
+	if (token->prev->type == WORD || token->prev->type == CMD)
+		return (token->prev);
+	else if (token->next->type == CMD || token->next->type == WORD)
+		return (token->next);
+	return (NULL);
+}
+
+t_token	*get_first_command(t_token *real)
+{
+	t_token	*current;
+
+	current = real;
+	while (current && current->next)
+	{
+		if (current->type == CMD && current->node == 0)
+			return (current);
+		else if (current->next->type == CMD && current->node == 0)
+			return (current->next);
+		current = current->next;
 	}
 	return (NULL);
 }

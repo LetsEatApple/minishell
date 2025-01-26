@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/24 17:26:54 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/26 20:40:06 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ t_node	*create_node(t_token *token)
 	new_node->type = token->type;
 	token->node = 1;
 	new_node->node = 1;
-	new_node->exec = 0;
-	new_node->exec = 0;
 	new_node->left = NULL;
 	new_node->right = NULL;
 	return (new_node);
@@ -69,6 +67,7 @@ void	build_right_branch(t_data *data, t_node *root, t_token *t_list)
 		next_op = find_next_op(current);
 		if (!next_op && data->ops)
 		{
+		//	create_branch_prev_op(data, next_op, current);
 			next_op = find_prev_op(current);
 			data->ops--;
 			root->left = create_node(next_op);
@@ -80,6 +79,7 @@ void	build_right_branch(t_data *data, t_node *root, t_token *t_list)
 		}
 		else
 		{
+		//	create_branch_next_op(data, next_op, current);
 			data->ops--;
 			root->right = create_node(next_op);
 			if (redirs_between_pipes(t_list))
@@ -89,7 +89,7 @@ void	build_right_branch(t_data *data, t_node *root, t_token *t_list)
 				build_right_branch(data, root->right->left, t_list);		
 			}
 			else
-				root->right->left = create_node(next_op->prev); // create_node(get_prev_node(next_op));
+				root->right->left = create_node(get_command(next_op));
 			build_right_branch(data, root->right, t_list);
 		}
 	}
@@ -101,14 +101,42 @@ void	build_right_branch(t_data *data, t_node *root, t_token *t_list)
 	}
 }
 
-t_token	*get_prev_node(t_token *token)
+void	create_branch_next_op(t_data *data, t_token *next_op, t_token *current)
 {
-	if (token->prev->type == WORD || token->prev->type == CMD)
-		return (token->prev);
-	else if (token->next->type == CMD || token->next->type == WORD)
-		return (token->next);
-	return (NULL);
+	//t_token *next_op;
+
+//	next_op = find_prev_op(current);
+	(void)current;
+
+	data->ops--;
+	data->root->right = create_node(next_op);
+	if (redirs_between_pipes(data->token_list))
+	{
+		data->root->right->left = create_node(redirs_between_pipes(data->token_list));
+		data->ops--;
+		build_right_branch(data, data->root->right->left, data->token_list);		
+	}
+	else
+		data->root->right->left = create_node(get_command(next_op));
+	build_right_branch(data, data->root->right, data->token_list);
 }
+
+
+void	create_branch_prev_op(t_data *data, t_token *next_op, t_token *current)
+{
+//	t_token *next_op;
+
+	//next_op = find_prev_op(current);
+	(void)current;
+	data->ops--;
+	data->root->left = create_node(next_op);
+	if (redirs_between_pipes(data->token_list))
+		data->root->right->left = create_node(redirs_between_pipes(data->token_list));
+	else
+		data->root->right->left = create_node(next_op->prev);
+	build_right_branch(data, data->root->left, data->token_list);
+}
+
 
 void	build_left_branch(t_data *data, t_node *root, t_token *t_list)
 {

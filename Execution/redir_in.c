@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/24 17:25:20 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/26 20:48:14 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,57 +14,33 @@
 
 char	*left_redir_ins(t_node *node, t_token_type type)
 {
-	int		fd;
 	char	*infile;
 
 	infile = node->right->value;
 	while (node->left->type == type)
 	{
-		fd = open(node->left->right->value, O_RDONLY);
-		if (fd < 0)
-		{
-			perror(node->left->right->value);
-			g_signal = 1;
+		infile = node->left->right->value;
+		if (!check_infile_validity(infile))
 			return (NULL);
-		}
-		close(fd);
 		node = node->left;
 	}
-	fd = open(node->right->value, O_RDONLY);
-	if (fd == -1)
-	{
-		perror(node->right->value);
-		g_signal = 1;
-		return (NULL);
-	}
-	close(fd);
+	if (!check_infile_validity(node->right->value))
+			return (NULL);
 	return (infile);
 }
 
 char	*right_redir_ins(t_node *node, t_token_type type)
 {
-	int		fd;
 	char	*infile;
 
-	fd = open(node->right->left->value, O_RDONLY);
-	if (fd == -1)
-	{
-		perror(node->right->left->value);
-		g_signal = 1;
+	infile = node->right->left->value;
+	if (!check_infile_validity(infile))
 		return (NULL);
-	}
-	close(fd);
 	while (node->right->type == type)
 	{
-		fd = open(node->right->left->value, O_RDONLY);
-		if (fd == -1)
-		{
-			perror(node->right->left->value);
-			g_signal = 1;
+		infile = node->right->left->value;
+		if (!check_infile_validity(infile))
 			return (NULL);
-		}
-		close(fd);
-		infile = node->right->right->value;
 		node = node->right;
 	}
 	infile = node->right->value;
@@ -76,7 +52,6 @@ char	*right_redir_ins(t_node *node, t_token_type type)
 char	*get_infile_red_in(t_node *node)
 {
 	char	*infile;
-	int		fd;
 
 	if (node->right->type == WORD)
 		infile = node->right->value;
@@ -88,14 +63,8 @@ char	*get_infile_red_in(t_node *node)
 		infile = right_redir_ins(node, REDIR_IN);
 	if (infile == NULL)
 		return (NULL);
-	fd = open(infile, O_RDONLY);
-	if (fd == -1)
-	{
-		perror(infile);
-		g_signal = 1;
+	if (!check_infile_validity(infile))
 		return (NULL);
-	}
-	close(fd);
 	return (infile);
 }
 
@@ -131,10 +100,7 @@ void	handle_redir_in(t_data *data, t_node *node)
 	if (current->right->value == NULL)
 	{
 		dup2(data->std_out_fd, STDOUT_FILENO);
-	{
-		dup2(data->std_out_fd, STDOUT_FILENO);
 		return ;
-	}
 	}
 	infile = open(current->right->value, O_RDONLY);
 	data->infile = infile;
@@ -147,10 +113,10 @@ void	handle_redir_in(t_data *data, t_node *node)
 	close(infile);
 	if (!data->pipes && current->right && current->right->type != WORD)
 	{
-		if (current->right->type == REDIR_OUT)
-			outfile = get_outfile_red_out(current->right);
-		else if (current->right->type == REDIR_OUT_APPEND)
-			outfile = get_outfile_red_app(current->right);
+		if (current->right->type == REDIR_OUT || current->right->type == REDIR_OUT_APPEND)
+			outfile = get_outfile_redir_out(current->right);
+		// else if (current->right->type == REDIR_OUT_APPEND)
+		// 	outfile = get_outfile_red_app(current->right);
 		if (!outfile)
 		{
 			dup2(original_stdin , STDIN_FILENO);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+         #
+#    By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2025/01/23 17:22:46 by lhagemos         ###   ########.fr        #
+#    Updated: 2025/01/26 20:09:40 by grmullin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,10 @@ Execution/exec_utils.c \
 Execution/Heredoc/heredoc.c \
 Execution/Heredoc/heredoc_expand.c \
 Execution/Heredoc/heredoc_utils.c \
+Execution/file_utils.c \
 Execution/redir_in.c \
 Execution/redir_out.c \
+Execution/red_out.c \
 Parsing/two_tokens.c \
 Execution/Builtins/builtins.c \
 Execution/Builtins/what.c \
@@ -40,7 +42,7 @@ Lexing/utils.c \
 Lexing/token.c \
 Lexing/syntax.c \
 Parsing/build_tree.c \
-Parsing/get_root.c \
+Parsing/get_op.c \
 Parsing/parsing_utils.c \
 Init/error.c \
 Preparsing/preparsing.c \

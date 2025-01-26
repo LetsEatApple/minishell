@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:48:08 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/24 17:17:32 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/26 17:56:06 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ char	*print_node(t_node *node)
 	}
 	else if (node->value)
 	{
-		ft_putstr_fd("node is ", 2);
 	//	ft_putstr_fd("in exec w: ", 2);
 		ft_putstr_fd("node is ", 2);
 		ft_putstr_fd(node->value, 2);

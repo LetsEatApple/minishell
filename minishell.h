@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/24 17:18:20 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/26 19:58:16 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,18 +81,19 @@ void			free_ptr(void *ptr);
 int				create_docfile(t_data *data, char *dm);
 char			*ft_get_first_word(char *s);
 int				check_for_infile(t_data *data, t_node *red_out);
+char			*check_infile_validity(char *file);
+char			*check_outfile_validity(char *file, t_token_type type);
 void			ft_exec(t_data *data, char **cmd);
 void			handle_two_tokens(t_data *data);
 char			*left_redir_ins(t_node *node, t_token_type type);
 char			*right_redir_ins(t_node *node, t_token_type type);
 char			*get_infile_red_in(t_node *node);
-int				get_outfile(t_node *node);
 char			*get_outfile_red_out(t_node *node);
+char			*get_outfile_redir_out(t_node *node);
 char			*get_outfile_red_app(t_node *node);
-t_token			*get_prev_node(t_token *token);
-int         	check_for_infile(t_data *data, t_node *red_out);
-
-// void			free_node(t_node *node);
+t_token			*get_command(t_token *token);
+char	*left_redir_out(t_node *node, t_token_type type);
+char	*right_redir_out(t_node *node, t_token_type type);
 
 /*              Env.vars            */
 int				get_key_len(char *env);
@@ -143,6 +144,8 @@ t_node			*create_node(t_token *new);
 void			parsing(t_data *data);
 void			build_left_branch(t_data *data, t_node *root, t_token *t_list);
 void			build_right_branch(t_data *data, t_node *root, t_token *t_list);
+void			create_branch_prev_op(t_data *data, t_token *next_op, t_token *current);
+void			create_branch_next_op(t_data *data, t_token *next_op, t_token *current);
 void			free_ast(t_node *head);
 int				ops_before_root(t_token *token_list);
 t_token			*get_first_command(t_token *real);

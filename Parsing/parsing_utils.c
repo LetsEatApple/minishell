@@ -6,27 +6,11 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:11:11 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/14 16:38:59 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:56:49 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-t_token	*get_first_command(t_token *real) // changed this
-{
-	t_token	*current;
-
-	current = real;
-	while (current && current->next)
-	{
-		if (current->type == CMD && current->node == 0)
-			return(current);
-		else if (current->next->type == CMD && current->node == 0)
-			return(current->next);
-		current = current->next;
-	}
-	return (NULL);
-}
 
 int	ops_before_root(t_token *token_list)
 {
@@ -77,7 +61,7 @@ t_token	*find_next_op(t_token *token_list)
 	{
 		if (current->node == 0 && (current->type > 2 
 				&& current->type < 7))
-			return (current);		
+			return (current);
 		current = current->next;
 	}
 	return (NULL);
@@ -86,7 +70,7 @@ t_token	*find_next_op(t_token *token_list)
 t_token	*redirs_between_pipes(t_token *t_list)
 {
 	t_token	*list_copy;
-	int	first_pipe;
+	int		first_pipe;
 
 	list_copy = t_list;
 	first_pipe = 0;

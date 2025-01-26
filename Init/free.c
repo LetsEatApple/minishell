@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:21:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/24 17:21:41 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/26 20:59:48 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ void	clear_table(t_data *data)
 	data->redirs = 0;
 	data->infile = 0;
 	data->red_in = 0;
+	dup2(data->std_out_fd, STDOUT_FILENO);
+	data->outfile = 0;
+	close(data->std_out_fd);
 }
 
 void	free_ast(t_node *head)
