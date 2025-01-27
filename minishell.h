@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/26 19:58:16 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/27 17:52:27 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int				init_data(t_data *data, int ac, char **envp);
 int				is_whitespace(char c);
 void			set_sig_interactive(void);
 void			set_sig_noninteractive(void);
+int	restore_stdin_stdout(t_data *data, int n);
 
 /*              Builtins            */
 int				is_built_in(char *cmd);
@@ -76,6 +77,7 @@ void			handle_redir_in(t_data *data, t_node *node);
 void			handle_redir_out(t_data *data, t_node *node);
 void			handle_redir_append(t_data *data, t_node *node);
 void			handle_heredoc(t_data *data, t_node *node);
+t_node			*get_current(t_node *node, t_token_type type);
 char			*expand_var(t_data *data, char *line);
 void			free_ptr(void *ptr);
 int				create_docfile(t_data *data, char *dm);
@@ -85,15 +87,16 @@ char			*check_infile_validity(char *file);
 char			*check_outfile_validity(char *file, t_token_type type);
 void			ft_exec(t_data *data, char **cmd);
 void			handle_two_tokens(t_data *data);
+void			find_heredoc(t_data *data);
 char			*left_redir_ins(t_node *node, t_token_type type);
 char			*right_redir_ins(t_node *node, t_token_type type);
 char			*get_infile_red_in(t_node *node);
 char			*get_outfile_red_out(t_node *node);
 char			*get_outfile_redir_out(t_node *node);
-char			*get_outfile_red_app(t_node *node);
 t_token			*get_command(t_token *token);
-char	*left_redir_out(t_node *node, t_token_type type);
-char	*right_redir_out(t_node *node, t_token_type type);
+char			*left_redir_out(t_node *node, t_token_type type);
+char			*right_redir_out(t_node *node, t_token_type type);
+void			remove_heredoc(t_data *data);
 
 /*              Env.vars            */
 int				get_key_len(char *env);
@@ -156,7 +159,7 @@ void			clear_table(t_data *data);
 
 /*               Error               */
 void			syntax_error(t_token **head, char c);
-void			printf_error(char *str, int signal);
+void			print_error(char *str, int signal);
 void			print_error_fd(const char *error, char *target, int sig);
 
 /*              Delete              */

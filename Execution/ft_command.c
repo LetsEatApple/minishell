@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_command.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:15:59 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/23 17:56:33 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/27 15:45:54 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ void	ft_exec(t_data *data, char **cmd)
 
 	id = fork();
 	if (id < 0)
+	{
+		perror("fork");
 		return ;
+	}
 	if (id == 0)
 	{
 		if (execve(cmd[0], cmd, data->env) == -1)
@@ -43,11 +46,7 @@ void	ft_exec(t_data *data, char **cmd)
 		free_split(cmd);
 		exit(g_signal);
 	}
-	dup2(data->std_out_fd, STDOUT_FILENO);
-//	printf("adult\n");
 	waitpid(id, &status, 0);
-//	printf("child\n");
-	//dup2(data->std_out_fd, STDOUT_FILENO);
 	g_signal = WEXITSTATUS(status);
 	return ;
 }

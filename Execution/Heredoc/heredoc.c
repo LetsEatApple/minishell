@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:46:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/23 16:58:58 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/27 18:26:19 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	handler(int sig)
 
 int	get_heredoc(t_data *data, t_node *node)
 {
-	while (node->right->type == HEREDOC && node->right->type != WORD)
+	while (node->right && node->right->type == HEREDOC)
 	{
 		data->doc.delimiter = node->right->left->value;
 		create_docfile(data, data->doc.delimiter);
@@ -41,6 +41,7 @@ void	handle_heredoc(t_data *data, t_node *node)
 		return ;
 	if (node == NULL)
 		return ;
+	data->heredoc--;
 	data->doc.fd = open(data->doc.file, O_RDONLY);
 	original_stdin = dup(STDIN_FILENO);
 	if (dup2(data->doc.fd, STDIN_FILENO) == -1)
@@ -49,11 +50,6 @@ void	handle_heredoc(t_data *data, t_node *node)
 		return ;
 	}
 	close(data->doc.fd);
-	if (node->left)
-	{
-		if (node->left->type == CMD)
-			execute(data, node->left);
-	}
 	dup2(original_stdin, STDIN_FILENO);
 	close(original_stdin);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir_in.c                                         :+:      :+:    :+:   */
+/*   handle_redir_in.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/26 20:48:14 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/27 18:13:53 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,16 @@ char	*get_infile_red_in(t_node *node)
 	return (infile);
 }
 
-t_node	*get_current(t_node *node)
+t_node	*get_current(t_node *node, t_token_type type)
 {
 	if (node->left)
 	{
-		while (node->left->type == REDIR_IN)
+		while (node->left->type == type)
 			node = node->left;
 	}
 	if (node->right)
 	{
-		while (node->right->type == REDIR_IN)
+		while (node->right->type == type)
 			node = node->right;
 	}
 	return (node);
@@ -87,13 +87,10 @@ void	handle_redir_in(t_data *data, t_node *node)
 {
 	t_node	*current;
 	int		original_stdin;
-	int		infile;
 	char	*outfile;
-	int		fd;
 
-	current = get_current(node);
+	current = get_current(node, node->type);
 	outfile = NULL;
-	fd = 0;
 	if (!current)
 		return ;
 	current->right->value = get_infile_red_in(node);
@@ -102,33 +99,31 @@ void	handle_redir_in(t_data *data, t_node *node)
 		dup2(data->std_out_fd, STDOUT_FILENO);
 		return ;
 	}
-	infile = open(current->right->value, O_RDONLY);
-	data->infile = infile;
+	data->infile = open(current->right->value, O_RDONLY);
 	original_stdin = dup(STDIN_FILENO);
-	if (dup2(infile, STDIN_FILENO) == -1)
+	if (dup2(data->infile, STDIN_FILENO) == -1)
 	{
-		close(infile);
+		close(data->infile);
 		return ;
 	}
-	close(infile);
-	if (!data->pipes && current->right && current->right->type != WORD)
+	close(data->infile);
+	if (!data->pipes && current->right && current->right->type != WORD
+		&& current->right->type != HEREDOC)
 	{
-		if (current->right->type == REDIR_OUT || current->right->type == REDIR_OUT_APPEND)
+		if (current->right->type == 3 || current->right->type == 5)
 			outfile = get_outfile_redir_out(current->right);
-		// else if (current->right->type == REDIR_OUT_APPEND)
-		// 	outfile = get_outfile_red_app(current->right);
 		if (!outfile)
 		{
 			dup2(original_stdin , STDIN_FILENO);
 			return ;
 		}
-		fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (dup2(fd, STDOUT_FILENO) == -1)
+		data->outfile = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (dup2(data->outfile, STDOUT_FILENO) == -1)
 		{
 			perror("dup2");
 			return ;
 		}
-		close(fd);
+		close(data->outfile);
 		if (current->left->type == CMD)
 			execute(data, current->left);
 		else

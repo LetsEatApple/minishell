@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:48:08 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/26 17:56:06 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/27 12:55:22 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,23 @@ void print_tree(t_node *node, int level)
 		return;
 	print_tree(node->right, level + 1);
 	for (int i = 0; i < level; i++)
-		printf("    ");
+		ft_putstr_fd("    ", 2);
 	if (node->value)
-		printf("Node Value: '%s', Type: %s\n", node->value, get_token_type(node->type));
+	{
+		ft_putstr_fd("Node Value: '", 2);
+		ft_putstr_fd(node->value, 2);
+		ft_putstr_fd("', Type: ", 2);
+		ft_putstr_fd((char *)get_token_type(node->type), 2);
+		ft_putstr_fd("\n", 2);
+	}
 	else if (node->cmd)
-		printf("Node Value: '%s', Type: %s\n", node->cmd[0], get_token_type(node->type));
+	{
+		ft_putstr_fd("Node Value: '", 2);
+		ft_putstr_fd(node->cmd[0], 2);
+		ft_putstr_fd("', Type: ", 2);
+		ft_putstr_fd((char *)get_token_type(node->type), 2);
+		ft_putstr_fd("\n", 2);
+	}
 	print_tree(node->left, level + 1);
 }
 

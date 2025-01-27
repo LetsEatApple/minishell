@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:44:35 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/24 17:18:54 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/27 12:40:27 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,22 @@ int	check_for_infile(t_data *data, t_node *red_out)
 	char	*infile;
 
 	node = red_out;
-	if (data->red_in > 0 && data->infile == 0)
+	if (data->pipes == 0 && node->right->type == 4)
 	{
-		while (node->type != REDIR_IN)
-			node = node->right;
+		if (data->red_in > 0 && data->infile == 0)
+		{
+			while (node->type != REDIR_IN)
+				node = node->right;
+		}
+		infile = get_infile_red_in(node);
+		data->infile = 1;
+		if (!infile)
+		{
+			dup2(data->std_out_fd, STDOUT_FILENO);
+			return (1);
+		}
+		execute(data, node);
 	}
-	infile = get_infile_red_in(node);
-	data->infile = 1;
-	if (!infile)
-	{
-		dup2(data->std_out_fd, STDOUT_FILENO);
-		return (1);
-	}
-	execute(data, node);
 	return (0);
 }
 

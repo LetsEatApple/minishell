@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/26 20:57:20 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:14:35 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ typedef struct s_data
 	int		ops;
 	int		pipes;
 	int		redirs;
-	int		commands;
 	int		red_in;
 	int		infile;
 	int		outfile;
+	int		heredoc;
 	int		std_out_fd;
 	t_token	*token_list;
 	t_node	*root;

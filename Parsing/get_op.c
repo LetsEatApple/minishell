@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_root.c                                         :+:      :+:    :+:   */
+/*   get_op.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:24:42 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/24 17:56:52 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/27 18:17:57 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_node	*get_first_redir(t_token *t_list)
 	while (t_list->next)
 	{
 		if (t_list->type == REDIR_IN || t_list->type == REDIR_OUT \
-			|| t_list->type == REDIR_OUT_APPEND || t_list->type == HEREDOC)
+			|| t_list->type == REDIR_OUT_APPEND)
 		{
 			t_list->root = 1;
 			new_node = create_node(t_list);

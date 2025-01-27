@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   preparsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 17:00:28 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/23 17:16:27 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/27 17:05:09 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	count_ops(t_data *data)
 			data->redirs++;
 		if (ptr->type == PIPE)
 			data->pipes++;
-		if (ptr->type == CMD)
-			data->commands++;
 		if (ptr->type == REDIR_IN)
 			data->red_in++;
+		if (ptr->type == HEREDOC)
+			data->heredoc++;
 		ptr = ptr->next;
 	}
 	data->ops = data->redirs + data->pipes;

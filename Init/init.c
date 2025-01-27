@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:20:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/26 20:56:07 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:56:07 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,17 @@ int	init_data(t_data *data, int ac, char **envp)
 	data->token_list = NULL;
 	data->pipes = 0;
 	data->redirs = 0;
-	data->commands = 0;
 	data->red_in = 0;
+	data->heredoc = 0;	
 	data->infile = 0;
-	data->outfile = 0;
+	data->outfile = -1;
 	data->ops = 0;
 	data->std_out_fd = dup(STDOUT_FILENO);
+	if (data->std_out_fd < 0)
+	{
+		perror("dup2");
+		return (1);
+	}
 	data->root = NULL;
 	data->doc.file = NULL;
 	return (0);

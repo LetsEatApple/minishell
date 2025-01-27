@@ -3,17 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/23 17:56:52 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/27 18:25:55 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+void	find_heredoc(t_data *data)
+{
+	t_node	*temp;
+	t_node	*heredoc;
+
+	heredoc = NULL;
+	temp = data->root;
+	while (temp)
+	{
+		if (temp->type == HEREDOC)
+			handle_heredoc(data, temp);
+		temp = temp->right;
+	}
+	if (data->heredoc)
+	{
+		temp = data->root;
+		while (temp)
+		{
+			if (temp->type == HEREDOC)
+				handle_heredoc(data, temp);
+			temp = temp->left;
+		}
+	}
+}
+
 void	execute(t_data *data, t_node *node)
 {
+	if (data->heredoc)
+		find_heredoc(data);
 	if (node->type == PIPE)
 		handle_pipe(data, node);
 	else if (node->type == REDIR_IN)
@@ -23,7 +50,7 @@ void	execute(t_data *data, t_node *node)
 	else if (node->type == REDIR_OUT_APPEND)
 		handle_redir_append(data, node);
 	else if (node->type == HEREDOC)
-		handle_heredoc(data, node);
+	 	return ;
 	else if (node->type == CMD)
 		ft_command(data, node->cmd);
 }

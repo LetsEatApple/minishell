@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 12:15:00 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/08 18:45:34 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/27 13:50:04 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	print_error_fd(const char *error, char *target, int sig)
 	g_signal = sig;
 }
 
-void	printf_error(char *str, int signal)
+void	print_error(char *str, int signal)
 {
-	printf("%s\n", str);
+	perror(str);
 	g_signal = signal;
 }
