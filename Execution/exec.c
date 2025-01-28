@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/28 20:35:49 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/28 21:47:04 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	execute(t_data *data, t_node *node)
 	 	handle_heredoc(data, node);
 	else if (node->type == CMD)
 		ft_command(data, node->cmd);
-//	ft_putstr_fd("hello\n", 2);
 }
 
 void	handle_pipe(t_data *data, t_node *node)
@@ -39,6 +38,7 @@ void	handle_pipe(t_data *data, t_node *node)
 	pid_t	leftpid;
 	pid_t	rightpid;
 	t_node	*temp;
+	int		status;
 
 	temp = node->left;
 	if (pipe(fd) == -1)
@@ -56,16 +56,10 @@ void	handle_pipe(t_data *data, t_node *node)
 			temp = temp->left;
 		}
 		execute(data, temp);
-		if (temp->left && temp->left->type == CMD)
-			execute(data, temp->left);
-		dup2(data->std_in_fd, STDIN_FILENO);
-		close(data->std_in_fd);
-		// dup2(data->std_out_fd, STDOUT_FILENO);
 		close(data->std_out_fd);
 		exit(g_signal);
 	}
-	// dup2(data->std_out_fd, STDOUT_FILENO);
-	// close(data->std_out_fd);
+	waitpid(leftpid, &status, 0);
 	rightpid = fork();
 	if (rightpid < 0)
 		perror("fork");
@@ -73,23 +67,17 @@ void	handle_pipe(t_data *data, t_node *node)
 	{
 		dup_exec(fd[1], fd[0], STDIN_FILENO);
 		execute(data, node->right);
-		if (node->right->left) //->type == CMD)
-			execute(data, node->right->left);
-	//	clear_table(data);
-	//	close(data->std_out_fd);
-		close(data->std_in_fd);
-		dup2(data->std_out_fd, STDOUT_FILENO);
 		close(data->std_out_fd);
 		exit(g_signal);
 	}
-	close(data->std_out_fd);
 	close_wait(fd[0], fd[1], leftpid, rightpid);
 }
 
 void	dup_exec(int close_fd, int dup_fd, int std)
 {
 	close(close_fd);
-	dup2(dup_fd, std);
+	if (dup2(dup_fd, std) == -1)
+		perror("dup2");
 	close(dup_fd);
 }
 
@@ -104,26 +92,3 @@ void	close_wait(int read, int write, pid_t left, pid_t right)
 	waitpid(right, &status, 0);
 	g_signal = WEXITSTATUS(status);
 }
-
-// void	find_heredoc(t_data *data)
-// {
-// 	t_node	*temp;
-
-// 	temp = data->root;
-// 	while (temp)
-// 	{
-// 		if (temp->type == HEREDOC)
-// 			handle_heredoc(data, temp);
-// 		temp = temp->right;
-// 	}
-// 	if (data->heredoc)
-// 	{
-// 		temp = data->root;
-// 		while (temp)
-// 		{
-// 			if (temp->type == HEREDOC)
-// 				handle_heredoc(data, temp);
-// 			temp = temp->left;
-// 		}
-// 	}
-// }

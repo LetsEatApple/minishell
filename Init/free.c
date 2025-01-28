@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:21:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/28 20:12:17 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/28 21:35:25 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,35 +65,16 @@ void	clear_table(t_data *data)
 		clearlist(&data->token_list);
 		data->token_list = NULL;
 	}
-/* 	if (data->pipes)
-	{
-		close(data->std_out_fd);
-		close(data->std_in_fd);
-	} */
 	data->pipes = 0;
 	data->redirs = 0;
 	data->red_in = 0;
 	data->heredoc = 0;
-	
-	// close(data->std_out_fd);
-	// close(data->std_in_fd);
-	/* if (data->std_out_fd >= 0)
-	{
-		if (dup2(data->std_out_fd, -1) < 0)
-			perror("dup21");
-		close(data->std_out_fd);
-	} */
+	close(data->std_out_fd);
 	if (data->outfile >= 0)
 	{
 		close(data->outfile);
 		data->outfile = -1;
 	}
-	/* if (data->std_in_fd >= 0)
-	{
-		if (dup2(data->std_in_fd, -1) < 0)
-			perror("dup23");
-		close(data->std_in_fd);
-	} */
 	if (data->infile >= 0)
 	{
 		close(data->infile);

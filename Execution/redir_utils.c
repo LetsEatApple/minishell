@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 19:43:10 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/28 13:31:29 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/28 21:44:36 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ char	*get_outfile_redir_out(t_node *node)
 		outfile = node->right->value;	
 	else
 		outfile = node->right->left->value;
-	if (node->left && (node->left->type == 3 || node->left->type == 5))
-		outfile = left_redir_out(node, node->left->type);
-	else if (node->right && (node->right->type == 3 || node->right->type == 5))
-		outfile = right_redir_out(node, node->right->type);
+	// if (node->left && (node->left->type == 3 || node->left->type == 5))
+	// 	outfile = left_redir_out(node, node->left->type);
+	// else if (node->right && (node->right->type == 3 || node->right->type == 5))
+	// 	outfile = right_redir_out(node, node->right->type);
 	if (outfile == NULL)
 		return (NULL);
 	if (!check_outfile_validity(outfile, REDIR_OUT))

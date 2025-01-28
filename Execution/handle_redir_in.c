@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/28 20:22:49 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/28 21:44:18 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ void	handle_redir_in(t_data *data, t_node *node)
 {
 	t_node	*current;
 	char	*infile;
-
+	int		original_stdin;
+	
 	current = node;
 	if (!current)
 		return ;
@@ -100,7 +101,7 @@ void	handle_redir_in(t_data *data, t_node *node)
 	if (infile == NULL )
 		return ;
 	data->infile = open(infile, O_RDONLY);
-	//ft_putstr_fd(infile, 2);
+	original_stdin = dup(STDIN_FILENO);
 	if (dup2(data->infile, STDIN_FILENO) == -1)
 	{
 		close(data->infile);
@@ -109,16 +110,28 @@ void	handle_redir_in(t_data *data, t_node *node)
 	close(data->infile);
 	if (data->pipes)
 	{
-		if (node->prev == NULL  && node->right->type >= 3 && node->right->type <= 6)//!= NULL)
-			execute(data, node->right);
-		// else if (node->prev == NULL && node->left->type == CMD)
-		// 	execute(data, node->left);
+		if (node->prev == NULL)
+		{
+			if (node->right->type >= 3 && node->right->type <= 6)
+				execute(data, node->right);
+			else if (data->root->right->left->type == CMD)
+				execute(data, data->root->right->left);
+		}
 		else if (node->prev != NULL)
 		{
 			if (node->prev->type != PIPE)
 				execute(data, node->prev);
-			/* else if (data->root->left->left)
-				execute(data, data->root->left->left); */
+			else if (node->prev->type == PIPE)
+			{
+				t_node *temp = data->root->left;
+				while (temp && (temp->type >= 3 && temp->type <= 6))
+				{
+					if (temp->left && temp->left->type == CMD)
+							break;
+					temp = temp->left;
+				}
+				execute(data, temp->left);
+			}
 		}
 	}
 	else
@@ -128,8 +141,8 @@ void	handle_redir_in(t_data *data, t_node *node)
 		else
 			execute(data, node->right);
 	}
-	dup2(data->std_in_fd, STDIN_FILENO);
-//	close(data->std_in_fd);
+	dup2(original_stdin , STDIN_FILENO);
+	close(original_stdin);
 	// if (!data->pipes && current->right && current->right->type != WORD
 	// 	&& current->right->type != HEREDOC)
 	// {
@@ -161,5 +174,5 @@ void	handle_redir_in(t_data *data, t_node *node)
 		// 	execute(data, node->left);
 //	}
 //	data->std_in_fd = dup2(original_stdin , STDIN_FILENO);
-	//close(original_stdin);
+	// close(original_stdin);
 }
