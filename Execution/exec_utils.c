@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:44:35 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/27 12:40:27 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:56:00 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_for_infile(t_data *data, t_node *red_out)
 			while (node->type != REDIR_IN)
 				node = node->right;
 		}
-		infile = get_infile_red_in(node);
+		infile = get_infile_red_in(data, node);
 		data->infile = 1;
 		if (!infile)
 		{

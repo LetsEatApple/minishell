@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/27 16:14:35 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/28 14:46:22 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_node
 	t_token_type	type;
 	struct s_node	*left;
 	struct s_node	*right;
+	struct s_node	*prev;
 }	t_node;
 
 typedef struct s_token
@@ -81,6 +82,7 @@ typedef struct s_data
 	int		infile;
 	int		outfile;
 	int		heredoc;
+	int		std_in_fd;
 	int		std_out_fd;
 	t_token	*token_list;
 	t_node	*root;

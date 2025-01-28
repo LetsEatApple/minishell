@@ -6,39 +6,18 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/28 12:40:40 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/28 20:35:49 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	find_heredoc(t_data *data)
-{
-	t_node	*temp;
-
-	temp = data->root;
-	while (temp)
-	{
-		if (temp->type == HEREDOC)
-			handle_heredoc(data, temp);
-		temp = temp->right;
-	}
-	if (data->heredoc)
-	{
-		temp = data->root;
-		while (temp)
-		{
-			if (temp->type == HEREDOC)
-				handle_heredoc(data, temp);
-			temp = temp->left;
-		}
-	}
-}
 
 void	execute(t_data *data, t_node *node)
 {
-	if (data->heredoc)
-		find_heredoc(data);
+//	print_node(node);
+	if (node == NULL)
+		return ;
 	if (node->type == PIPE)
 		handle_pipe(data, node);
 	else if (node->type == REDIR_IN)
@@ -48,9 +27,10 @@ void	execute(t_data *data, t_node *node)
 	else if (node->type == REDIR_OUT_APPEND)
 		handle_redir_append(data, node);
 	else if (node->type == HEREDOC)
-	 	return ;
+	 	handle_heredoc(data, node);
 	else if (node->type == CMD)
 		ft_command(data, node->cmd);
+//	ft_putstr_fd("hello\n", 2);
 }
 
 void	handle_pipe(t_data *data, t_node *node)
@@ -58,7 +38,9 @@ void	handle_pipe(t_data *data, t_node *node)
 	int		fd[2];
 	pid_t	leftpid;
 	pid_t	rightpid;
+	t_node	*temp;
 
+	temp = node->left;
 	if (pipe(fd) == -1)
 		perror("pipe");
 	leftpid = fork();
@@ -67,9 +49,23 @@ void	handle_pipe(t_data *data, t_node *node)
 	if (leftpid == 0)
 	{
 		dup_exec(fd[0], fd[1], STDOUT_FILENO);
-		execute(data, node->left);
+		while (temp && (temp->type >= 3 && temp->type <= 6))
+		{
+			if (temp->left && temp->left->type == CMD)
+				break;
+			temp = temp->left;
+		}
+		execute(data, temp);
+		if (temp->left && temp->left->type == CMD)
+			execute(data, temp->left);
+		dup2(data->std_in_fd, STDIN_FILENO);
+		close(data->std_in_fd);
+		// dup2(data->std_out_fd, STDOUT_FILENO);
+		close(data->std_out_fd);
 		exit(g_signal);
 	}
+	// dup2(data->std_out_fd, STDOUT_FILENO);
+	// close(data->std_out_fd);
 	rightpid = fork();
 	if (rightpid < 0)
 		perror("fork");
@@ -77,8 +73,16 @@ void	handle_pipe(t_data *data, t_node *node)
 	{
 		dup_exec(fd[1], fd[0], STDIN_FILENO);
 		execute(data, node->right);
+		if (node->right->left) //->type == CMD)
+			execute(data, node->right->left);
+	//	clear_table(data);
+	//	close(data->std_out_fd);
+		close(data->std_in_fd);
+		dup2(data->std_out_fd, STDOUT_FILENO);
+		close(data->std_out_fd);
 		exit(g_signal);
 	}
+	close(data->std_out_fd);
 	close_wait(fd[0], fd[1], leftpid, rightpid);
 }
 
@@ -100,3 +104,26 @@ void	close_wait(int read, int write, pid_t left, pid_t right)
 	waitpid(right, &status, 0);
 	g_signal = WEXITSTATUS(status);
 }
+
+// void	find_heredoc(t_data *data)
+// {
+// 	t_node	*temp;
+
+// 	temp = data->root;
+// 	while (temp)
+// 	{
+// 		if (temp->type == HEREDOC)
+// 			handle_heredoc(data, temp);
+// 		temp = temp->right;
+// 	}
+// 	if (data->heredoc)
+// 	{
+// 		temp = data->root;
+// 		while (temp)
+// 		{
+// 			if (temp->type == HEREDOC)
+// 				handle_heredoc(data, temp);
+// 			temp = temp->left;
+// 		}
+// 	}
+// }

@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:24:42 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/27 18:17:57 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:39:07 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_node	*get_first_pipe(t_token *t_list) // fix here
 		if (t_list->type == PIPE)
 		{
 			t_list->root = 1;
-			new_node = create_node(t_list);
+			new_node = create_node(t_list, NULL);
 			return (new_node);
 		}
 		t_list = t_list->next;
@@ -47,7 +47,7 @@ t_node	*get_first_redir(t_token *t_list)
 			|| t_list->type == REDIR_OUT_APPEND)
 		{
 			t_list->root = 1;
-			new_node = create_node(t_list);
+			new_node = create_node(t_list, NULL);
 			return (new_node);
 		}
 		t_list = t_list->next;
@@ -71,6 +71,8 @@ t_token	*get_first_command(t_token *real)
 	current = real;
 	while (current && current->next)
 	{
+		if (current->node == 1)
+			return (NULL);
 		if (current->type == CMD && current->node == 0)
 			return (current);
 		else if (current->next->type == CMD && current->node == 0)

@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/27 18:13:53 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/28 20:22:49 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,27 @@ char	*right_redir_ins(t_node *node, t_token_type type)
 	return (infile);
 }
 
-char	*get_infile_red_in(t_node *node)
+char	*get_infile_red_in(t_data *data, t_node *node)
 {
 	char	*infile;
+	(void)data;
 
-	if (node->right->type == WORD)
+	if (node->prev == NULL && node->right->type == WORD)
 		infile = node->right->value;
-	else
-		infile = node->right->left->value;
-	if (node->left && node->left->type == REDIR_IN)
-		infile = left_redir_ins(node, REDIR_IN);
-	else if (node->right && node->right->type == REDIR_IN)
-		infile = right_redir_ins(node, REDIR_IN);
+	else if (node->prev == NULL)
+		infile = node->right->left->value;	
+	else if (node->right && node->right->type == WORD)
+		infile = node->right->value;
+	else if (node->left && node->left->type == WORD)
+		infile = node->left->value;
+	// else if (node->right && node->right->left->type == WORD)
+	// 	infile = node->right->left->value;
 	if (infile == NULL)
 		return (NULL);
 	if (!check_infile_validity(infile))
 		return (NULL);
+	// ft_putstr_fd(infile, 2);
+	// printf("\n");
 	return (infile);
 }
 
@@ -86,57 +91,75 @@ t_node	*get_current(t_node *node, t_token_type type)
 void	handle_redir_in(t_data *data, t_node *node)
 {
 	t_node	*current;
-	int		original_stdin;
-	char	*outfile;
+	char	*infile;
 
-	current = get_current(node, node->type);
-	outfile = NULL;
+	current = node;
 	if (!current)
 		return ;
-	current->right->value = get_infile_red_in(node);
-	if (current->right->value == NULL)
-	{
-		dup2(data->std_out_fd, STDOUT_FILENO);
+	infile = get_infile_red_in(data, node);
+	if (infile == NULL )
 		return ;
-	}
-	data->infile = open(current->right->value, O_RDONLY);
-	original_stdin = dup(STDIN_FILENO);
+	data->infile = open(infile, O_RDONLY);
+	//ft_putstr_fd(infile, 2);
 	if (dup2(data->infile, STDIN_FILENO) == -1)
 	{
 		close(data->infile);
 		return ;
 	}
 	close(data->infile);
-	if (!data->pipes && current->right && current->right->type != WORD
-		&& current->right->type != HEREDOC)
+	if (data->pipes)
 	{
-		if (current->right->type == 3 || current->right->type == 5)
-			outfile = get_outfile_redir_out(current->right);
-		if (!outfile)
+		if (node->prev == NULL  && node->right->type >= 3 && node->right->type <= 6)//!= NULL)
+			execute(data, node->right);
+		// else if (node->prev == NULL && node->left->type == CMD)
+		// 	execute(data, node->left);
+		else if (node->prev != NULL)
 		{
-			dup2(original_stdin , STDIN_FILENO);
-			return ;
+			if (node->prev->type != PIPE)
+				execute(data, node->prev);
+			/* else if (data->root->left->left)
+				execute(data, data->root->left->left); */
 		}
-		data->outfile = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (dup2(data->outfile, STDOUT_FILENO) == -1)
-		{
-			perror("dup2");
-			return ;
-		}
-		close(data->outfile);
-		if (current->left->type == CMD)
-			execute(data, current->left);
-		else
-			execute(data, node->left);
-		dup2(data->std_out_fd , STDOUT_FILENO);
 	}
 	else
 	{
-		if (current->left && current->left->type == CMD)
-			execute(data, current->left);
-		else if(node->left && node->left->type == CMD)
-			execute(data, node->left);
+		if (node->right == NULL || node->right->type == WORD)
+			execute(data, data->root->left);
+		else
+			execute(data, node->right);
 	}
-	dup2(original_stdin , STDIN_FILENO);
-	close(original_stdin);
+	dup2(data->std_in_fd, STDIN_FILENO);
+//	close(data->std_in_fd);
+	// if (!data->pipes && current->right && current->right->type != WORD
+	// 	&& current->right->type != HEREDOC)
+	// {
+	// 	if (current->right->type == 3 || current->right->type == 5)
+	// 		outfile = get_outfile_redir_out(current->right);
+	// 	if (!outfile)
+	// 	{
+	// 		dup2(original_stdin , STDIN_FILENO);
+	// 		return ;
+	// 	}
+	// 	data->outfile = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	// 	if (dup2(data->outfile, STDOUT_FILENO) == -1)
+	// 	{
+	// 		perror("dup2");
+	// 		return ;
+	// 	}
+	// 	close(data->outfile);
+	// 	if (current->left->type == CMD)
+	// 		execute(data, current->left);
+	// 	else
+	// 		execute(data, node->left);
+	// 	dup2(data->std_out_fd , STDOUT_FILENO);
+	// }
+	// else
+//	{
+		// if (current->left && current->left->type == CMD)
+		// 	execute(data, current->left);
+		// else if(node->left && node->left->type == CMD)
+		// 	execute(data, node->left);
+//	}
+//	data->std_in_fd = dup2(original_stdin , STDIN_FILENO);
+	//close(original_stdin);
 }

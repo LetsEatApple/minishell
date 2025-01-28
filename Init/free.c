@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:21:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/27 18:18:48 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/28 20:12:17 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,36 +65,47 @@ void	clear_table(t_data *data)
 		clearlist(&data->token_list);
 		data->token_list = NULL;
 	}
+/* 	if (data->pipes)
+	{
+		close(data->std_out_fd);
+		close(data->std_in_fd);
+	} */
 	data->pipes = 0;
 	data->redirs = 0;
-	data->infile = 0;
 	data->red_in = 0;
 	data->heredoc = 0;
-	if (data->std_out_fd >= 0)
+	
+	// close(data->std_out_fd);
+	// close(data->std_in_fd);
+	/* if (data->std_out_fd >= 0)
 	{
-		if (dup2(data->std_out_fd, STDOUT_FILENO) < 0)
-			perror("dup2");
-	}
+		if (dup2(data->std_out_fd, -1) < 0)
+			perror("dup21");
+		close(data->std_out_fd);
+	} */
 	if (data->outfile >= 0)
 	{
 		close(data->outfile);
 		data->outfile = -1;
 	}
-}
-
-int	restore_stdin_stdout(t_data *data, int n)
-{
-	close(STDOUT_FILENO);
-	if (n == 1 || n == 2)
-		dup2(data->std_out_fd, STDOUT_FILENO);
-	close(data->std_out_fd);
-	return (1);
+	/* if (data->std_in_fd >= 0)
+	{
+		if (dup2(data->std_in_fd, -1) < 0)
+			perror("dup23");
+		close(data->std_in_fd);
+	} */
+	if (data->infile >= 0)
+	{
+		close(data->infile);
+		data->infile = -1;
+	}
 }
 
 void	free_ast(t_node *head)
 {
 	if (!head)
 		return ;
+//	print_node(head);
 	if (head->left != NULL)
 	{
 		free_ast(head->left);
@@ -110,7 +121,8 @@ void	free_ast(t_node *head)
 		free_split(head->cmd);
 		head->cmd = NULL;
 	}
-	free(head);
+	if (head)
+		free(head);
 	head = NULL;
 }
 

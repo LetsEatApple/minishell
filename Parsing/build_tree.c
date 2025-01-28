@@ -6,16 +6,17 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/27 18:26:52 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/28 18:54:57 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_node	*create_node(t_token *token)
+t_node	*create_node(t_token *token, t_node *prev)
 {
 	t_node	*new_node;
 
+//	(void)prev;
 	if (token == NULL)
 		return (NULL);
 	new_node = malloc(sizeof(t_node));
@@ -35,6 +36,9 @@ t_node	*create_node(t_token *token)
 	new_node->type = token->type;
 	token->node = 1;
 	new_node->node = 1;
+	new_node->prev = prev;
+	// if (prev == NULL)
+	// 	new_node->prev->value == NULL;
 	new_node->left = NULL;
 	new_node->right = NULL;
 	return (new_node);
@@ -42,12 +46,13 @@ t_node	*create_node(t_token *token)
 
 void	parsing(t_data *data)
 {
+	//print_node(data->root);
 	if (ops_before_root(data->token_list))
 		build_left_branch(data, data->root, data->token_list);
 	build_right_branch(data, data->root, data->token_list);
-	// printf("\n");
-	// print_tree(data->root, 0);
-	// printf("\n");
+	printf("\n");
+	print_tree(data->root, 0);
+	printf("\n");
 }
 
 
@@ -61,7 +66,10 @@ void	build_right_branch(t_data *data, t_node *root, t_token *t_list)
 	while (current->next && current->node == 1)
 		current = current->next;
 	if (root->left == NULL)
-		root->left = create_node(get_first_command(t_list));
+	{
+		//if (data->token_list->node != 1)
+		root->left = create_node(get_first_command(t_list), NULL);
+	}
 	if (data->ops > 1)
 	{
 		next_op = find_next_op(current);
@@ -70,26 +78,26 @@ void	build_right_branch(t_data *data, t_node *root, t_token *t_list)
 		//	create_branch_prev_op(data, next_op, current);
 			next_op = find_prev_op(current);
 			data->ops--;
-			root->left = create_node(next_op);
+			root->left = create_node(next_op, NULL);
 			if (redirs_between_pipes(t_list))
-				root->right->left = create_node(redirs_between_pipes(t_list));
+				root->right->left = create_node(redirs_between_pipes(t_list), NULL);
 			else
-				root->right->left = create_node(next_op->prev);
+				root->right->left = create_node(next_op->prev, NULL);
 			build_right_branch(data, root->left, t_list);
 		}
 		else
 		{
 		//	create_branch_next_op(data, next_op, current);
 			data->ops--;
-			root->right = create_node(next_op);
+			root->right = create_node(next_op, NULL);
 			if (redirs_between_pipes(t_list))
 			{
-				root->right->left = create_node(redirs_between_pipes(t_list));
+				root->right->left = create_node(redirs_between_pipes(t_list), NULL);
 				data->ops--;
 				build_right_branch(data, root->right->left, t_list);		
 			}
 			else
-				root->right->left = create_node(get_command(next_op));
+				root->right->left = create_node(get_command(next_op), NULL);
 			build_right_branch(data, root->right, t_list);
 		}
 	}
@@ -97,7 +105,7 @@ void	build_right_branch(t_data *data, t_node *root, t_token *t_list)
 	{
 		while (current->next && current->node == 1)
 			current = current->next;
-		root->right = create_node(current);
+		root->right = create_node(current, NULL);
 	}
 }
 
@@ -109,15 +117,15 @@ void	create_branch_next_op(t_data *data, t_token *next_op, t_token *current)
 	(void)current;
 
 	data->ops--;
-	data->root->right = create_node(next_op);
+	data->root->right = create_node(next_op, NULL);
 	if (redirs_between_pipes(data->token_list))
 	{
-		data->root->right->left = create_node(redirs_between_pipes(data->token_list));
+		data->root->right->left = create_node(redirs_between_pipes(data->token_list), NULL);
 		data->ops--;
 		build_right_branch(data, data->root->right->left, data->token_list);		
 	}
 	else
-		data->root->right->left = create_node(get_command(next_op));
+		data->root->right->left = create_node(get_command(next_op), NULL);
 	build_right_branch(data, data->root->right, data->token_list);
 }
 
@@ -129,11 +137,11 @@ void	create_branch_prev_op(t_data *data, t_token *next_op, t_token *current)
 	//next_op = find_prev_op(current);
 	(void)current;
 	data->ops--;
-	data->root->left = create_node(next_op);
+	data->root->left = create_node(next_op, NULL);
 	if (redirs_between_pipes(data->token_list))
-		data->root->right->left = create_node(redirs_between_pipes(data->token_list));
+		data->root->right->left = create_node(redirs_between_pipes(data->token_list), NULL);
 	else
-		data->root->right->left = create_node(next_op->prev);
+		data->root->right->left = create_node(next_op->prev, NULL);
 	build_right_branch(data, data->root->left, data->token_list);
 }
 
@@ -150,18 +158,18 @@ void	build_left_branch(t_data *data, t_node *root, t_token *t_list)
 	if (ops_before_root(t_list))
 	{
 		prev_op = find_prev_op(current);
-		root->left = create_node(prev_op);
-		root->left->right = create_node(prev_op->next);
+		root->left = create_node(prev_op, root);
+		root->left->right = create_node(prev_op->next, root->left);
 		data->ops--;
 		build_left_branch(data, root->left, t_list);
 	}
 	else
 	{
 		if (current->prev)
-			root->left = create_node(current->prev);
+			root->left = create_node(current->prev, root);
 		else if (current->next->next
 			&& current->next->next->type == CMD)
-			root->left = create_node(current->next->next);
+			root->left = create_node(current->next->next, root);
 		else 
 			return ;
 	}

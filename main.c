@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/23 17:50:00 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/28 20:12:06 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	init_msh(t_data *data)
 		preparsing(data);
 	if (data->token_list != NULL)
 	{
+	//	printf("yalla\n");
 		if (list_size(data->token_list) == 2 && (data->redirs || data->pipes))
 			handle_two_tokens(data);
 		else if (data->pipes || data->redirs)
@@ -44,6 +45,7 @@ void	init_msh(t_data *data)
 			get_root(data);
 			parsing(data);
 			execute(data, data->root);
+	//		printf("finished executing\n");
 			clear_table(data);
 		}
 		else
@@ -51,6 +53,11 @@ void	init_msh(t_data *data)
 	}
 	add_history(data->input);
 	free_data(data);
+//	printf("finished ckeaning\n");
+	// if (data->root)
+	// 	print_tree(data->root, 0);
+	// else
+	// 	printf("clean\n");
 }
 
 void	clear_program(t_data *data)
@@ -75,7 +82,7 @@ int	main(int ac, char **av, char **envp)
 		data.input = readline("minihell: ");
 		if (data.input == NULL)
 		{
-			printf("\n");
+			printf("EOF\n");
 			break ;
 		}
 		set_sig_noninteractive();

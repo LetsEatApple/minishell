@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/27 17:52:27 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:55:37 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void			handle_two_tokens(t_data *data);
 void			find_heredoc(t_data *data);
 char			*left_redir_ins(t_node *node, t_token_type type);
 char			*right_redir_ins(t_node *node, t_token_type type);
-char			*get_infile_red_in(t_node *node);
+char			*get_infile_red_in(t_data *data, t_node *node);
 char			*get_outfile_red_out(t_node *node);
 char			*get_outfile_redir_out(t_node *node);
 t_token			*get_command(t_token *token);
@@ -143,7 +143,7 @@ void			get_root(t_data *data);
 t_node			*get_first_pipe(t_token *t_list);
 t_node			*get_first_redir(t_token *t_list);
 t_token			*redirs_between_pipes(t_token *t_list);
-t_node			*create_node(t_token *new);
+t_node			*create_node(t_token *new, t_node *prev);
 void			parsing(t_data *data);
 void			build_left_branch(t_data *data, t_node *root, t_token *t_list);
 void			build_right_branch(t_data *data, t_node *root, t_token *t_list);

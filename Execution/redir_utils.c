@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   red_out_utils.c                                    :+:      :+:    :+:   */
+/*   redir_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 19:43:10 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/27 14:35:24 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/28 13:31:29 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ char	*get_outfile_redir_out(t_node *node)
 {
 	char	*outfile;
 
-	if (node->right->type == WORD)
-		outfile = node->right->value;
+	outfile = NULL;
+	if (node->left->type == WORD)
+		outfile = node->left->value;
+	else if (!outfile && node->right->type == WORD)
+		outfile = node->right->value;	
 	else
 		outfile = node->right->left->value;
 	if (node->left && (node->left->type == 3 || node->left->type == 5))
