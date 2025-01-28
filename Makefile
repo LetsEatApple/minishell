@@ -6,7 +6,7 @@
 #    By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2025/01/26 20:09:40 by grmullin         ###   ########.fr        #
+#    Updated: 2025/01/28 12:39:54 by grmullin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,9 @@ Execution/Heredoc/heredoc.c \
 Execution/Heredoc/heredoc_expand.c \
 Execution/Heredoc/heredoc_utils.c \
 Execution/file_utils.c \
-Execution/redir_in.c \
-Execution/redir_out.c \
-Execution/red_out.c \
+Execution/handle_redir_in.c \
+Execution/handle_redir_out.c \
+Execution/redir_utils.c \
 Parsing/two_tokens.c \
 Execution/Builtins/builtins.c \
 Execution/Builtins/what.c \

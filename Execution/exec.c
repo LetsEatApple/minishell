@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/27 18:25:55 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/28 12:40:40 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	find_heredoc(t_data *data)
 {
 	t_node	*temp;
-	t_node	*heredoc;
 
-	heredoc = NULL;
 	temp = data->root;
 	while (temp)
 	{
