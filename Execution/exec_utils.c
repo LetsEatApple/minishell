@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:44:35 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 12:17:17 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 16:20:18 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ char	*check_file_validity(char *file, t_token_type type)
 	close(fd);
 	return (file);
 }
-
 
 char	*ft_get_first_word(char *s)
 {

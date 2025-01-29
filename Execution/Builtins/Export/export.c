@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 11:17:26 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/08 15:11:47 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/29 16:22:58 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ int	check_args(char **cmd)
 	{
 		if (i == 1 && cmd[i][0] == '-')
 		{
-			print_error_fd("invalid option: %s\n", cmd[i], 2);
+			error_msg("invalid option: %s\n", cmd[i], 2);
 			return (false);
 		}
 		if (ft_isalpha(cmd[i][0]) == false && cmd[i][0] != '_')
-			print_error_fd("not a valid identifier: %s\n", cmd[i], 1);
+			error_msg("not a valid identifier: %s\n", cmd[i], 1);
 		i++;
 	}
 	return (true);

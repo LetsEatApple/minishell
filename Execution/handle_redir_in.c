@@ -6,21 +6,20 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 12:30:54 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 16:26:00 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*get_infile_red_in(t_data *data, t_node *node)
+char	*get_infile_red_in(t_node *node)
 {
 	char	*infile;
-	(void)data;
 
 	if (node->prev == NULL && node->right->type == WORD)
 		infile = node->right->value;
 	else if (node->prev == NULL)
-		infile = node->right->left->value;	
+		infile = node->right->left->value;
 	else if (node->right && node->right->type == WORD)
 		infile = node->right->value;
 	else if (node->left && node->left->type == WORD)
@@ -36,8 +35,8 @@ void	handle_redir_in(t_data *data, t_node *node)
 {
 	char	*infile;
 	int		original_stdin;
-	
-	infile = get_infile_red_in(data, node);
+
+	infile = get_infile_red_in(node);
 	if (infile == NULL )
 		return ;
 	data->infile = open(infile, O_RDONLY);
@@ -50,11 +49,10 @@ void	handle_redir_in(t_data *data, t_node *node)
 	}
 	close(data->infile);
 	ft_next_exec(data, node);
-	if (dup2(original_stdin , STDIN_FILENO) == -1)
+	if (dup2(original_stdin, STDIN_FILENO) == -1)
 	{
 		ft_perror("dup2", 1);
 		return ;
 	}
 	close(original_stdin);
 }
-

@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 12:37:58 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 16:43:55 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_node	*create_node(t_token *token, t_node *prev)
 		new_node->cmd = NULL;
 		new_node->value = token->value;
 	}
-	else	
+	else
 	{
 		new_node->value = NULL;
 		new_node->cmd = token->cmd;
@@ -46,11 +46,7 @@ void	parsing(t_data *data)
 	if (ops_before_root(data->token_list))
 		build_left_branch(data, data->root, data->token_list);
 	build_right_branch(data, data->root, data->token_list);
-	// printf("\n");
-	// print_tree(data->root, 0);
-	// printf("\n");
 }
-
 
 void	build_right_branch(t_data *data, t_node *root, t_token *t_list)
 {
@@ -104,9 +100,9 @@ void	build_right_branch(t_data *data, t_node *root, t_token *t_list)
 
 void	create_branch_next_op(t_data *data, t_token *next_op, t_token *current)
 {
-	//t_token *next_op;
+	// t_token *next_op;
 
-//	next_op = find_prev_op(current);
+	// next_op = find_prev_op(current);
 	(void)current;
 
 	data->ops--;

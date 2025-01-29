@@ -6,7 +6,7 @@
 #    By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2025/01/29 11:50:27 by grmullin         ###   ########.fr        #
+#    Updated: 2025/01/29 16:30:16 by grmullin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ Init/free.c \
 Execution/ft_command.c \
 Execution/exec.c \
 Execution/exec_utils.c \
+Execution/handle_pipe.c \
 Execution/Heredoc/heredoc.c \
 Execution/Heredoc/heredoc_expand.c \
 Execution/Heredoc/heredoc_utils.c \

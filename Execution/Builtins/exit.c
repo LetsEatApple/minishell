@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 18:19:29 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/08 15:09:02 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/29 16:22:58 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ void	ft_exit(t_data *data, char **cmd)
 
 	size = ft_arrlen(cmd);
 	if (size > 1 && check_arg(cmd[1]) == false)
-		print_error_fd("exit: %s: numeric argument required\n", cmd[1], 2);
+		error_msg("exit: %s: numeric argument required\n", cmd[1], 2);
 	if (check_arg(cmd[1]) == true && size > 2)
 	{
-		print_error_fd("%s: too many arguments\n", cmd[0], 1);
+		error_msg("%s: too many arguments\n", cmd[0], 1);
 		return ;
 	}
 	if (size == 2 && check_arg(cmd[1]) == true)

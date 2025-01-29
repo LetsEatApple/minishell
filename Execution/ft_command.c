@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:15:59 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/28 21:10:44 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 16:22:58 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,22 @@
 
 void	ft_command(t_data *data, char **cmd)
 {
+	struct stat	path;
+
+	if ((cmd[0][0] == '.' || cmd[0][0] == '/'))
+	{
+		if (stat(cmd[0], &path) != 0)
+			return (error_msg("%s: No such file or directory\n", cmd[0], 127));
+		if (S_ISDIR(path.st_mode))
+			return (error_msg("%s: Is a directory\n", cmd[0], 126));
+		if (access(cmd[0], X_OK) == -1)
+			return (error_msg("%s: Permission denied\n", cmd[0], 126));
+	}
 	if (is_built_in(cmd[0]))
 		ft_built_ins(data, cmd);
 	else
 	{
 		g_signal = 0;
-	//	if (S_ISDIR(cmd[0]))
 		ft_exec(data, cmd);
 	}
 }
@@ -39,7 +49,7 @@ void	ft_exec(t_data *data, char **cmd)
 	{
 		if (execve(cmd[0], cmd, data->env) == -1)
 		{
-			print_error_fd("%s: command not found\n", cmd[0], 127);
+			error_msg("%s: command not found\n", cmd[0], 127);
 			exit (g_signal);
 		}
 		clear_table(data);

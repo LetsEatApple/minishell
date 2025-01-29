@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 12:54:07 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 16:38:49 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void			execute(t_data *data, t_node *node);
 void			no_pipes_exec(t_data *data, t_node *node);
 void			pipes_exec(t_data *data, t_node *node, t_node *cmd);
 void			handle_pipe(t_data *data, t_node *node);
+void			exec_left_pipe(t_data *data, t_node *node, int close, int dup);
 void			dup_exec(int close_fd, int dup_fd, int std);
 void			close_wait(int read, int write, pid_t left, pid_t right);
 void			handle_redir_in(t_data *data, t_node *node);
@@ -86,14 +87,9 @@ char			*ft_get_first_word(char *s);
 char			*check_file_validity(char *file, t_token_type type);
 void			ft_exec(t_data *data, char **cmd);
 void			handle_two_tokens(t_data *data);
-char			*left_redir_ins(t_node *node, t_token_type type);
-char			*right_redir_ins(t_node *node, t_token_type type);
-char			*get_infile_red_in(t_data *data, t_node *node);
-char			*get_outfile_red_out(t_node *node);
+char			*get_infile_red_in(t_node *node);
 char			*get_outfile_redir_out(t_node *node);
 t_token			*get_command(t_token *token);
-char			*left_redir_out(t_node *node, t_token_type type);
-char			*right_redir_out(t_node *node, t_token_type type);
 void			remove_heredoc(t_data *data);
 
 /*              Env.vars            */
@@ -141,7 +137,7 @@ void			get_root(t_data *data);
 t_node			*get_first_pipe(t_token *t_list);
 t_node			*get_first_redir(t_token *t_list);
 t_token			*redirs_between_pipes(t_token *t_list);
-t_node			*create_node(t_token *new, t_node *prev);
+t_node			*create_node(t_token *token, t_node *prev);
 void			parsing(t_data *data);
 void			build_left_branch(t_data *data, t_node *root, t_token *t_list);
 void			build_right_branch(t_data *data, t_node *root, t_token *t_list);
@@ -158,7 +154,7 @@ void			clear_table(t_data *data);
 /*               Error               */
 void			syntax_error(t_token **head, char c);
 void			ft_perror(char *str, int signal);
-void			print_error_fd(const char *error, char *target, int sig);
+void			error_msg(const char *error, char *target, int sig);
 
 /*              Delete              */
 void			print_token_list(t_token *token_list);

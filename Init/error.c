@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 12:15:00 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/29 08:28:47 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 16:22:58 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	syntax_error(t_token **head, char c)
 	g_signal = 2;
 }
 
-void	print_error_fd(const char *error, char *target, int sig)
+void	error_msg(const char *error, char *target, int sig)
 {
 	int		i;
 

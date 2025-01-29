@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:24:42 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/28 17:39:07 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 16:41:00 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	get_root(t_data *data)
 		data->root = get_first_redir(data->token_list);
 }
 
-t_node	*get_first_pipe(t_token *t_list) // fix here
+t_node	*get_first_pipe(t_token *t_list)
 {
 	t_node	*new_node;
 
@@ -43,8 +43,7 @@ t_node	*get_first_redir(t_token *t_list)
 
 	while (t_list->next)
 	{
-		if (t_list->type == REDIR_IN || t_list->type == REDIR_OUT \
-			|| t_list->type == REDIR_OUT_APPEND)
+		if (t_list->type > 2 && t_list->type < 7)
 		{
 			t_list->root = 1;
 			new_node = create_node(t_list, NULL);

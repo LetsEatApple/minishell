@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 17:27:20 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/08 15:37:26 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/29 16:22:58 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	ft_unset(t_data *data, char **cmd)
 		return ;
 	if (cmd[1][0] == '-')
 	{
-		print_error_fd("invalid option: %s\n", cmd[1], 2);
+		error_msg("invalid option: %s\n", cmd[1], 2);
 		return ;
 	}
 	i = 1;

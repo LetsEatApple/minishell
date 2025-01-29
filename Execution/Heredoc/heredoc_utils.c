@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:20:59 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/27 18:26:31 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 16:22:58 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	process_line(t_data *data, char **line, char *dm, int *status)
 	if (*line == NULL)
 	{
 		ft_putstr_fd("warning: ", 2);
-		print_error_fd("here-document delimited by end-of-file (wanted '%s')\n",
+		error_msg("here-document delimited by end-of-file (wanted '%s')\n",
 			dm, 0);
 		*status = false;
 		return (false);

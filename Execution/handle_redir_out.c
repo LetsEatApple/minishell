@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 18:08:47 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 12:50:53 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 16:27:23 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,17 @@ void	handle_redir_out(t_data *data, t_node *node)
 	if (node->type == REDIR_OUT)
 		data->outfile = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else
-	 	data->outfile = open(outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		data->outfile = open(outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	original_stdout = dup(STDOUT_FILENO);
 	if (dup2(data->outfile, STDOUT_FILENO) < 0)
 	{
 		close(data->outfile);
-		ft_perror("dup2", 1);
-		return ;
+		return (ft_perror("dup2", 1));
 	}
 	close(data->outfile);
 	ft_next_exec(data, node);
 	if (dup2(original_stdout, STDOUT_FILENO) < 0)
-	{
-		ft_perror("dup2", 1);
-			return ;
-	}
+		return (ft_perror("dup2", 1));
 	close(original_stdout);
 }
 

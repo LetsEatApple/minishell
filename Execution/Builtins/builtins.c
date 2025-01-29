@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 15:22:13 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/23 16:30:45 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/29 16:31:48 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_pwd(t_data *data, char **cmd)
 	g_signal = 0;
 	if (ft_arrlen(cmd) != 1 && cmd[1][0] == '-')
 	{
-		print_error_fd("invalid option: %s\n", cmd[1], 2);
+		error_msg("invalid option: %s\n", cmd[1], 2);
 		return ;
 	}
 	if (data->pwd != NULL)
@@ -58,9 +58,9 @@ void	ft_env(char **cmd, char **env)
 	if (ft_arrlen(cmd) != 1)
 	{
 		if (cmd[1][0] == '-')
-			print_error_fd("env: invalid option: %s\n", cmd[1], 125);
+			error_msg("env: invalid option: %s\n", cmd[1], 125);
 		else
-			print_error_fd("env: invalid argument: %s\n", cmd[1], 127);
+			error_msg("env: invalid argument: %s\n", cmd[1], 127);
 		return ;
 	}
 	i = 0;
@@ -102,20 +102,18 @@ void	ft_cd(t_data *data, char **cmd)
 	else
 		path = cmd[1];
 	if (size > 2)
-	{
-		print_error_fd("%s: too many arguments\n", cmd[0], 1);
-		return ;
-	}
+		return (error_msg("%s: too many arguments\n", cmd[0], 1));
 	if (path == NULL || path[0] == '\0')
 		return ;
 	if (chdir(path) < 0)
 	{
-		print_error_fd("cd: %s: ", path, 1);
+		error_msg("cd: %s: ", path, 1);
 		perror("");
 	}
 	path = getpwd();
 	if (path == NULL)
-		perror("cd: error retrieving current directory: getcwd: cannot access parent directories");
+		perror("cd: error retrieving current directory: \
+			getcwd: cannot access parent directories");
 	else
 	{
 		free(path);
