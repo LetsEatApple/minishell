@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 18:08:47 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 11:49:35 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 12:50:53 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ void	handle_redir_out(t_data *data, t_node *node)
 	if (dup2(data->outfile, STDOUT_FILENO) < 0)
 	{
 		close(data->outfile);
-		ft_perror("dup23", 1);
+		ft_perror("dup2", 1);
 		return ;
 	}
 	close(data->outfile);
 	ft_next_exec(data, node);
 	if (dup2(original_stdout, STDOUT_FILENO) < 0)
 	{
-		ft_perror("dup27", 1);
+		ft_perror("dup2", 1);
 			return ;
 	}
 	close(original_stdout);
@@ -46,35 +46,22 @@ char	*get_outfile_redir_out(t_node *node)
 	char	*outfile;
 
 	outfile = NULL;
-
-	if (node->right->type == WORD)
-		outfile = node->right->value;
+	if (node->prev == NULL)
+	{
+		if (node->right->type == WORD)
+			outfile = node->right->value;
+		else if (node->right->left->type == CMD)
+			outfile = node->left->value;
+		else
+			outfile = node->right->left->value;
+	}
 	else if (node->left->type == WORD)
 		outfile = node->left->value;
-	else
-		outfile = node->right->left->value;
+	else if (node->right->type == WORD)
+		outfile = node->right->value;
 	if (outfile == NULL)
 		return (NULL);
-	if (!check_outfile_validity(outfile, node->type))
+	if (!check_file_validity(outfile, node->type))
 		return (NULL);
 	return (outfile);
-}
-
-
-char	*check_outfile_validity(char *file, t_token_type type)
-{
-	int	fd;
-
-	if (type == REDIR_OUT)
-		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else
-		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (fd < 0)
-	{
-		perror(file);
-		g_signal = 1;
-		return (NULL);
-	}
-	close(fd);
-	return (file);
 }

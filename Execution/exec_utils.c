@@ -6,37 +6,32 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:44:35 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 08:35:16 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 12:17:17 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	check_for_infile(t_data *data, t_node *red_out)
+char	*check_file_validity(char *file, t_token_type type)
 {
-	t_node	*node;
-	char	*infile;
+	int	fd;
 
-	node = red_out;
-	if (data->pipes == 0 && node->right->type == 4)
+	if (type == REDIR_OUT)
+		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else if (type == REDIR_OUT_APPEND)
+		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else
+		fd = open(file, O_RDONLY);
+	if (fd < 0)
 	{
-		if (data->red_in > 0 && data->infile == 0)
-		{
-			while (node->type != REDIR_IN)
-				node = node->right;
-		}
-		infile = get_infile_red_in(data, node);
-		data->infile = 1;
-		if (!infile)
-		{
-			if (dup2(data->std_out_fd, STDOUT_FILENO) == -1)
-				ft_perror("dup2", 1);
-			return (1);
-		}
-		execute(data, node);
+		perror(file);
+		g_signal = 1;
+		return (NULL);
 	}
-	return (0);
+	close(fd);
+	return (file);
 }
+
 
 char	*ft_get_first_word(char *s)
 {
