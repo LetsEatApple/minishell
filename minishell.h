@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 16:38:49 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 22:09:20 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void			close_wait(int read, int write, pid_t left, pid_t right);
 void			handle_redir_in(t_data *data, t_node *node);
 void			handle_redir_out(t_data *data, t_node *node);
 void			handle_heredoc(t_data *data, t_node *node);
+void			fill_heredoc(t_data *data, char *dm, int *status);
 char			*expand_var(t_data *data, char *line);
 void			free_ptr(void *ptr);
 int				create_docfile(t_data *data, char *dm);

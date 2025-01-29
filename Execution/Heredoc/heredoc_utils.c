@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:20:59 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/29 16:22:58 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 22:08:57 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	fill_heredoc(t_data *data, char *dm, int *status)
 		free_ptr(line);
 	}
 	free_ptr(line);
+	
 }
 
 int	create_docfile(t_data *data, char *dm)
