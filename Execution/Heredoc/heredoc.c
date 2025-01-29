@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:46:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/27 18:26:19 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 08:36:06 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,11 @@ void	handle_heredoc(t_data *data, t_node *node)
 		return ;
 	}
 	close(data->doc.fd);
-	dup2(original_stdin, STDIN_FILENO);
+	if (dup2(original_stdin, STDIN_FILENO) == -1)
+	{
+		ft_perror("dup2", 1);
+		return ;
+	}
 	close(original_stdin);
 }
 

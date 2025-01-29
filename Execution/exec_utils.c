@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:44:35 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/28 17:56:00 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 08:35:16 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	check_for_infile(t_data *data, t_node *red_out)
 		data->infile = 1;
 		if (!infile)
 		{
-			dup2(data->std_out_fd, STDOUT_FILENO);
+			if (dup2(data->std_out_fd, STDOUT_FILENO) == -1)
+				ft_perror("dup2", 1);
 			return (1);
 		}
 		execute(data, node);

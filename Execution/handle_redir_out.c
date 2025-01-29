@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 18:08:47 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/27 15:58:04 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 08:35:59 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	handle_redir_out(t_data *data, t_node *node)
 	data->outfile = open(current->right->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (dup2(data->outfile, STDOUT_FILENO) < 0)
 	{
-		print_error_fd("dup2", NULL, 1);
 		close(data->outfile);
+		ft_perror("dup2", 1);
 		return ;
 	}
 	close(data->outfile);
@@ -36,7 +36,7 @@ void	handle_redir_out(t_data *data, t_node *node)
 	{
 		if (dup2(data->std_out_fd, STDOUT_FILENO) < 0)
 		{
-			print_error("dup2", 1);
+			ft_perror("dup2", 1);
 			return ;
 		}
 	}
@@ -54,10 +54,10 @@ void	handle_redir_append(t_data *data, t_node *node)
 		return ;
 	}
 	data->outfile = open(current->right->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (dup2(data->outfile, STDOUT_FILENO) < 0)
+	if (dup2(data->outfile, STDOUT_FILENO) == -1)
 	{
-		print_error_fd("dup2", NULL, 1);
 		close(data->outfile);
+		ft_perror("dup2", 1);
 		return ;
 	}
 	close(data->outfile);
@@ -69,7 +69,7 @@ void	handle_redir_append(t_data *data, t_node *node)
 	{
 		if (dup2(data->std_out_fd, STDOUT_FILENO) < 0)
 		{
-			print_error("dup2", 1);
+			ft_perror("dup2", 1);
 			return ;
 		}
 	}

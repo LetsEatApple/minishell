@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:21:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/28 21:35:25 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 08:58:12 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	free_data(t_data *data)
 		free(data->doc.file);
 		data->doc.file = NULL;
 	}
+	close(data->std_out_fd);
 }
 
 void	free_split(char **s)
@@ -69,7 +70,6 @@ void	clear_table(t_data *data)
 	data->redirs = 0;
 	data->red_in = 0;
 	data->heredoc = 0;
-	close(data->std_out_fd);
 	if (data->outfile >= 0)
 	{
 		close(data->outfile);
@@ -86,7 +86,6 @@ void	free_ast(t_node *head)
 {
 	if (!head)
 		return ;
-//	print_node(head);
 	if (head->left != NULL)
 	{
 		free_ast(head->left);

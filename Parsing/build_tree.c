@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/28 18:54:57 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 08:26:57 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ t_node	*create_node(t_token *token, t_node *prev)
 {
 	t_node	*new_node;
 
-//	(void)prev;
 	if (token == NULL)
 		return (NULL);
 	new_node = malloc(sizeof(t_node));
@@ -37,8 +36,6 @@ t_node	*create_node(t_token *token, t_node *prev)
 	token->node = 1;
 	new_node->node = 1;
 	new_node->prev = prev;
-	// if (prev == NULL)
-	// 	new_node->prev->value == NULL;
 	new_node->left = NULL;
 	new_node->right = NULL;
 	return (new_node);
@@ -50,9 +47,9 @@ void	parsing(t_data *data)
 	if (ops_before_root(data->token_list))
 		build_left_branch(data, data->root, data->token_list);
 	build_right_branch(data, data->root, data->token_list);
-	printf("\n");
-	print_tree(data->root, 0);
-	printf("\n");
+	// printf("\n");
+	// print_tree(data->root, 0);
+	// printf("\n");
 }
 
 

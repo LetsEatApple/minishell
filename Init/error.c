@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 12:15:00 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/27 13:50:04 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 08:28:47 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	print_error_fd(const char *error, char *target, int sig)
 	g_signal = sig;
 }
 
-void	print_error(char *str, int signal)
+void	ft_perror(char *str, int signal)
 {
 	perror(str);
 	g_signal = signal;

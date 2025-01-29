@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/28 21:20:48 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 08:30:51 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ void			clear_table(t_data *data);
 
 /*               Error               */
 void			syntax_error(t_token **head, char c);
-void			print_error(char *str, int signal);
+void			ft_perror(char *str, int signal);
 void			print_error_fd(const char *error, char *target, int sig);
 
 /*              Delete              */

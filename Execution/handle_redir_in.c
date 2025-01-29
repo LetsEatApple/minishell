@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/28 21:44:18 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 08:35:31 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	handle_redir_in(t_data *data, t_node *node)
 	if (dup2(data->infile, STDIN_FILENO) == -1)
 	{
 		close(data->infile);
+		ft_perror("dup2", 1);
 		return ;
 	}
 	close(data->infile);
@@ -141,7 +142,11 @@ void	handle_redir_in(t_data *data, t_node *node)
 		else
 			execute(data, node->right);
 	}
-	dup2(original_stdin , STDIN_FILENO);
+	if (dup2(original_stdin , STDIN_FILENO) == -1)
+	{
+		ft_perror("dup2", 1);
+		return ;
+	}
 	close(original_stdin);
 	// if (!data->pipes && current->right && current->right->type != WORD
 	// 	&& current->right->type != HEREDOC)

@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/28 21:47:04 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 08:35:21 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,10 @@ void	dup_exec(int close_fd, int dup_fd, int std)
 {
 	close(close_fd);
 	if (dup2(dup_fd, std) == -1)
-		perror("dup2");
+	{
+		ft_perror("dup2", 1);
+		return ;
+	}
 	close(dup_fd);
 }
 

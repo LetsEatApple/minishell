@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   two_tokens.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:15:24 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/23 17:52:35 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/29 08:52:35 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,20 @@
 
 void	handle_two_tokens(t_data *data)
 {
-	char	*file_name;
+	char			*file_name;
+	t_token_type	type;
 
-	file_name = NULL;
-	if (data->token_list->type == REDIR_OUT)
+	file_name = data->token_list->next->value;
+	type = data->token_list->type;
+	if (type == REDIR_OUT || type == REDIR_OUT_APPEND)
 	{
-		file_name = data->token_list->next->value;
-		open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);//error here also possible but not likely
-	}
-	else if (data->token_list->type == REDIR_OUT_APPEND)
-	{
-		file_name = data->token_list->next->value;
-		open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		if (!check_outfile_validity(file_name, type))
+			return ;
 	}
 	else if (data->token_list->type == REDIR_IN)
 	{
-		file_name = data->token_list->next->value;
-		if (open(file_name, O_RDONLY) == -1)
-		{
-			perror(file_name);
-			g_signal = 1;
-		}
+		if (!check_infile_validity(file_name))
+			return ;
 	}
 	else if (data->token_list->type == HEREDOC)
 	{
