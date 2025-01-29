@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:20:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 08:39:38 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 11:46:38 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ int	init_data(t_data *data, int ac, char **envp)
 	data->outfile = -1;
 	data->ops = 0;
 	data->std_in_fd = 0;
-	data->std_out_fd = dup(STDOUT_FILENO);
-	if (data->std_out_fd < 0)
-	{
-		ft_perror("dup21", 1);
-		return (1);
-	}
+	// data->std_out_fd = dup(STDOUT_FILENO);
+	// if (data->std_out_fd < 0)
+	// {
+	// 	ft_perror("dup20", 1);
+	// 	return (1);
+	// }
 	data->root = NULL;
 	data->doc.file = NULL;
 	return (0);

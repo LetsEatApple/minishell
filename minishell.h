@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 08:30:51 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 11:45:18 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,14 @@ void			ft_cd(t_data *data, char **cmd);
 
 /*             Execution           */
 void			ft_command(t_data *data, char **cmd);
+void			ft_next_exec(t_data *data, t_node *node);
 void			execute(t_data *data, t_node *node);
 void			handle_pipe(t_data *data, t_node *node);
 void			dup_exec(int close_fd, int dup_fd, int std);
 void			close_wait(int read, int write, pid_t left, pid_t right);
 void			handle_redir_in(t_data *data, t_node *node);
 void			handle_redir_out(t_data *data, t_node *node);
-void			handle_redir_append(t_data *data, t_node *node);
 void			handle_heredoc(t_data *data, t_node *node);
-t_node			*get_current(t_node *node, t_token_type type);
 char			*expand_var(t_data *data, char *line);
 void			free_ptr(void *ptr);
 int				create_docfile(t_data *data, char *dm);
@@ -87,7 +86,6 @@ char			*check_infile_validity(char *file);
 char			*check_outfile_validity(char *file, t_token_type type);
 void			ft_exec(t_data *data, char **cmd);
 void			handle_two_tokens(t_data *data);
-void			find_heredoc(t_data *data);
 char			*left_redir_ins(t_node *node, t_token_type type);
 char			*right_redir_ins(t_node *node, t_token_type type);
 char			*get_infile_red_in(t_data *data, t_node *node);

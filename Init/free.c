@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:21:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 08:58:12 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 11:46:45 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	free_data(t_data *data)
 		free(data->doc.file);
 		data->doc.file = NULL;
 	}
-	close(data->std_out_fd);
+//	close(data->std_out_fd);
 }
 
 void	free_split(char **s)

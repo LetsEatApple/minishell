@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 18:08:47 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 08:35:59 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 11:49:35 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,63 +14,67 @@
 
 void	handle_redir_out(t_data *data, t_node *node)
 {
-	t_node	*current;
+	char	*outfile;
+	int		original_stdout;
 
-	current = get_current(node, node->type);
-	current->right->value = get_outfile_redir_out(node);
-	if (!current->right->value)
+	outfile = get_outfile_redir_out(node);
+	if (!outfile)
 		return ;
-	data->outfile = open(current->right->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (node->type == REDIR_OUT)
+		data->outfile = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else
+	 	data->outfile = open(outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	original_stdout = dup(STDOUT_FILENO);
 	if (dup2(data->outfile, STDOUT_FILENO) < 0)
 	{
 		close(data->outfile);
-		ft_perror("dup2", 1);
+		ft_perror("dup23", 1);
 		return ;
 	}
 	close(data->outfile);
-	if (check_for_infile(data, node))
-		return ;
-	if (node->left)
-		execute(data, node->left);
-	if (data->std_out_fd >= 0)
+	ft_next_exec(data, node);
+	if (dup2(original_stdout, STDOUT_FILENO) < 0)
 	{
-		if (dup2(data->std_out_fd, STDOUT_FILENO) < 0)
-		{
-			ft_perror("dup2", 1);
+		ft_perror("dup27", 1);
 			return ;
-		}
 	}
+	close(original_stdout);
 }
 
-void	handle_redir_append(t_data *data, t_node *node)
+char	*get_outfile_redir_out(t_node *node)
 {
-	t_node	*current;
+	char	*outfile;
 
-	current = get_current(node, node->type);
-	current->right->value = get_outfile_redir_out(node);
-	if (!current->right->value)
+	outfile = NULL;
+
+	if (node->right->type == WORD)
+		outfile = node->right->value;
+	else if (node->left->type == WORD)
+		outfile = node->left->value;
+	else
+		outfile = node->right->left->value;
+	if (outfile == NULL)
+		return (NULL);
+	if (!check_outfile_validity(outfile, node->type))
+		return (NULL);
+	return (outfile);
+}
+
+
+char	*check_outfile_validity(char *file, t_token_type type)
+{
+	int	fd;
+
+	if (type == REDIR_OUT)
+		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else
+		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (fd < 0)
 	{
+		perror(file);
 		g_signal = 1;
-		return ;
+		return (NULL);
 	}
-	data->outfile = open(current->right->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (dup2(data->outfile, STDOUT_FILENO) == -1)
-	{
-		close(data->outfile);
-		ft_perror("dup2", 1);
-		return ;
-	}
-	close(data->outfile);
-	if (check_for_infile(data, node))
-		return ;
-	if (node->left)
-		execute(data, node->left);
-	if (data->std_out_fd >= 0)
-	{
-		if (dup2(data->std_out_fd, STDOUT_FILENO) < 0)
-		{
-			ft_perror("dup2", 1);
-			return ;
-		}
-	}
+	close(fd);
+	return (file);
 }

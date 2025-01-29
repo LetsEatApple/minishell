@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 08:26:57 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/29 11:37:02 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ t_node	*create_node(t_token *token, t_node *prev)
 
 void	parsing(t_data *data)
 {
-	//print_node(data->root);
 	if (ops_before_root(data->token_list))
 		build_left_branch(data, data->root, data->token_list);
 	build_right_branch(data, data->root, data->token_list);
@@ -63,10 +62,7 @@ void	build_right_branch(t_data *data, t_node *root, t_token *t_list)
 	while (current->next && current->node == 1)
 		current = current->next;
 	if (root->left == NULL)
-	{
-		//if (data->token_list->node != 1)
 		root->left = create_node(get_first_command(t_list), NULL);
-	}
 	if (data->ops > 1)
 	{
 		next_op = find_next_op(current);
@@ -150,7 +146,7 @@ void	build_left_branch(t_data *data, t_node *root, t_token *t_list)
 
 	current = t_list;
 	prev_op = NULL;
-	while (current->node == 0)
+	while (current && current->node == 0)
 		current = current->next;
 	if (ops_before_root(t_list))
 	{
