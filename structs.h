@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/30 14:21:09 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/30 14:56:14 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ typedef struct s_data
 	int		red_in;
 	int		infile;
 	int		outfile;
+	int		std_out_fd;
+	int		std_in_fd;
 	int		heredoc;
 	t_token	*token_list;
 	t_node	*root;

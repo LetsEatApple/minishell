@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/30 14:27:27 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:15:03 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void			close_wait(int read, int write, pid_t left, pid_t right);
 void			handle_redir_in(t_data *data, t_node *node);
 void			handle_redir_out(t_data *data, t_node *node);
 void			handle_heredoc(t_data *data, t_node *node);
+int				check_next_exec(t_data *data, t_node *node);
 void			fill_heredoc(t_data *data, char *dm, int *status);
 char			*expand_var(t_data *data, char *line);
 void			free_ptr(void *ptr);

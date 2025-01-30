@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 16:26:00 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:39:13 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,32 @@ void	handle_redir_in(t_data *data, t_node *node)
 		return ;
 	}
 	close(data->infile);
-	ft_next_exec(data, node);
-	if (dup2(original_stdin, STDIN_FILENO) == -1)
+	if (check_next_exec(data, node) == true)
 	{
-		ft_perror("dup2", 1);
-		return ;
+		data->std_in_fd = original_stdin;
+		ft_next_exec(data, node);
+		if (dup2(original_stdin, STDIN_FILENO) == -1)
+		{
+			ft_perror("dup23", 1);
+			return;
+		}
+		close(original_stdin);
 	}
-	close(original_stdin);
+	else
+	{
+		if (dup2(original_stdin, STDIN_FILENO) == -1)
+		{
+			ft_perror("dup23", 1);
+			return;
+		}
+		close(original_stdin);
+		ft_next_exec(data, node);
+	}
+	// ft_next_exec(data, node);
+	// if (dup2(original_stdin, STDIN_FILENO) == -1)
+	// {
+	// 	ft_perror("dup2", 1);
+	// 	return ;
+	// }
+	// close(original_stdin);
 }

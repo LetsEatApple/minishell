@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:20:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 16:40:21 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/30 14:56:39 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	init_data(t_data *data, int ac, char **envp)
 	data->heredoc = 0;
 	data->infile = -1;
 	data->outfile = -1;
+	data->std_in_fd = -1;
+	data->std_out_fd = -1;
 	data->ops = 0;
 	data->root = NULL;
 	data->doc.file = NULL;
