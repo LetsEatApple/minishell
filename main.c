@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/29 15:41:02 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/30 10:41:17 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	g_signal = 0;
 	init_data(&data, ac, envp);
-	while ("It's been a")
+	while (42)
 	{
 		set_sig_interactive();
 		signal(SIGINT, handle_sig);
-		data.input = readline("minihell: ");
+		data.input = readline("minishell: ");
 		if (data.input == NULL)
 		{
 			printf("\n");

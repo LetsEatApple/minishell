@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:15:59 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 16:22:58 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/30 10:39:55 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,18 @@ void	ft_command(t_data *data, char **cmd)
 	else
 	{
 		g_signal = 0;
-		ft_exec(data, cmd);
+		exec_command(data, cmd);
 	}
 }
 
-void	ft_exec(t_data *data, char **cmd)
+void	exec_command(t_data *data, char **cmd)
 {
 	int		id;
 	int		status;
 
 	id = fork();
 	if (id < 0)
-	{
-		perror("fork");
-		return ;
-	}
+		return (ft_perror("fork", 1));
 	if (id == 0)
 	{
 		if (execve(cmd[0], cmd, data->env) == -1)
@@ -57,6 +54,11 @@ void	ft_exec(t_data *data, char **cmd)
 		exit(g_signal);
 	}
 	waitpid(id, &status, 0);
-	g_signal = WEXITSTATUS(status);
-	return ;
+	if (WIFEXITED(status))
+		g_signal = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+	{
+		write(1, "\n", 1);
+		g_signal = 128 + WTERMSIG(status);
+	}
 }
