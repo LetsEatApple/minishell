@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delete_later.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:48:08 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 10:55:03 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/30 14:18:34 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,11 @@ const char *g_token_type[] =
     "WORD",
 	"CMD",
     "ENV",
+	"WHITESPACE",
 };
 
 const char* get_token_type(t_token_type type) {
-    if (type >= 0 && type <= ENV)  // Ensure the type is within valid range
+    if (type >= 0 && type <= WHITESPACE)  // Ensure the type is within valid range
         return g_token_type[type];
     return "UNKNOWN";  // Fallback for invalid types
 }

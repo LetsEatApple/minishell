@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 15:06:06 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/23 17:05:22 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/30 13:59:48 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	delete_rest(t_token *start, t_token *end)
 	ptr = start->next;
 	while (ptr != end)
 	{
-		if (ptr->value != NULL && ptr->value[0] != '\0')
+		if (ptr->value != NULL) // && ptr->value[0] != '\0')
 			free(ptr->value);
 		if (ptr->next == NULL)
 		{

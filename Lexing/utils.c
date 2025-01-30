@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:51:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/23 17:04:09 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/30 14:34:38 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,14 @@ void	print_token_list(t_token *token_list)
 	ptr = token_list;
 	while (ptr != NULL)
 	{
-		if (ptr -> value != NULL)
+		if (ptr->value != NULL)
 		{
 			printf("[value: '%s', ", ptr->value);
+			printf("type: %s] ", get_token_type(ptr->type));
+		}
+		else if (ptr->value && ptr->value[0] == '\0')
+		{
+			printf("[value: 'empty', ");
 			printf("type: %s] ", get_token_type(ptr->type));
 		}
 		else if (ptr->cmd != NULL)
@@ -49,6 +54,7 @@ void	print_token_list(t_token *token_list)
 		}
 		else
 			printf("[value: NULL, type: %s] ", get_token_type(ptr->type));
+		printf(" int word: %d", ptr->word);
 		printf("\n");
 		ptr = ptr -> next;
 	}

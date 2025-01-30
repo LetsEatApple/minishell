@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prep_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:50:56 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/23 17:16:57 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/30 14:44:02 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	list_size(t_token *head)
 
 static void	free_node(t_token *ptr)
 {
-	if (ptr->value != NULL && ptr->value[0] != '\0')
+	if (ptr->value != NULL)// && ptr->value[0] != '\0')
 		free(ptr->value);
 	free(ptr);
 }
@@ -74,7 +74,7 @@ void	delete_nullword(t_data *data, t_token **head)
 			data->token_list = NULL;
 			break ;
 		}
-		if (ptr->value == NULL && ptr->type == WORD)
+		if (ptr->value == NULL && (ptr->type == WORD || ptr->type == DOUBLE_QUOTE)) // added
 		{
 			delete_node(head, ptr);
 			ptr = *head;
@@ -90,6 +90,6 @@ void	connect_val(t_token *ptr, t_token *start)
 
 	value = start->value;
 	start->value = ft_strjoin(start->value, ptr->next->value);
-	if (value != NULL && value[0] != '\0')
+	if (value != NULL)//&& value[0] != '\0')
 		free(value);
 }

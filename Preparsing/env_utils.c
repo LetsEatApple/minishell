@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:59:01 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/23 17:22:13 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/30 14:03:13 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	*reconnect(t_token **head)
 	t_token	*ptr;
 
 	ptr = *head;
-	value = "";
+	value = ft_strdup(""); //addded strdup
 	temp = "";
 	while (ptr != NULL)
 	{
@@ -91,12 +91,15 @@ char	*reconnect(t_token **head)
 		{
 			temp = value;
 			value = ft_strjoin(temp, ptr->value);
-			if (temp[0] != '\0')
-				free(temp);
+			//if (temp[0] != '\0')
+			free(temp);
 		}
 		ptr = ptr->next;
 	}
 	if (value[0] == '\0')
+	{
+		free(value); // added
 		value = NULL;
+	}
 	return (value);
 }
