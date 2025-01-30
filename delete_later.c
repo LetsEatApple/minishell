@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:48:08 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/30 14:18:34 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:59:48 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,12 @@ char	*print_node(t_node *node)
 {
 	if (node->cmd)
 	{
-		// int i = 0;
-		// while (node->cmd[i])
-		// {
-		// 	printf("cmd node is'%s'\n", node->cmd[i]);
-		// 	i++;
-		// }
-	//	ft_putstr_fd("cmd is ", 2);//	original_stdout = dup(STDOUT_FILENO);
-
-	//	ft_putstr_fd("in exec w: ", 2);
 		ft_putstr_fd(node->cmd[0], 2);
 		ft_putstr_fd("\n", 2);
 		return (node->cmd[0]);
 	}
 	else if (node->value)
 	{
-	//	ft_putstr_fd("in exec w: ", 2);
-	//	ft_putstr_fd("node is ", 2);
 		ft_putstr_fd(node->value, 2);
 		ft_putstr_fd("\n", 2);
 	}
@@ -98,5 +87,5 @@ const char *g_token_type[] =
 const char* get_token_type(t_token_type type) {
     if (type >= 0 && type <= WHITESPACE)  // Ensure the type is within valid range
         return g_token_type[type];
-    return "UNKNOWN";  // Fallback for invalid types
+    return "UNKNOWN";
 }

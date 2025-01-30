@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_command.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:15:59 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/30 10:39:55 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/30 17:22:28 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,24 @@ void	exec_command(t_data *data, char **cmd)
 		if (execve(cmd[0], cmd, data->env) == -1)
 		{
 			error_msg("%s: command not found\n", cmd[0], 127);
+			if (data->std_out_fd != -1)
+				close(data->std_out_fd);
+			if (data->std_in_fd != -1)
+				close(data->std_in_fd);
 			exit (g_signal);
 		}
+		if (data->std_out_fd != -1)
+			close(data->std_out_fd);
+		if (data->std_in_fd != -1)
+			close(data->std_in_fd);
 		clear_table(data);
 		free_split(cmd);
 		exit(g_signal);
 	}
+	if (data->std_out_fd != -1)
+		close(data->std_out_fd);
+	if (data->std_in_fd != -1)
+		close(data->std_in_fd);
 	waitpid(id, &status, 0);
 	if (WIFEXITED(status))
 		g_signal = WEXITSTATUS(status);

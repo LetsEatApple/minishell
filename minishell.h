@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/30 13:35:15 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/30 17:51:59 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void			close_wait(int read, int write, pid_t left, pid_t right);
 void			handle_redir_in(t_data *data, t_node *node);
 void			handle_redir_out(t_data *data, t_node *node);
 void			handle_heredoc(t_data *data, t_node *node);
+int				check_next_exec(t_data *data, t_node *node);
 void			fill_heredoc(t_data *data, char *dm, int *status);
 char			*expand_var(t_data *data, char *line);
 void			free_ptr(void *ptr);
@@ -142,8 +143,8 @@ t_node			*create_node(t_token *token, t_node *prev);
 void			parsing(t_data *data);
 void			build_left_branch(t_data *data, t_node *root, t_token *t_list);
 void			build_right_branch(t_data *data, t_node *root, t_token *t_list);
-void			create_branch_prev_op(t_data *data, t_token *next_op, t_token *current);
-void			create_branch_next_op(t_data *data, t_token *next_op, t_token *current);
+void			prev_op_branch(t_data *data, t_token *current);
+void			next_op_branch(t_data *data, t_node *root, t_token *next_op);
 void			free_ast(t_node *head);
 int				ops_before_root(t_token *token_list);
 t_token			*get_first_command(t_token *real);

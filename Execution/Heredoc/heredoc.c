@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:46:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 22:37:25 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/30 18:23:53 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,80 @@ int	check_next_exec(t_data *data, t_node *node)
 		else
 		next = node->right;
 	}
-	print_node(next);
-	if (next->type == CMD || next->type == REDIR_OUT || next->type == REDIR_OUT_APPEND)
-		return (true);
-	else
-		return (false);
+	//print_node(next);
+/* 	if (node->type == HEREDOC || node->type == REDIR_IN)
+	{ */
+		if (next->type == CMD || next->type == REDIR_OUT || next->type == REDIR_OUT_APPEND)
+			return (true);
+/* 	}
+	else if (node->type == REDIR_OUT || node->type == REDIR_OUT_APPEND)
+	{
+		if (next->type == CMD || next->type == REDIR_IN || next->type == HEREDOC)
+			return (true);
+	} */
+	return (false);
 }
+
+/* void handle_heredoc(t_data *data, t_node *node)
+{
+	int original_stdin;
+	int pid;
+	char		*tmp;
+	static int	num;
+	
+	g_signal = 0;
+	if (data->doc.file)
+	{
+		if (access(data->doc.file, F_OK) == 0)
+			unlink(data->doc.file);
+		free(data->doc.file);
+		data->doc.file = NULL;
+	}
+	tmp = ft_itoa(num);
+	data->doc.file = ft_strjoin("temp", tmp);
+	{
+		free(tmp);
+		num++;
+	}
+	pid = fork();
+	if (pid == 0)
+	{
+		data->doc.delimiter = get_delimiter(node);
+		create_docfile(data, data->doc.delimiter);
+		exit(1);
+	}
+	wait(&pid);
+	data->doc.fd = open(data->doc.file, O_RDONLY);
+	original_stdin = dup(STDIN_FILENO);
+	if (dup2(data->doc.fd, STDIN_FILENO) == -1)
+	{
+		close(data->doc.fd);
+		ft_perror("dup21", 1);
+		return;
+	}
+	close(data->doc.fd);
+	if (check_next_exec(data, node) == true)
+	{
+		//data->std_in_fd = original_stdin;
+		ft_next_exec(data, node);
+		if (dup2(original_stdin, STDIN_FILENO) == -1)
+		{
+			ft_perror("dup23", 1);
+			return;
+		}
+		close(original_stdin);
+	}
+	else
+	{
+		if (dup2(original_stdin, STDIN_FILENO) == -1)
+		{
+			ft_perror("dup23", 1);
+			return;
+		}
+		close(original_stdin);
+		ft_next_exec(data, node);
+	}
+} */
 
 void handle_heredoc(t_data *data, t_node *node)
 {
@@ -104,10 +172,7 @@ void handle_heredoc(t_data *data, t_node *node)
 
 	g_signal = 0;
 	data->doc.delimiter = get_delimiter(node);
-/* 	ft_putendl_fd(data->doc.delimiter, 2); */
 	if (create_docfile(data, data->doc.delimiter) == false)
-		return;
-	if (node == NULL)
 		return;
 	//data->heredoc--;
 	data->doc.fd = open(data->doc.file, O_RDONLY);
@@ -121,6 +186,7 @@ void handle_heredoc(t_data *data, t_node *node)
 	close(data->doc.fd);
 	if (check_next_exec(data, node) == true)
 	{
+		//data->std_in_fd = original_stdin;
 		ft_next_exec(data, node);
 		if (dup2(original_stdin, STDIN_FILENO) == -1)
 		{
@@ -139,50 +205,4 @@ void handle_heredoc(t_data *data, t_node *node)
 		close(original_stdin);
 		ft_next_exec(data, node);
 	}
-	
 }
-
-/* void	create_docfile(t_data *data, char *key)
-{
-	int		doc;
-	char	buffer[100];
-	int		i;
-	char	*history;
-
-	doc = open("temp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	history = data->input;
-	data->input = ft_strjoin(data->input, "\n");
-	free(history);
-	while (1)
-	{
-
-		write(STDIN_FILENO,"> ", 3);
-		i = read(STDIN_FILENO, buffer, sizeof(buffer) - 1);
-		if (i == -1)
-		{
-			if (errno == EINTR)
-			{
-				if( g_signal == 130)
-					break ;
-			}
-			else
-			{
-				perror("Error reading input");
-				return ;
-			}
-		}
-		else
-		{
-			buffer[i] = '\0';
-			history = data->input;
-			data->input = ft_strjoin(history, buffer);
-			free(history);
-			if(ft_strncmp(key, buffer, ft_strlen(key)) == 0)
-				break ;
-			if (buffer[0] == '\0')
-				write (doc, "\n", 1);
-			write(doc, buffer, i);
-		}
-	}
-	close(doc);
-} */

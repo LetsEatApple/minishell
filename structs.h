@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:17:39 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 11:44:22 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/30 14:56:14 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 typedef enum e_token_type
 {
-	SINGLE_QUOTE,			//0
-	DOUBLE_QUOTE,			//1
-	PIPE,					//2
-	REDIR_OUT,				//3
-	REDIR_IN,				//4
-	REDIR_OUT_APPEND,		//5
-	HEREDOC,				//6
-	WORD,					//7
-	CMD,					//8
-	ENV,					//9
-	WHITESPACE,				//10
+	SINGLE_QUOTE,
+	DOUBLE_QUOTE,
+	PIPE,
+	REDIR_OUT,
+	REDIR_IN,
+	REDIR_OUT_APPEND,
+	HEREDOC,
+	WORD,
+	CMD,
+	ENV,
+	WHITESPACE,
 }	t_token_type;
 
 typedef struct s_node
@@ -81,9 +81,9 @@ typedef struct s_data
 	int		red_in;
 	int		infile;
 	int		outfile;
-	int		heredoc;
-	int		std_in_fd;
 	int		std_out_fd;
+	int		std_in_fd;
+	int		heredoc;
 	t_token	*token_list;
 	t_node	*root;
 	t_doc	doc;

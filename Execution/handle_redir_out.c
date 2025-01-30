@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redir_out.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 18:08:47 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 16:27:23 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/30 17:23:24 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,22 @@ void	handle_redir_out(t_data *data, t_node *node)
 		return (ft_perror("dup2", 1));
 	}
 	close(data->outfile);
-	ft_next_exec(data, node);
-	if (dup2(original_stdout, STDOUT_FILENO) < 0)
-		return (ft_perror("dup2", 1));
-	close(original_stdout);
+	if (check_next_exec(data, node) == true)
+	{
+		//data->std_out_fd = original_stdout;
+		ft_next_exec(data, node);
+		if (dup2(original_stdout, STDOUT_FILENO) < 0)
+			return (ft_perror("dup2", 1));
+		close(original_stdout);
+	}
+	else
+	{
+		if (dup2(original_stdout, STDOUT_FILENO) < 0)
+			return (ft_perror("dup2", 1));
+		close(original_stdout);
+		ft_next_exec(data, node);
+	}
+	
 }
 
 char	*get_outfile_redir_out(t_node *node)
