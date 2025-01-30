@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 16:38:49 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/30 10:42:08 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int				init_data(t_data *data, int ac, char **envp);
 int				is_whitespace(char c);
 void			set_sig_interactive(void);
 void			set_sig_noninteractive(void);
-int	restore_stdin_stdout(t_data *data, int n);
+void			signal_reset_prompt(int sig);
 
 /*              Builtins            */
 int				is_built_in(char *cmd);
@@ -85,7 +85,7 @@ void			free_ptr(void *ptr);
 int				create_docfile(t_data *data, char *dm);
 char			*ft_get_first_word(char *s);
 char			*check_file_validity(char *file, t_token_type type);
-void			ft_exec(t_data *data, char **cmd);
+void			exec_command(t_data *data, char **cmd);
 void			handle_two_tokens(t_data *data);
 char			*get_infile_red_in(t_node *node);
 char			*get_outfile_redir_out(t_node *node);
@@ -148,7 +148,6 @@ int				ops_before_root(t_token *token_list);
 t_token			*get_first_command(t_token *real);
 t_token			*find_prev_op(t_token *token_list); // merge?
 t_token			*find_next_op(t_token *token_list);
-t_token			*get_prev_node(t_token *token);
 void			clear_table(t_data *data);
 
 /*               Error               */

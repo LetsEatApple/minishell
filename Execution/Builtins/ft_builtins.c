@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 11:09:29 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/08 14:26:43 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/30 09:40:19 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ void	ft_built_ins(t_data *data, char **cmd)
 	else if (!ft_strncmp(cmd[0], "exit", 5))
 		ft_exit(data, cmd);
 	else
+	{
+		exec_command(data, cmd);
 		g_signal = 127;
+	}
 }
 
 int	is_built_in(char *cmd)
