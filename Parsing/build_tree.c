@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:47:01 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/30 14:28:16 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/30 23:09:35 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	build_left_branch(t_data *data, t_node *root, t_token *t_list)
 		else if (current->next->next
 			&& current->next->next->type == CMD)
 			root->left = create_node(current->next->next, root);
-		else 
+		else
 			return ;
 	}
 }

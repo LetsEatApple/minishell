@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:20:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/30 14:56:39 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/30 23:10:38 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,23 @@ int	init_data(t_data *data, int ac, char **envp)
 	data->heredoc = 0;
 	data->infile = -1;
 	data->outfile = -1;
-	data->std_in_fd = -1;
-	data->std_out_fd = -1;
+	data->stdin = dup(STDIN_FILENO);
+	data->stdout = dup(STDOUT_FILENO);
 	data->ops = 0;
 	data->root = NULL;
 	data->doc.file = NULL;
 	return (0);
+}
+
+int	restore_std(t_data *data, char option)
+{
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	if (option == 0 || option == 2)
+		dup2(data->stdin, STDIN_FILENO);
+	if (option == 1 || option == 2)
+		dup2(data->stdout, STDOUT_FILENO);
+	return (1);
 }
 
 char	**init_envp(char **envp)

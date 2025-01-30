@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/30 17:51:59 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/30 20:54:10 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int				is_whitespace(char c);
 void			set_sig_interactive(void);
 void			set_sig_noninteractive(void);
 void			signal_reset_prompt(int sig);
+int				restore_std(t_data *data, char option);
 
 /*              Builtins            */
 int				is_built_in(char *cmd);

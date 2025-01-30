@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:51:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/30 14:34:38 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/30 23:15:09 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	print_arr(char **cmd)
 	}
 }
 
-void	print_token_list(t_token *token_list)
+/* void	print_token_list(t_token *token_list)
 {
 	t_token	*ptr;
 
@@ -59,4 +59,4 @@ void	print_token_list(t_token *token_list)
 		ptr = ptr -> next;
 	}
 	printf("\n");
-}
+} */

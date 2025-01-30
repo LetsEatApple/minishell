@@ -3,32 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/30 14:19:41 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/31 00:17:38 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 volatile __sig_atomic_t	g_signal = 0;
-
-void	handle_sig(int sig)
-{
-	g_signal = 128 + sig;
-	if (sig == SIGINT)
-	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	else if (sig == SIGQUIT)
-	{
-		printf("sigquit\n");
-	}
-}
 
 void	init_msh(t_data *data)
 {
@@ -55,6 +39,8 @@ void	init_msh(t_data *data)
 
 void	clear_program(t_data *data)
 {
+	close(data->stdin);
+	close(data->stdout);
 	free_split(data->env);
 	free(data->pwd);
 	clear_elist(&data->e_list);

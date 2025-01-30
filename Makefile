@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+         #
+#    By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2025/01/29 16:30:16 by grmullin         ###   ########.fr        #
+#    Updated: 2025/01/30 23:36:44 by lhagemos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := minishell
 FILES := main.c \
 signal.c \
-delete_later.c \
+debug.c \
 Init/init.c \
 Init/free.c \
 Execution/ft_command.c \

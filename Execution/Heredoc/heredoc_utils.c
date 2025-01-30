@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:20:59 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/30 18:12:33 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/30 23:44:53 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ int	process_line(t_data *data, char **line, char *dm, int *status)
 		return (false);
 	}
 	if (ft_strncmp(*line, dm, ft_strlen(dm) +1) == 0)
-	{
-		write(data->doc.fd, "\0", 1);
 		return (false);
-	}
 	if (check_dollar(*line) == true)
 	{
 		tmp = *line;
@@ -54,7 +51,6 @@ void	fill_heredoc(t_data *data, char *dm, int *status)
 		free_ptr(line);
 	}
 	free_ptr(line);
-	
 }
 
 int	create_docfile(t_data *data, char *dm)

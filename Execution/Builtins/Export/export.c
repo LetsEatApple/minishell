@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 11:17:26 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/29 16:22:58 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/31 00:15:34 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	print_export(t_env *e_list)
 		return ;
 	i = 0;
 	size = lst_size(e_list, 2);
-	printf("s: %d\n", size);
 	ptr = e_list;
 	while (i != size)
 	{

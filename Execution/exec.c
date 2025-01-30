@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/30 17:52:09 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/31 00:12:34 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	execute(t_data *data, t_node *node)
 {
+	//printf("6file: %s\n", data->doc.file);
 	if (node == NULL)
 		return ;
 	if (node->type == PIPE)
@@ -60,6 +61,7 @@ void	pipes_exec(t_data *data, t_node *node, t_node *cmd)
 					break ;
 				cmd = cmd->left;
 			}
+			//error_msg("4,5file: %s\n", data->doc.file, g_signal);
 			execute(data, cmd->left);
 		}
 	}

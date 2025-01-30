@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   handle_pipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 16:28:30 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/30 15:33:29 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/30 23:33:01 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	close_std_exit(t_data *data)
+{
+	close(data->stdin);
+	close(data->stdout);
+	exit(g_signal);
+}
 
 void	handle_pipe(t_data *data, t_node *node)
 {
@@ -26,8 +33,9 @@ void	handle_pipe(t_data *data, t_node *node)
 	if (leftpid == 0)
 	{
 		exec_left_pipe(data, node, fd[0], fd[1]);
-		exit(g_signal);
+		close_std_exit(data);
 	}
+	wait(&leftpid);
 	rightpid = fork();
 	if (rightpid < 0)
 		perror("fork");
@@ -35,7 +43,7 @@ void	handle_pipe(t_data *data, t_node *node)
 	{
 		dup_exec(fd[1], fd[0], STDIN_FILENO);
 		execute(data, node->right);
-		exit(g_signal);
+		close_std_exit(data);
 	}
 	close_wait(fd[0], fd[1], leftpid, rightpid);
 }

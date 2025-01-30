@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 13:38:32 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/28 18:20:01 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/30 23:33:40 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	set_sig_interactive(void)
 void	signal_print_nl(int sig)
 {
 	(void)sig;
-	//write(1, "\n", 1);
 	rl_on_new_line();
 }
 

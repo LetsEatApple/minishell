@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 15:22:13 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/30 09:40:45 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/31 00:07:23 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,29 +48,6 @@ void	ft_pwd(t_data *data, char **cmd)
 		perror("getcwd:");
 }
 
-//env in bash returns 125/127 but is not a builtin there
-//should we choose 2 instead (Misuse of Shell Builtin)?
-void	ft_env(char **cmd, char **env)
-{
-	int	i;
-
-	g_signal = 0;
-	if (ft_arrlen(cmd) != 1)
-	{
-		if (cmd[1][0] == '-')
-			error_msg("env: invalid option: %s\n", cmd[1], 125);
-		else
-			error_msg("env: invalid argument: %s\n", cmd[1], 127);
-		return ;
-	}
-	i = 0;
-	while (env[i])
-	{
-		printf("%s\n", env[i]);
-		i++;
-	}
-}
-
 char	*get_home(t_env *head)
 {
 	t_env	*ptr;
@@ -90,20 +67,34 @@ char	*get_home(t_env *head)
 	return (home);
 }
 
-void	ft_cd(t_data *data, char **cmd)
+char	*check_cd_args(t_data *data, char **cmd)
 {
-	int		size;
 	char	*path;
+	int		size;
 
-	g_signal = 0;
+	path = NULL;
 	size = ft_arrlen(cmd);
 	if (size == 1)
 		path = get_home(data->e_list);
 	else
 		path = cmd[1];
 	if (size > 2)
-		return (error_msg("%s: too many arguments\n", cmd[0], 1));
+	{
+		error_msg("%s: too many arguments\n", cmd[0], 1);
+		return (NULL);
+	}
 	if (path == NULL || path[0] == '\0')
+		return (NULL);
+	return (path);
+}
+
+void	ft_cd(t_data *data, char **cmd)
+{
+	char	*path;
+
+	g_signal = 0;
+	path = check_cd_args(data, cmd);
+	if (path == NULL)
 		return ;
 	if (chdir(path) < 0)
 	{

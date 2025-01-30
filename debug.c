@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   delete_later.c                                     :+:      :+:    :+:   */
+/*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:48:08 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/30 15:59:48 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/30 23:57:24 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,25 @@ char	*print_node(t_node *node)
 	return (node->value);
 }
 
-void    print_token(t_token *node)
+/* void	print_token(t_token *node)
 {
-    if (node->cmd)
+	int	i;
+
+	if (node->cmd)
 	{
-		int i = 0;
+		i = 0;
 		while (node->cmd[i])
 		{
-			printf("token is '%s' type '%s'\n", node->cmd[i], get_token_type(node->type));;
+			printf("token is '%s' type ", node->cmd[i]);
+			printf("'%s'\n", get_token_type(node->type));
 			i++;
 		}
 	}
 	else
-		printf("token is '%s' type '%s'\n", node->value, get_token_type(node->type));;
+	{
+		printf("token is '%s' type ", node->value);
+		printf("'%s'\n", get_token_type(node->type));
+	}
 }
 
 void print_tree(t_node *node, int level)
@@ -85,7 +91,7 @@ const char *g_token_type[] =
 };
 
 const char* get_token_type(t_token_type type) {
-    if (type >= 0 && type <= WHITESPACE)  // Ensure the type is within valid range
+    if (type >= 0 && type <= WHITESPACE)
         return g_token_type[type];
     return "UNKNOWN";
-}
+} */

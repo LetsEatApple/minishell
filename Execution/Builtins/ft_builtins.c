@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 11:09:29 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/30 09:40:19 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/31 00:07:34 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,27 @@ char	*getpwd(void)
 		return (NULL);
 	pwd = ft_strdup(save);
 	return (pwd);
+}
+
+//env in bash returns 125/127 but is not a builtin there
+//should we choose 2 instead (Misuse of Shell Builtin)?
+void	ft_env(char **cmd, char **env)
+{
+	int	i;
+
+	g_signal = 0;
+	if (ft_arrlen(cmd) != 1)
+	{
+		if (cmd[1][0] == '-')
+			error_msg("env: invalid option: %s\n", cmd[1], 125);
+		else
+			error_msg("env: invalid argument: %s\n", cmd[1], 127);
+		return ;
+	}
+	i = 0;
+	while (env[i])
+	{
+		printf("%s\n", env[i]);
+		i++;
+	}
 }
