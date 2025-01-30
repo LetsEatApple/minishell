@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 21:49:58 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/30 14:00:37 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	execute(t_data *data, t_node *node)
 {
-	ft_putendl_fd("executing next", 2);
 	if (node == NULL)
 		return ;
 	if (node->type == PIPE)

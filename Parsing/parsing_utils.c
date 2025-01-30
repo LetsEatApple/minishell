@@ -6,11 +6,40 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:11:11 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/24 17:56:49 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/30 14:19:37 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+t_node	*create_node(t_token *token, t_node *prev)
+{
+	t_node	*new_node;
+
+	if (token == NULL)
+		return (NULL);
+	new_node = malloc(sizeof(t_node));
+	if (new_node == NULL)
+		return (NULL);
+	if (token->type != CMD)
+	{
+		new_node->cmd = NULL;
+		new_node->value = token->value;
+	}
+	else
+	{
+		new_node->value = NULL;
+		new_node->cmd = token->cmd;
+		token->cmd = NULL;
+	}
+	new_node->type = token->type;
+	token->node = 1;
+	new_node->node = 1;
+	new_node->prev = prev;
+	new_node->left = NULL;
+	new_node->right = NULL;
+	return (new_node);
+}
 
 int	ops_before_root(t_token *token_list)
 {
