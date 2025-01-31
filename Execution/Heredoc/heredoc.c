@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:46:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/30 23:45:11 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/31 01:40:48 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,7 @@ void	handle_heredoc(t_data *data, t_node *node)
 	restore_std(data, 2);
 	g_signal = 0;
 	data->doc.delimiter = get_delimiter(node);
-	if (create_docfile(data, data->doc.delimiter) == false)
-		return ;
+	create_docfile(data, data->doc.delimiter);
 	dup2(stdout, STDOUT_FILENO);
 	close(stdout);
 	data->doc.fd = open(data->doc.file, O_RDONLY);

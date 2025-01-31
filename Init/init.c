@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:20:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/30 23:10:38 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/31 01:33:26 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ int	init_data(t_data *data, int ac, char **envp)
 
 int	restore_std(t_data *data, char option)
 {
+	if (data->doc.file)
+	{
+		if (access(data->doc.file, F_OK) == 0)
+			unlink(data->doc.file);
+		free(data->doc.file);
+		data->doc.file = NULL;
+	}
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	if (option == 0 || option == 2)
