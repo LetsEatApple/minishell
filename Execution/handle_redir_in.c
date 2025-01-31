@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redir_in.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/30 23:07:53 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/31 12:06:22 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_infile_red_in(t_node *node)
 
 	if (node->prev == NULL && node->right->type == WORD)
 		infile = node->right->value;
-	else if (node->prev == NULL)
+	else if (node->prev == NULL && node->right->left)
 		infile = node->right->left->value;
 	else if (node->right && node->right->type == WORD)
 		infile = node->right->value;
