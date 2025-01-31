@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:20:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/31 01:33:26 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/31 12:40:40 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,15 @@ int	restore_std(t_data *data, char option)
 		free(data->doc.file);
 		data->doc.file = NULL;
 	}
-	close(STDIN_FILENO);
-	close(STDOUT_FILENO);
-	if (option == 0 || option == 2)
-		dup2(data->stdin, STDIN_FILENO);
-	if (option == 1 || option == 2)
-		dup2(data->stdout, STDOUT_FILENO);
+	if (option != 3)
+	{
+		close(STDIN_FILENO);
+		close(STDOUT_FILENO);
+		if (option == 0 || option == 2)
+			dup2(data->stdin, STDIN_FILENO);
+		if (option == 1 || option == 2)
+			dup2(data->stdout, STDOUT_FILENO);
+	}
 	return (1);
 }
 
