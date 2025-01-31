@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_pipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 16:28:30 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/31 01:23:50 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/31 17:34:28 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	handle_pipe(t_data *data, t_node *node)
 		exec_left_pipe(data, node, fd[0], fd[1]);
 		close_std_exit(data);
 	}
-	wait(&leftpid);
 	rightpid = fork();
 	if (rightpid < 0)
 		perror("fork");
