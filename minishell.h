@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/31 12:46:56 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:29:13 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void			delete_node(t_token **head, t_token *todelete);
 void			handle_whitespaces(t_data *data, t_token **head);
 void			delete_arg(t_token **head);
 void			connect_val(t_token *ptr, t_token *start);
+void			init_heredoc(t_data *data);
 
 /*                Parsing             */
 void			get_root(t_data *data);

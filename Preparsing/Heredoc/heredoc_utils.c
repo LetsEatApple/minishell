@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:20:59 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/31 18:22:00 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:27:45 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	fill_heredoc(t_data *data, char *dm, int *status)
 		{
 			set_sig_interactive();
 			line = readline("> ");
-			set_sig_noninteractive(0);
+			set_sig_noninteractive();
 			if (g_signal == 130)
 				exit (130);
 			if (process_line(data, &line, dm, status) == false)
