@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:20:59 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/31 01:41:01 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:22:00 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,37 @@ int	process_line(t_data *data, char **line, char *dm, int *status)
 
 void	fill_heredoc(t_data *data, char *dm, int *status)
 {
+	int		id;
 	char	*line;
+	int		stat;
 
 	line = NULL;
-	while (1)
+	id = fork();
+	if (id < 0)
+		return (ft_perror("fork", 1));
+	if (id == 0)
 	{
-		set_sig_interactive();
-		line = readline("> ");
-		set_sig_noninteractive();
-		if (process_line(data, &line, dm, status) == false)
-			break ;
-		ft_putendl_fd(line, data->doc.fd);
+		while (1)
+		{
+			set_sig_interactive();
+			line = readline("> ");
+			set_sig_noninteractive(0);
+			if (g_signal == 130)
+				exit (130);
+			if (process_line(data, &line, dm, status) == false)
+				break ;
+			ft_putendl_fd(line, data->doc.fd);
+			free_ptr(line);
+		}
 		free_ptr(line);
+		exit (g_signal);
 	}
-	free_ptr(line);
+	waitpid(id, &stat, 0);
+/* 	if (WIFEXITED(status))
+		g_signal = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		return (128 + WTERMSIG(status)); */
+	
 }
 
 int	create_docfile(t_data *data, char *dm)

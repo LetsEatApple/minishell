@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:46:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/31 15:51:42 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/31 17:34:00 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,6 @@ int	check_next_exec(t_data *data, t_node *node)
 
 void	handle_heredoc(t_data *data, t_node *node)
 {
-	int	stdout;
-	
-	stdout = dup(STDOUT_FILENO);
-	restore_std(data, 2);
-	g_signal = 0;
-	data->doc.delimiter = get_delimiter(node);
-	create_docfile(data, data->doc.delimiter);
-	dup2(stdout, STDOUT_FILENO);
-	close(stdout);
 	data->doc.fd = open(data->doc.file, O_RDONLY);
 	if (dup2(data->doc.fd, STDIN_FILENO) == -1)
 	{
@@ -107,25 +98,19 @@ void	handle_heredoc(t_data *data, t_node *node)
 	ft_next_exec(data, node);
 }
 
-/*	if (check_next_exec(data, node) == true)
+void	init_heredoc(t_data *data)
+{
+	t_token	*ptr;
+
+	ptr = data->token_list;
+	while(ptr)
 	{
-		//data->std_in_fd = original_stdin;
-		ft_next_exec(data, node);
-		if (dup2(original_stdin, STDIN_FILENO) == -1)
+		if (ptr->type == HEREDOC)
 		{
-			ft_perror("dup23", 1);
-			return;
+			data->doc.delimiter = ptr->next->value;
+			if (create_docfile(data, data->doc.delimiter) == false)
+				break ;
 		}
-		close(original_stdin);
+		ptr = ptr->next;
 	}
-	else
-	{
-		if (dup2(original_stdin, STDIN_FILENO) == -1)
-		{
-			ft_perror("dup23", 1);
-			return;
-		}
-		close(original_stdin); 
-		ft_next_exec(data, node);
-	}
-*/
+}

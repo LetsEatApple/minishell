@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/31 14:25:08 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/31 17:11:23 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ void	pipes_exec(t_data *data, t_node *node, t_node *cmd)
 			cmd = get_cmd(cmd);
 			if (cmd->left && cmd->left->type == CMD)
 				execute(data, cmd->left);
-			else
-				restore_std(data, 3);
 		}
 	}
 }

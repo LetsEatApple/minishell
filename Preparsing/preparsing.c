@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   preparsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 17:00:28 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/27 17:05:09 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:44:45 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,5 @@ void	preparsing(t_data *data)
 	delete_arg(&data->token_list);
 	modify_cmd(data);
 	count_ops(data);
+	init_heredoc(data);
 }

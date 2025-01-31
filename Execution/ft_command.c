@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:15:59 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/31 15:25:16 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/31 17:17:22 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	exec_command(t_data *data, char **cmd)
 		}
 	}
 	waitpid(id, &status, 0);
-	restore_std(data, 3); // or 2
 	if (WIFEXITED(status))
 		g_signal = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
