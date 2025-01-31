@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:15:59 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/31 12:47:37 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/31 13:23:29 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,9 @@ void	exec_command(t_data *data, char **cmd)
 		sig_in_child(128 + WTERMSIG(status));
 }
 
-
 void	sig_in_child(int sig)
 {
 	g_signal = sig;
 	if (g_signal == 130)
-			write(1, "\n", 1);
+		write(1, "\n", 1);
 }
