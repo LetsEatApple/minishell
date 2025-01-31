@@ -6,62 +6,63 @@
 #    By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 15:24:31 by grmullin          #+#    #+#              #
-#    Updated: 2025/01/31 17:03:39 by lhagemos         ###   ########.fr        #
+#    Updated: 2025/01/31 21:04:49 by lhagemos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := minishell
-FILES := main.c \
-signal.c \
-debug.c \
-Init/init.c \
-Init/free.c \
-Execution/ft_command.c \
-Execution/exec.c \
-Execution/exec_utils.c \
-Execution/handle_pipe.c \
-Preparsing/Heredoc/heredoc.c \
-Preparsing/Heredoc/heredoc_expand.c \
-Preparsing/Heredoc/heredoc_utils.c \
-Execution/handle_redir_in.c \
-Execution/handle_redir_out.c \
-Parsing/two_tokens.c \
-Execution/Builtins/builtins.c \
-Execution/Builtins/what.c \
-Execution/Builtins/exit.c \
-Execution/Builtins/ft_builtins.c \
-Execution/Builtins/unset.c \
-Execution/Builtins/Export/export.c \
-Execution/Builtins/Export/elist.c \
-Execution/Builtins/Export/exp_utils1.c \
-Execution/Builtins/Export/exp_utils2.c \
-Lexing/lexing.c \
-Lexing/lexing_utils.c \
-Lexing/utils.c \
-Lexing/token.c \
-Lexing/syntax.c \
-Parsing/build_tree.c \
-Parsing/get_op.c \
-Parsing/parsing_utils.c \
-Init/error.c \
-Preparsing/preparsing.c \
-Preparsing/env.c \
-Preparsing/prep_utils.c \
-Preparsing/env_utils.c \
-Preparsing/env_utils2.c \
-Preparsing/cmd_utils.c \
-Preparsing/path.c \
-Preparsing/whitespace.c \
+FILES := src/main.c \
+src/Signals/signal.c \
+src/Signals/signal_hdoc.c \
+src/debug.c \
+src/Init/init.c \
+src/Init/free.c \
+src/Execution/ft_command.c \
+src/Execution/exec.c \
+src/Execution/exec_utils.c \
+src/Execution/handle_pipe.c \
+src/Preparsing/Heredoc/heredoc.c \
+src/Preparsing/Heredoc/heredoc_expand.c \
+src/Preparsing/Heredoc/heredoc_utils.c \
+src/Execution/handle_redir_in.c \
+src/Execution/handle_redir_out.c \
+src/Parsing/two_tokens.c \
+src/Execution/Builtins/builtins.c \
+src/Execution/Builtins/what.c \
+src/Execution/Builtins/exit.c \
+src/Execution/Builtins/ft_builtins.c \
+src/Execution/Builtins/unset.c \
+src/Execution/Builtins/Export/export.c \
+src/Execution/Builtins/Export/elist.c \
+src/Execution/Builtins/Export/exp_utils1.c \
+src/Execution/Builtins/Export/exp_utils2.c \
+src/Lexing/lexing.c \
+src/Lexing/lexing_utils.c \
+src/Lexing/utils.c \
+src/Lexing/token.c \
+src/Lexing/syntax.c \
+src/Parsing/build_tree.c \
+src/Parsing/get_op.c \
+src/Parsing/parsing_utils.c \
+src/Init/error.c \
+src/Preparsing/preparsing.c \
+src/Preparsing/env.c \
+src/Preparsing/prep_utils.c \
+src/Preparsing/env_utils.c \
+src/Preparsing/env_utils2.c \
+src/Preparsing/cmd_utils.c \
+src/Preparsing/path.c \
+src/Preparsing/whitespace.c \
 
 OBJS := $(FILES:.c=.o)
-MINISHELL_H := minishell.h
+MINISHELL_H := ./include/minishell.h
 CC := cc
 CFLAGS := -Wall -Werror -Wextra -g -fPIE 
 LDFLAGS := -pie -lreadline -lncurses
 RM := rm -f
 RMDIR := -rmdir
 
-LIBFT_DIR := ./Libft
+LIBFT_DIR := ./src/Libft
 LIBFT := $(LIBFT_DIR)/libft.a
 
 all: $(NAME)
