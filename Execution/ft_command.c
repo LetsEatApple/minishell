@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_command.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:15:59 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/31 01:20:02 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/31 12:47:37 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,19 @@ void	exec_command(t_data *data, char **cmd)
 			error_msg("%s: command not found\n", cmd[0], 127);
 			exit (g_signal);
 		}
-		// clear_table(data);
-		// free_split(cmd);
-		// exit(g_signal);    if these lines delted norm=ok , do we need them?
 	}
 	restore_std(data, 2);
 	waitpid(id, &status, 0);
 	if (WIFEXITED(status))
 		g_signal = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-	{
-		write(1, "\n", 1);
-		g_signal = 128 + WTERMSIG(status);
-	}
+		sig_in_child(128 + WTERMSIG(status));
+}
+
+
+void	sig_in_child(int sig)
+{
+	g_signal = sig;
+	if (g_signal == 130)
+			write(1, "\n", 1);
 }

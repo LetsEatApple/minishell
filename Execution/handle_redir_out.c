@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redir_out.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 18:08:47 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/30 23:08:13 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/31 12:25:35 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ char	*get_outfile_redir_out(t_node *node)
 	{
 		if (node->right->type == WORD)
 			outfile = node->right->value;
-		else if (node->right->left->type == CMD)
+		else if (node->right->left && node->right->left->type == CMD)
+			outfile = node->left->value;
+		else if (node->right->type == CMD)
 			outfile = node->left->value;
 		else
 			outfile = node->right->left->value;

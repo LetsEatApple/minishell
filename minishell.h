@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/30 20:54:10 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/31 12:46:56 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void			print_exp_var(t_env *evar);
 void			ft_unset(t_data *data, char **cmd);
 void			ft_cd(t_data *data, char **cmd);
 
-/*             Execution           */
+/*              Execution           */
 void			ft_command(t_data *data, char **cmd);
 void			ft_next_exec(t_data *data, t_node *node);
 void			execute(t_data *data, t_node *node);
@@ -93,6 +93,7 @@ void			handle_two_tokens(t_data *data);
 char			*get_infile_red_in(t_node *node);
 char			*get_outfile_redir_out(t_node *node);
 t_token			*get_command(t_token *token);
+void			sig_in_child(int sig);
 void			remove_heredoc(t_data *data);
 
 /*              Env.vars            */
@@ -113,7 +114,7 @@ char			**split_string(char *input, int start, int len);
 int				get_value_len(char *input, int i, t_token_type type);
 void			check_syntax(t_token **head);
 
-/*          Preparsing          */
+/*              Preparsing          */
 void			count_ops(t_data *data);
 void			preparsing(t_data *data);
 void			delete_nullword(t_data *data, t_token **head);

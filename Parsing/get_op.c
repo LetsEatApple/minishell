@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:24:42 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/29 16:41:00 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/31 12:40:24 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ t_token	*get_command(t_token *token)
 		return (token->prev);
 	else if (token->next->type == CMD || token->next->type == WORD)
 		return (token->next);
+	else if (token->next->next->type == CMD)
+		return (token->next->next);
 	return (NULL);
 }
 
@@ -70,12 +72,12 @@ t_token	*get_first_command(t_token *real)
 	current = real;
 	while (current && current->next)
 	{
-		if (current->node == 1)
-			return (NULL);
 		if (current->type == CMD && current->node == 0)
 			return (current);
 		else if (current->next->type == CMD && current->node == 0)
 			return (current->next);
+		else if (current->prev && current->prev->type == CMD)
+			return (current->prev);
 		current = current->next;
 	}
 	return (NULL);

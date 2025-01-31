@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:46:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/31 01:40:48 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/31 13:21:20 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_delimiter(t_node *node)
 
 	if (node->prev == NULL && node->right->type == WORD)
 		delimiter = node->right->value;
-	else if (node->prev == NULL)
+	else if (node->prev == NULL && node->right->left)
 		delimiter = node->right->left->value;
 	else if (node->right && node->right->type == WORD)
 		delimiter = node->right->value;
@@ -92,6 +92,7 @@ void	handle_heredoc(t_data *data, t_node *node)
 	stdout = dup(STDOUT_FILENO);
 	restore_std(data, 2);
 	g_signal = 0;
+	ft_putstr_fd("herer\n", 2);
 	data->doc.delimiter = get_delimiter(node);
 	create_docfile(data, data->doc.delimiter);
 	dup2(stdout, STDOUT_FILENO);
