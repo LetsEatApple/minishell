@@ -6,7 +6,7 @@
 /*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 16:28:30 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/31 17:34:28 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/31 17:39:22 by grmullin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	exec_left_pipe(t_data *data, t_node *node, int close, int dup)
 
 	first_op = node->left;
 	dup_exec(close, dup, STDOUT_FILENO);
-	while (first_op && (first_op->type >= 3 && first_op->type <= 6))
+	while (first_op->left && (first_op->left->type >= 3
+			&& first_op->left->type <= 6))
 	{
 		if (first_op->left && first_op->left->type == CMD)
 			break ;

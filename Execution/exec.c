@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/31 13:21:59 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/31 14:25:08 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,23 @@ void	ft_next_exec(t_data *data, t_node *node)
 		no_pipes_exec(data, node);
 }
 
+t_node	*get_cmd(t_node *cmd)
+{
+	while (cmd->left && (cmd->left->type >= 3 && cmd->left->type <= 6))
+	{
+		if (cmd->left && cmd->left->type == CMD)
+			break ;
+		cmd = cmd->left;
+	}
+	return (cmd);
+}
+
 void	pipes_exec(t_data *data, t_node *node, t_node *cmd)
 {
 	if (node->prev == NULL)
 	{
-		if (node->right && node->right->type == CMD)
-			execute(data, node->right);
-		if (node->right->type >= 3 && node->right->type <= 6)
+		if (node->right && (node->right->type == CMD 
+				|| (node->right->type >= 3 && node->right->type <= 6)))
 			execute(data, node->right);
 		else if (data->root->right->left->type == CMD)
 			execute(data, data->root->right->left);
@@ -56,13 +66,11 @@ void	pipes_exec(t_data *data, t_node *node, t_node *cmd)
 			execute(data, node->prev);
 		else if (node->prev->type == PIPE)
 		{
-			while (cmd && (cmd->type >= 3 && cmd->type <= 6))
-			{
-				if (cmd->left && cmd->left->type == CMD)
-					break ;
-				cmd = cmd->left;
-			}
-			execute(data, cmd->left);
+			cmd = get_cmd(cmd);
+			if (cmd->left && cmd->left->type == CMD)
+				execute(data, cmd->left);
+			else
+				restore_std(data, 3);
 		}
 	}
 }
