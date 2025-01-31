@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grmullin <grmullin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:46:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/31 13:21:20 by grmullin         ###   ########.fr       */
+/*   Updated: 2025/01/31 15:51:42 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,10 @@ int	check_next_exec(t_data *data, t_node *node)
 void	handle_heredoc(t_data *data, t_node *node)
 {
 	int	stdout;
-
+	
 	stdout = dup(STDOUT_FILENO);
 	restore_std(data, 2);
 	g_signal = 0;
-	ft_putstr_fd("herer\n", 2);
 	data->doc.delimiter = get_delimiter(node);
 	create_docfile(data, data->doc.delimiter);
 	dup2(stdout, STDOUT_FILENO);

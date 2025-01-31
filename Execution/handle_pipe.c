@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 16:28:30 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/31 12:54:51 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:42:01 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	handle_pipe(t_data *data, t_node *node)
 		exec_left_pipe(data, node, fd[0], fd[1]);
 		close_std_exit(data);
 	}
-	wait(&leftpid);
 	rightpid = fork();
 	if (rightpid < 0)
 		perror("fork");
@@ -54,7 +53,8 @@ void	exec_left_pipe(t_data *data, t_node *node, int close, int dup)
 
 	first_op = node->left;
 	dup_exec(close, dup, STDOUT_FILENO);
-	while (first_op->left && (first_op->left->type >= 3 && first_op->left->type <= 6))
+	while (first_op->left && (first_op->left->type >= 3
+			&& first_op->left->type <= 6))
 	{
 		if (first_op->left && first_op->left->type == CMD)
 			break ;
