@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:20:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/02/02 15:58:04 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/02/02 17:24:17 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	init_data(t_data *data, int ac, char **envp)
 {
 	if (ac != 1)
-		return (0);
+		exit(0);
 	data->input = NULL;
 	data->env = init_envp(envp);
 	data->e_list = arr2list(data);
