@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:29:00 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/31 20:57:50 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/02/02 16:43:19 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*search_env(char *s, char **env)
 	char	*var;
 	int		len;
 
+	if (env == NULL)
+		return (NULL);
 	i = 0;
 	size = ft_strlen(s);
 	var = get_var_n_equals(s, size -1);
@@ -27,7 +29,7 @@ char	*search_env(char *s, char **env)
 	while (env[i] != NULL)
 	{
 		len = ft_strlen(env[i]);
-		if (strncmp(var, env[i], size) == 0)
+		if (ft_strncmp(var, env[i], size) == 0)
 		{
 			value = ft_substr(env[i], size, len);
 			break ;

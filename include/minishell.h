@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:21:45 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/31 21:03:49 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/02/02 16:49:36 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char			*getpwd(void);
 void			ft_env(char **cmd, char **env);
 void			ft_exit(t_data *data, char **cmd);
 void			ft_export(t_data *data, char **cmd);
-void			clear_elist(t_env **head);
+void			clear_elist(t_data *data, t_env **head);
 t_env			*arr2list(t_data *data);
 int				lst_size(t_env *head, int i);
 void			make_list(t_env **head, char *value, int exp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:01:04 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/31 20:57:44 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/02/02 16:26:00 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*get_path_env(char **env)
 {
 	int	i;
 
+	if (!env)
+		return (NULL);
 	i = 0;
 	while (env[i])
 	{
@@ -62,6 +64,8 @@ void	get_path(t_token *cmd, t_data *data)
 	if (access(cmd->cmd[0], X_OK) == 0)
 		return ;
 	path_env = get_path_env(data->env);
+	if (path_env == 0)
+		return ;
 	len = ft_strlen(path_env) - 5;
 	path_env = ft_substr(path_env, 5, len);
 	path = ft_split(path_env, ':');

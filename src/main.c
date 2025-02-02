@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:43:17 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/31 21:18:02 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/02/02 17:00:42 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	clear_program(t_data *data)
 	close(data->stdout);
 	free_split(data->env);
 	free(data->pwd);
-	clear_elist(&data->e_list);
+	clear_elist(data, &data->e_list);
 	rl_clear_history();
 }
 

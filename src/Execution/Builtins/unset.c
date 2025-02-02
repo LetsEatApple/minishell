@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 17:27:20 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/31 21:03:00 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/02/02 17:00:05 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,16 @@ static void	free_node(t_env *ptr)
 	if (ptr->var != NULL)
 		free(ptr->var);
 	free(ptr);
+	ptr = NULL;
 }
 
-void	delete_var(t_env **head, t_env	*todelete)
+void	delete_var(t_data *data, t_env **head, t_env	*todelete)
 {
 	t_env	*ptr;
 
-	if (*head == todelete)
+	if (*head == todelete && todelete->next == NULL)
+		clear_elist(data, &data->e_list);
+	else if (*head == todelete)
 	{
 		*head = (*head)->next;
 		free_node((*head)->prev);
@@ -47,26 +50,26 @@ void	delete_var(t_env **head, t_env	*todelete)
 	}
 }
 
-void	check_varg(char *arg, t_env *head)
+void	check_varg(char *arg, t_data *data)
 {
 	t_env	*ptr;
 	int		size;
 
 	size = ft_strlen(arg);
-	ptr = head;
+	ptr = data->e_list;
 	while (ptr != NULL)
 	{
 		if (ft_strncmp(arg, ptr->var, size) == 0)
 		{
 			if (ptr->next == NULL)
 			{
-				delete_var(&head, ptr);
+				delete_var(data, &data->e_list, ptr);
 				break ;
 			}
 			else
 			{
 				ptr = ptr->next;
-				delete_var(&head, ptr->prev);
+				delete_var(data, &data->e_list, ptr->prev);
 			}
 		}
 		else
@@ -91,7 +94,7 @@ void	ft_unset(t_data *data, char **cmd)
 	i = 1;
 	while (cmd[i])
 	{
-		check_varg(cmd[i], data->e_list);
+		check_varg(cmd[i], data);
 		i++;
 	}
 	free_split(data->env);

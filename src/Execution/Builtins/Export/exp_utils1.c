@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exp_utils1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 12:29:55 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/31 21:02:33 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/02/02 15:57:43 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	lst_size(t_env *head, int i)
 	int		size;
 	t_env	*ptr;
 
+	if (!head)
+		return (0);
 	size = 0;
 	ptr = head;
 	while (ptr)
@@ -66,6 +68,8 @@ char	**list2arr(t_data *data)
 	t_env	*ptr;
 	int		i;
 
+	if (data->e_list == NULL)
+		return (NULL);
 	i = 0;
 	len = lst_size(data->e_list, 1);
 	env = malloc((len +1) * sizeof(char *));

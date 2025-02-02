@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 11:09:29 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/31 21:03:00 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/02/02 15:57:12 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void	ft_env(char **cmd, char **env)
 	int	i;
 
 	g_signal = 0;
+	if (!env)
+		return ;
 	if (ft_arrlen(cmd) != 1)
 	{
 		if (cmd[1][0] == '-')

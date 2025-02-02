@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:38:03 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/31 21:01:19 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/02/02 16:47:47 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	pipes_exec(t_data *data, t_node *node, t_node *cmd)
 {
 	if (node->prev == NULL)
 	{
-		if (node->right && (node->right->type == CMD 
+		if (node->right && (node->right->type == CMD
 				|| (node->right->type >= 3 && node->right->type <= 6)))
 			execute(data, node->right);
 		else if (data->root->right->left->type == CMD)

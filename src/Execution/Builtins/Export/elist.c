@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elist.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 16:28:41 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/31 21:02:33 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/02/02 16:42:57 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*getexp(char *s, char *arg)
 	int		i;
 
 	i = split_point(s);
-	if (strncmp(arg, "var", 3) == 0)
+	if (ft_strncmp(arg, "var", 3) == 0)
 	{
 		res = ft_substr(s, 0, i);
 		return (res);

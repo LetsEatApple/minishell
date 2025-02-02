@@ -3,31 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:46:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/31 20:58:28 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/02/02 12:59:16 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-
-char	*get_delimiter(t_node *node)
-{
-	char	*delimiter;
-
-	if (node->prev == NULL && node->right->type == WORD)
-		delimiter = node->right->value;
-	else if (node->prev == NULL && node->right->left)
-		delimiter = node->right->left->value;
-	else if (node->right && node->right->type == WORD)
-		delimiter = node->right->value;
-	else if (node->left && node->left->type == WORD)
-		delimiter = node->left->value;
-	if (delimiter == NULL)
-		return (NULL);
-	return (delimiter);
-}
 
 t_node	*next_node(t_data *data, t_node *node, t_node *cmd)
 {
@@ -109,7 +92,10 @@ void	init_heredoc(t_data *data)
 		{
 			data->doc.delimiter = ptr->next->value;
 			if (create_docfile(data, data->doc.delimiter) == false)
+			{
+				clearlist(&data->token_list);
 				break ;
+			}
 		}
 		ptr = ptr->next;
 	}

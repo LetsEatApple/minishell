@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:20:59 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/01/31 20:58:35 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/02/02 13:10:20 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ int	process_line(t_data *data, char **line, char *dm, int *status)
 {
 	char	*tmp;
 
+	if (g_signal == 130)
+	{
+		*status = false;
+		return (false);
+	}
 	if (*line == NULL)
 	{
 		ft_putstr_fd("warning: ", 2);
@@ -46,8 +51,6 @@ void	fill_heredoc(t_data *data, char *dm, int *status)
 		set_hdoc_interactive();
 		line = readline("> ");
 		set_hdoc_noninteractive();
-		if (g_signal == 130)
-			break ;
 		if (process_line(data, &line, dm, status) == false)
 			break ;
 		ft_putendl_fd(line, data->doc.fd);

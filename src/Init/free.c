@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:21:57 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/31 21:01:19 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/02/02 16:49:01 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	free_ast(t_node *head)
 	head = NULL;
 }
 
-void	clear_elist(t_env **head)
+void	clear_elist(t_data *data, t_env **head)
 {
 	t_env	*ptr;
 	t_env	*next;
@@ -132,4 +132,5 @@ void	clear_elist(t_env **head)
 		ptr = next;
 	}
 	*head = NULL;
+	data->e_list = NULL;
 }
