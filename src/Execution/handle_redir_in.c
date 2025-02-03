@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:30:53 by grmullin          #+#    #+#             */
-/*   Updated: 2025/01/31 21:01:19 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/02/03 12:50:08 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	*get_infile_red_in(t_node *node)
 {
 	char	*infile;
 
+	infile = NULL;
 	if (node->prev == NULL && node->right->type == WORD)
 		infile = node->right->value;
 	else if (node->prev == NULL && node->right->left)

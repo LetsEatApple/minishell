@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_hdoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 20:47:54 by lhagemos          #+#    #+#             */
-/*   Updated: 2025/02/02 16:37:25 by lhagemos         ###   ########.fr       */
+/*   Updated: 2025/02/03 14:13:16 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 void	heredoc_interactive(int sig)
 {
-	rl_replace_line("", 0);
-	ioctl(STDIN_FILENO, TIOCSTI, "\n");
-	rl_done = 1;
-	g_signal = 128 + sig;
+	if (sig == SIGINT)
+	{
+		rl_on_new_line();
+		ioctl(STDIN_FILENO, TIOCSTI, "\n");
+		g_signal = 128 + sig;
+	}
 	if (sig == SIGQUIT)
 	{
 		return ;
